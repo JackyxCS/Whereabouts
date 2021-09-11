@@ -86,12 +86,12 @@ class Post(db.Model):
             'image_3': self.image_3,
             'image_4': self.image_4,
             'image_5': self.image_5,
-            'post_lat': self.image_1,
-            'image_1': self.image_1,
-            'image_1': self.image_1,
-            'image_1': self.image_1,
-            'image_1': self.image_1,
-            'image_1': self.image_1,
+            'post_lat': self.post_lat,
+            'post_lng': self.post_lng,
+            'description': self.description,
+            'like_count': self.like_count,
+            'like_details': self.like_details,
+            'comment_details': self.comment_details,
         }
 
 class Like(db.Model):
@@ -102,6 +102,15 @@ class Like(db.Model):
     user_details = db.relationship("User", back_populates="like_details")
     post_details = db.relationship("Post", back_populates="like_details")
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'post_id': self.post_id,
+            'user_id': self.user_id,
+            'user_details': self.user_details,
+            'post_details': self.post_details
+        }
+
 class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
@@ -110,3 +119,13 @@ class Comment(db.Model):
     comment = db.Column(db.Text, nullable=False)
     user_details = db.relationship("User", back_populates="comment_details")
     post_details = db.relationship("Post", back_populates="comment_details")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'post_id': self.post_id,
+            'user_id': self.user_id,
+            'comment': self.comment,
+            'user_details': self.user_details,
+            'post_details': self.post_details
+        }
