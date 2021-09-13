@@ -10,8 +10,8 @@ def get_single_post(post_id):
     post = Post.query.get(post_id)
     return post.to_dict()
 
-@post_routes.route('/<int:id>')
-@login_required
-def get_single_post(post_id):
-    post = Post.query.get(post_id)
-    return post.to_dict()
+# @post_routes.route('/<int:id>')
+# @login_required
+# def get_single_post(post_id):
+#     post = Post.query.get(post_id)
+#     return post.to_dict()
