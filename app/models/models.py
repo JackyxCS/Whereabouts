@@ -1,4 +1,4 @@
-from .db import db
+# from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -70,7 +70,7 @@ class Post(db.Model):
     image_3 = db.Column(db.String)
     image_4 = db.Column(db.String)
     image_5 = db.Column(db.String)
-    post_lat = db.Column(db.Float, nulllable=False)
+    post_lat = db.Column(db.Float, nullable=False)
     post_lng = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
     like_count = db.Column(db.Integer, nullable=False)
