@@ -2,6 +2,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -49,6 +50,7 @@ class Mission(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     mission_lat = db.Column(db.Float)
     mission_lng = db.Column(db.Float)
+    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     user_details = db.relationship("User", back_populates="mission_details")
 
     def to_dict(self):
@@ -73,7 +75,8 @@ class Post(db.Model):
     post_lat = db.Column(db.Float, nullable=False)
     post_lng = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
-    like_count = db.Column(db.Integer, nullable=False)
+    # like_count = db.Column(db.Integer, nullable=False, default=0)
+    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     like_details = db.relationship("Like", back_populates="post_details", cascade="all, delete")
     comment_details = db.relationship("Comment", back_populates="post_details", cascade="all, delete")
 

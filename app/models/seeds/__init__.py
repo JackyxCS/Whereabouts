@@ -4,6 +4,7 @@ from .posts import seed_posts, undo_posts
 from .comments import seed_comments, undo_comments
 from .likes import seed_likes, undo_likes
 
+
 # Creates seed group to hold commands, allows `flask seed --help`
 seed_commands = AppGroup('seed')
 
