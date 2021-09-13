@@ -49,6 +49,7 @@ class Mission(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     mission_lat = db.Column(db.Float)
     mission_lng = db.Column(db.Float)
+    time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
     user_details = db.relationship("User", back_populates="mission_details")
 
     def to_dict(self):
@@ -73,7 +74,8 @@ class Post(db.Model):
     post_lat = db.Column(db.Float, nullable=False)
     post_lng = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
-    like_count = db.Column(db.Integer, nullable=False)
+    # like_count = db.Column(db.Integer, nullable=False, default=0)
+    time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
     like_details = db.relationship("Like", back_populates="post_details", cascade="all, delete")
     comment_details = db.relationship("Comment", back_populates="post_details", cascade="all, delete")
 

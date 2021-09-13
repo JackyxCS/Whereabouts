@@ -10,7 +10,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.post_routes import post_routes
 
-from .seeds import seed_commands
+from app.models.seeds import seed_commands
 
 from .config import Config
 
