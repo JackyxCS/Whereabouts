@@ -87,7 +87,7 @@ def seed_comments():
         comment="Looks cool!"
     )
     comment18 = Comment(
-        post_id=15
+        post_id=15,
         user_id=6,
         comment="I wanna know too!"
     )
