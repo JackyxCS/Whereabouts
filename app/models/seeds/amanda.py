@@ -1,3 +1,11 @@
+wembley = User(
+    username='wembley', email='wembley@aa.io', password='password', profile_picture="https://images.unsplash.com/photo-1529582582744-13d8da049432?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80", user_lat=40.779265, user_lng=-73.961951, user_radius=5
+    )
+amanda = User(
+    username='amanda', email='amanda@aa.io', password='password', profile_picture="https://images.squarespace-cdn.com/content/v1/5cca34c50cf57d8e7575f84b/1599705980190-4GXWADDT7BPLGBH1UCDM/AmandaHintonHeadshot.jpeg?format=1500w", user_lat=37.766880, user_lng=-122.242628, user_radius=10
+    )
+
+
 def seed_posts():
     wembley16 = Post(
         user_id=3,
@@ -144,13 +152,14 @@ def seed_posts():
         like_count=number
     )
 
-
+Were you surprised? 😱
+This would be kinda scary to me
 
 def seed_comments():
     comment7 = Comment(
         post_id=30,
         user_id=3,
-        comment="Were you surprised? 😱"
+        comment="I hope my next location is like this! I always moo at them when I drive by!"
     )
     comment8 = Comment(
         post_id=37,
@@ -159,23 +168,23 @@ def seed_comments():
     )
     comment9 = Comment(
         post_id=43,
-        user_id=3,
-        comment="I hope my next location is like this!"
+        user_id=4,
+        comment="Beautiful! 🌸 I got sent to some poppy fields once and all the flowers were amazing!"
     )
     comment10 = Comment(
         post_id=33,
         user_id=4,
-        comment="This would be kinda scary to me"
+        comment="Yum! Now I'm hungry!"
     )
     comment11 = Comment(
-        post_id=40,
+        post_id=39,
         user_id=4,
-        comment="What a trip!"
+        comment="I'm so jealous! I picture something like this when I have anxiety. I need to go NOW, lol!"
     )
     comment12 = Comment(
-        post_id=36,
-        user_id=4,
-        comment="😍"
+        post_id=37,
+        user_id=3,
+        comment="😍 Looks like a gorgeous hike!"
     )
 
 
@@ -183,137 +192,137 @@ def seed_comments():
     comment19 = Comment(
         post_id=1,
         user_id=2,
-        comment=""
+        comment="What did you find?!"
     )
     comment20 = Comment(
         post_id=1,
         user_id=3,
-        comment=""
+        comment="Welcome to the club 😉"
     )
     comment21 = Comment(
         post_id=1,
         user_id=4,
-        comment=""
+        comment="Lush! Did you go into the trees?"
     )
     comment22 = Comment(
         post_id=1,
         user_id=6,
-        comment=""
+        comment="I want to hear more about your rando-trek!"
     )
     comment23 = Comment(
         post_id=2,
         user_id=3,
-        comment=""
+        comment="Super creepy."
     )
     comment24 = Comment(
         post_id=2,
         user_id=5,
-        comment=""
+        comment="Nope."
     )
     comment25 = Comment(
         post_id=3,
         user_id=2,
-        comment=""
+        comment="Love that - great pics!"
     )
     comment26 = Comment(
         post_id=3,
         user_id=3,
-        comment=""
+        comment="Colorful!"
     )
     comment27 = Comment(
         post_id=3,
         user_id=4,
-        comment=""
+        comment="Did you bring your paint cans?"
     )
     comment28 = Comment(
         post_id=4,
         user_id=5,
-        comment=""
+        comment="No way I would go past that razor wire"
     )
     comment29 = Comment(
         post_id=4,
         user_id=6,
-        comment=""
+        comment="Glad you stayed safe and met someone cool!"
     )
     comment30 = Comment(
         post_id=4,
         user_id=2,
-        comment=""
+        comment="I'd like to hear more about what Eldraih had to say"
     )
     comment31 = Comment(
         post_id=5,
         user_id=6,
-        comment=""
+        comment="I used to get so many late fees"
     )
     comment32 = Comment(
         post_id=5,
         user_id=4,
-        comment=""
+        comment="I remember OC USTER IDEO!"
     )
     comment33 = Comment(
         post_id=6,
         user_id=3,
-        comment=""
+        comment="So cool that you did some metal detecting on your expedition!"
     )
     comment34 = Comment(
         post_id=6,
         user_id=5,
-        comment=""
+        comment="What are you going to do with your finds? Are they worth money? 🤑"
     )
     comment35 = Comment(
         post_id=6,
         user_id=2,
-        comment=""
+        comment="That's an awesome way to bond with your dad!"
     )
     comment36 = Comment(
         post_id=7,
         user_id=4,
-        comment=""
+        comment="Ugh, dolls give me the chills. My mom collected them and they terrified me. No thanls. Cutie doggo, though!"
     )
     comment37 = Comment(
         post_id=7,
         user_id=5,
-        comment=""
+        comment="I'm taking my dog with my on my next location!"
     )
     comment38 = Comment(
         post_id=7,
         user_id=6,
-        comment=""
+        comment="Is that a deatheater mask?!"
     )
     comment39 = Comment(
         post_id=7,
-        user_id=2,
-        comment=""
+        user_id=3,
+        comment="What were those mismatched shoes doing there?"
     )
     comment40 = Comment(
         post_id=8,
         user_id=3,
-        comment=""
+        comment="Yeah. I've had a few duds, but I usually keep wandering around til I find something unusual."
     )
     comment41 = Comment(
         post_id=9,
-        user_id=4,
-        comment=""
+        user_id=2,
+        comment="Def! Mood really influences my experiences on these missions."
     )
     comment42 = Comment(
         post_id=9,
-        user_id=5,
-        comment=""
+        user_id=4,
+        comment="Kick-kick! I want to get something like this - so fun!"
     )
     comment43 = Comment(
         post_id=10,
         user_id=6,
-        comment=""
+        comment="Reminds me of the movie IT 🎈"
     )
     comment44 = Comment(
         post_id=10,
-        user_id=4,
-        comment=""
+        user_id=5,
+        comment="😳 You are brave - can't believe you went in there!"
     )
     comment45 = Comment(
         post_id=10,
         user_id=3,
-        comment=""
+        comment="Noooo, come back! I love checking out your posts!!!"
     )
 
 
