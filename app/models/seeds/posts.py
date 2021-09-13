@@ -82,10 +82,6 @@ def seed_posts():
     demo10=Post(
         user_id=1,
         image_1="https://preview.redd.it/sug9nm17dom71.jpg?width=960&crop=smart&auto=webp&s=e0d75a50e7b471dcfa032473323aa60309e3a73f",
-        image_2="url",
-        image_3="url",
-        image_4="url",
-        image_5="url",
         post_lat=40.658797,
         post_lng=-74.215221,
         description="This mission was as scary as the time I went to that abandoned warehouse with my friend in the middle of the night. Already ready, I logged in, got my mission, and went off. I thought it was another dead end because all I saw were trees. However, after 25 minutes of mindless walking, I saw  what seemed to be a tunnel in the middle in the forest, for god knows why. Anyway, something told me to stay back, but I decided that if I was already out here, I was going to make the most of my trip. I went in and turned on my phone flashlight to help with the light. I kept walking in and the echo sounded as if the tunnel was endless. I noticed that my phone was dying at a pretty alarming rate, so my truck couldn’t be too long. I decided to look on the floor, where I saw countless things of people using the space momentarily. Broken bottles, condoms, syringes... Then I saw markings on the wall along with candles and a pool of what looked like blood. As I attempted to take a picture, my phone completely died. I was only able to get a picture of the outside of the tunnel. I ran out of there immediately. That place gave me chills. Probably going to take a break from missions for a while..."
