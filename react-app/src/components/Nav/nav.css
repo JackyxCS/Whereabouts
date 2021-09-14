@@ -1,0 +1,29 @@
+nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 100px;
+}
+
+.logo-nav-link {
+    grid-column-start: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 50px;
+}
+
+.navbar-logo {
+    width: 50px;
+}
+
+.right-nav-links {
+    grid-column-start: 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.right-nav-links div {
+    padding-left: 20px;
+}
