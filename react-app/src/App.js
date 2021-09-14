@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginFormModal/LoginForm';
-// import LoginFormModal from './components/auth/LoginFormModal';
 import SignUpForm from './components/auth/SignUpFormModal/SignUpForm';
-import NavBar from './components/NavBar';
-import Homepage from './components/Homepage';
+import NavBar from './components/Nav/NavBar';
+import Homepage from './components/Homepage.js';
+import ExploreAuth from './components/Explore/ExploreAuth.js';
+import ExplorePreview from './components/Explore/ExplorePreview.js';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
+// import UsersList from './components/UsersList';
 import User from './components/User';
 import UserLocationForm from './components/Missions/Missions';
 import { authenticate } from './store/session';
@@ -37,12 +38,18 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
+        <ProtectedRoute path='/explore' exact={true} >
+          <ExploreAuth />
+        </ProtectedRoute>
+        <Route path='/preview' exact={true} >
+          <ExplorePreview />
+        </Route>
         <Route path='/' exact={true} >
           <Homepage />
         </Route>
