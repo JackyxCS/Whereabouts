@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import LoginForm from './components/auth/LoginFormModal/LoginForm';
+import SignUpForm from './components/auth/SignUpFormModal/SignUpForm';
+import NavBar from './components/Nav/NavBar';
+import Homepage from './components/Homepage.js';
+import ExploreAuth from './components/Explore/ExploreAuth.js';
+import ExplorePreview from './components/Explore/ExplorePreview.js';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
+// import UsersList from './components/UsersList';
 import User from './components/User';
-import Missions from './components/Missions/Missions';
+import UserLocationForm from './components/Missions/Missions';
 import { authenticate } from './store/session';
 
 function App() {
@@ -35,21 +38,27 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
+        <ProtectedRoute path='/explore' exact={true} >
+          <ExploreAuth />
         </ProtectedRoute>
+        <Route path='/preview' exact={true} >
+          <ExplorePreview />
+        </Route>
+        <Route path='/' exact={true} >
+          <Homepage />
+        </Route>
 
         {/* switch to protect route later! */}
-        <Route path='/missions' exact={true}>
+        <ProtectedRoute path='/missions' exact={true}>
           <h1>Missions!</h1>
-          {/* <Missions /> */}
-        </Route>
+          <UserLocationForm />
+        </ProtectedRoute>
 
       </Switch>
     </BrowserRouter>
