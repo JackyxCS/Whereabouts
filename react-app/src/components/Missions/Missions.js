@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom'
+import { postMissions } from '../../store/missions';
 
 
 const UserLocationForm = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const user = useSelector(state => state.session.user);
+    const { id: userId } = user
+
     const [lat, setLat] = useState('');
     const [lng, setLng] = useState('');
     const [radius, setRadius] = useState('');
     const [validationErrors, setValidationErrors] = useState([])
-    const user = useSelector(state => state.session.user);
-    const dispatch = useDispatch();
-    const { id: userId } = user
 
     function generateLocation(latitude, longitude, max) {
+        // convert to number
+        latitude = parseFloat(latitude)
+        longitude = parseFloat(longitude)
+        max = parseFloat(max)
+
         // radius of the earth in miles
         const rEarth = 3961;
 
@@ -41,7 +50,7 @@ const UserLocationForm = () => {
         let newLongitude = longitude + dx / (miles * Math.cos(degreesToRadian(latitude)));
 
         // get distance between current location and randomized location
-        const distance = getDistanceBetweenInMiles(latitude, longitude, newLatitude, newLongitude);
+        // const distance = getDistanceBetweenInMiles(latitude, longitude, newLatitude, newLongitude);
 
         return {
             newLatitude,
@@ -51,26 +60,7 @@ const UserLocationForm = () => {
         };
     }
 
-    function getDistanceBetweenInMiles(lat1, lon1, lat2, lon2) {
-        // radius of the earth in miles
-        const rEarth = 3961;
-
-        // convert degrees to radian
-        const rLat = degreesToRadian(lat2 - lat1);
-        const rLon = degreesToRadian(lon2 - lon1);
-
-        // implementation of the Haversine formula for calculating
-        // geographic distance on earth (great-circle distance between
-        // two points on the surface of a sphere)
-        const a =
-            Math.sin(rLat / 2) * Math.sin(rLat / 2) +
-            Math.cos(degreesToRadian(lat1)) * Math.cos(degreesToRadian(lat2)) *
-            Math.sin(rLon / 2) * Math.sin(rLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // returns the angle of an (x,y) point
-        const d = rEarth * c; // distance in miles = Radius of earth * c
-
-        return d;
-    }
+    // console.log(generateLocation(1.23, -3.21, 14))
 
     function degreesToRadian(deg) {
         return deg * (Math.PI / 180)
@@ -100,29 +90,24 @@ const UserLocationForm = () => {
             radius,
         }
 
-        const randomeLocationPayload1 = {
+        const randomLocationPayload = {
             userId,
             location1,
-        }
-        
-        const randomeLocationPayload2 = {
-            userId,
-            location1,
+            location2,
+            location3,
         }
 
-        const randomeLocationPayload3 = {
-            userId,
-            location1,
-        }
+        dispatch(postMissions(randomLocationPayload))
+        // let missions = dispatch(postMissions(userPayload))
+        return;
 
-        
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <input
                 placeholder="Latitude"
-                type="text"
+                type="number"
                 name="lat"
                 value={lat}
                 onChange={(e) => setLat(e.target.value)}
@@ -131,7 +116,7 @@ const UserLocationForm = () => {
 
             <input
                 placeholder="Longitude"
-                type="text"
+                type="number"
                 name="lng"
                 value={lng}
                 onChange={(e) => setLng(e.target.value)}
@@ -156,3 +141,5 @@ const UserLocationForm = () => {
         </form>
     )
 }
+
+export default UserLocationForm
