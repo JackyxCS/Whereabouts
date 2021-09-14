@@ -24,3 +24,6 @@ class PostForm(FlaskForm):
     post_lat = DecimalField("Post Latitude",[DataRequired()])
     post_lng= DecimalField("Post Longitude",[DataRequired()])
     description= TextAreaField("Tell us about your Mission", [DataRequired()])
+
+class EditPostForm(FlaskForm):
+    description= TextAreaField("Tell us about your Mission", [DataRequired()])
