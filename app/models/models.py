@@ -80,7 +80,7 @@ class Post(db.Model):
     like_details = db.relationship("Like", back_populates="post_details", cascade="all, delete")
     comment_details = db.relationship("Comment", back_populates="post_details", cascade="all, delete")
 
-    def to_dict(self):
+    def to_dict(self,list_obj):
         return {
             'id': self.id,
             'user_id': self.user_id,
@@ -92,6 +92,8 @@ class Post(db.Model):
             'post_lat': self.post_lat,
             'post_lng': self.post_lng,
             'description': self.description,
+            'post_like_user_id_list': list_obj
+
         }
 
 class Like(db.Model):
