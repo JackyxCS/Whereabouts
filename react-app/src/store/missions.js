@@ -1,14 +1,14 @@
 // Define Action Types as Constants
-const SET_USER_PREF = 'mission/SET_USER_PREF'
+// const SET_USER_PREF = 'mission/SET_USER_PREF'
 const SET_MISSIONS = 'missions/SET_MISSIONS'
 const ADD_MISSIONS = 'missions/ADD_MISSIONS'
 const REMOVE_MISSIONS = 'missions/REMOVE_MISSIONS'
 
 // Define Action Creators
-const setUserPref = (user) => ({
-    type: SET_USER_PREF,
-    user
-})
+// const setUserPref = (user) => ({
+//     type: SET_USER_PREF,
+//     user
+// })
 
 const setUserMissions = (missions) => ({
     type: SET_MISSIONS,
@@ -26,15 +26,14 @@ const removeUserMissions = (missions) => ({
 })
 
 // Define Thunks
-export const userPref = (user, location) => async (dispatch) => {
-    const res = await fetch(`/users/${user.id}`, {
+export const updateUserPref = (user, location) => async (dispatch) => {
+    const res = await fetch(`/api/users/${user.id}`, {
         method: 'PUT',
         body: JSON.stringify(location)
     });
 
     if (res.ok) {
         const updatedUser = await res.json()
-        dispatch(setUserPref(updatedUser))
         return updatedUser
     }
 }
@@ -46,15 +45,30 @@ export const fetchMissions = () => async (dispatch) => {
 }
 
 export const postMissions = (missions) => async (dispatch) => {
-    const res = await fetch('/api/missions', {
+    console.log("missions", missions)
+    console.log(missions["location1"]["newLatitude"])
+    const res = await fetch('/api/missions/', {
         method: 'POST',
-        body: JSON.stringify(missions)
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_id: missions["userId"],
+            newLat1: missions["location1"]["newLatitude"],
+            newLong1: missions["location1"]["newLongitude"],
+            newLat2: missions["location2"]["newLatitude"],
+            newLong2: missions["location2"]["newLongitude"],
+            newLat3: missions["location3"]["newLatitude"],
+            newLong3: missions["location3"]["newLongitude"],
+        })
     })
 
     if (res.ok) {
         const missions = await res.json()
         dispatch(addUserMissions(missions))
-        return missions
+        return null;
+    } else {
+        return ['An error occurred.']
     }
 }
 
