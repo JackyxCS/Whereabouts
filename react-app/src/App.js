@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginFormModal/LoginForm';
 import SignUpForm from './components/auth/SignUpFormModal/SignUpForm';
 import NavBar from './components/Nav/NavBar';
+import Footer from './components/Nav/Footer';
 import Homepage from './components/Homepage.js';
 import ExploreAuth from './components/Explore/ExploreAuth.js';
 import ExplorePreview from './components/Explore/ExplorePreview.js';
@@ -65,6 +66,7 @@ function App() {
         </ProtectedRoute>
 
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

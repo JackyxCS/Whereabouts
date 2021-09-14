@@ -49,8 +49,13 @@ function User() {
                 <div>
                     <strong>email:</strong> {user.email}
                 </div>
-                <h2>Give this PhotoGrid some query props!</h2>
-                <PhotoGrid posts={userPosts} />
+
+                <div>
+                    <h2>Add component/s for current missoin if selected, or the three missions if not selected one</h2>
+                </div>
+                <h2>Give this PhotoGrid some query props to display all posts of this user!</h2>
+                <h2>If it is the user's page, show edit/delete buttons for posts</h2>
+                <PhotoGrid  posts={userPosts}/>
             </div>
         );
     } else {
