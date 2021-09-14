@@ -10,7 +10,7 @@ import ExplorePreview from './components/Explore/ExplorePreview.js';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 // import UsersList from './components/UsersList';
 import User from './components/User';
-import Missions from './components/Missions/Missions';
+import UserLocationForm from './components/Missions/Missions';
 import { authenticate } from './store/session';
 
 function App() {
@@ -55,10 +55,10 @@ function App() {
         </Route>
 
         {/* switch to protect route later! */}
-        <Route path='/missions' exact={true}>
+        <ProtectedRoute path='/missions' exact={true}>
           <h1>Missions!</h1>
-          {/* <Missions /> */}
-        </Route>
+          <UserLocationForm />
+        </ProtectedRoute>
 
       </Switch>
     </BrowserRouter>

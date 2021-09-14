@@ -92,9 +92,6 @@ class Post(db.Model):
             'post_lat': self.post_lat,
             'post_lng': self.post_lng,
             'description': self.description,
-            'like_count': self.like_count,
-            'like_details': self.like_details,
-            'comment_details': self.comment_details,
         }
 
 class Like(db.Model):

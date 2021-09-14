@@ -27,5 +27,7 @@ COPY --from=build-stage /react-app/build/* app/static/
 RUN pip install -r requirements.txt
 RUN pip install psycopg2
 
+#Install Boto3 AWS and crt Depedencies
+RUN pip install boto3 crt
 # Run flask environment
 CMD gunicorn app:app
