@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector} from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PhotoGrid from '../PhotoGrid';
 import LoginFormModal from '../auth/LoginFormModal';
 
 
 function Explore() {
-
+    const 
     const user = useSelector(state => state.session.user)
 
     if (user) {
