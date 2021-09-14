@@ -11,6 +11,7 @@ from .api.auth_routes import auth_routes
 from .api.post_routes import post_routes
 from .api.mission_routes import mission_routes
 
+
 from app.models.seeds import seed_commands
 
 from .config import Config
