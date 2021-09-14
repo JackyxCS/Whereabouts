@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Post, db
+from app.models import Post, db, Like
 from app.forms import PostForm, EditPostForm
 import logging
 import os
@@ -14,17 +14,25 @@ GET ALL POSTS
 """
 @post_routes.route("/")
 def get_all_posts():
+    posts_with_likes = []
     posts = Post.query.all()
+    for post in posts:
+        post_likes = Like.query.filter(Like.post_id == post.id).all()
+        post_like_user_id_list = [post.user_id for post in post_likes]
+        added_like=post.to_dict(post_like_user_id_list)
+        posts_with_likes.append(added_like)
 
-    return {'posts': [post.to_dict() for post in posts]}
+    return {'posts': posts_with_likes}
 """
 GET INDIVIDUAL POST
 """
 @post_routes.route('/<int:id>')
-@login_required
+# @login_required
 def get_single_post(id):
     post = Post.query.get(id)
-    return post.to_dict()
+    post_likes = Like.query.filter(Like.post_id == post.id).all()
+    post_like_user_id_list = [post.user_id for post in post_likes]
+    return post.to_dict(post_like_user_id_list)
 
 """
 AWS CONFIGURATION
