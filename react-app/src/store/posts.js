@@ -1,9 +1,8 @@
 // Actions
 
-const LOAD_POST= 'post/LOAD_POST'
+const LOAD_POSTS= 'post/LOAD_POSTS'
 const LOAD_ONE = 'posts/LOAD_ONE'
 const ADD_POST= 'post/ADD_POST'
-const EDIT_POST= 'post/EDIT_POST'
 const REMOVE_POST= 'post/REMOVE_POST'
 
 //Action Creators
@@ -12,7 +11,7 @@ const loadPosts = (posts) =>({
     posts
 
 })
-const loadPost = (post) =>({
+const loadOne = (post) =>({
     type: LOAD_ONE,
     post
 
@@ -21,11 +20,8 @@ const addPost = (post) => ({
     type: ADD_POST,
     post
 })
-const editPost = (post) =>({
-    type: EDIT_POST,
-    post
-})
-const deletePost = (postId) => ({
+
+const remove = (postId) => ({
     type: REMOVE_POST,
     postId
 })
@@ -36,7 +32,7 @@ const getAllPosts = () =>  async dispatch =>{
 
     if(response.ok){
         const posts = await response.json()
-        dispatch(loadPost(posts))
+        dispatch(loadPosts(posts))
     }
 }
 
@@ -45,7 +41,7 @@ const getOnePost = (postId) => async dispatch =>{
 
     if(response.ok){
         const post = await response.json()
-        dispatch(loadPost(post))
+        dispatch(loadOne(post))
     }
 }
 
@@ -70,6 +66,81 @@ const createPost = (payload) => async dispatch =>{
 
 }
 
+const EditPost = (payload) => async dispatch =>{
+    const {
+        description,
+        post_id
+    } = payload
+    const data = {
+        description,
+        post_id
+    }
+    const response = await fetch(`/api/posts/${post_id}`,{
+        method: 'PUT',
+        body: JSON.stringify(data)
+    });
+    if(response.ok){
+        const post = await response.json()
+        dispatch(addPost(post))
+    }
+
+
+}
+
+const deletePost = (payload) => async dispatch =>{
+    const post_id = Number(payload)
+    const response = await fetch(`/api/posts/${post_id}`,{
+        method: 'DELETE'
+
+    });
+    if(response.ok){
+        const deletedPost = await response.json()
+    }
+
+}
+
 
 //INITIAL STATE
 const initialState = {}
+
+
+
+const postReducer = (state= initialState, action) =>{
+    let newState
+    switch(action.type){
+        case LOAD_POSTS:
+            newState = {...state};
+            action.posts.forEach(post =>{
+                newState[post.id] = post
+            })
+            return newState
+
+        case LOAD_ONE:
+            newState = {...state};
+            newState[action.post.id] = action.post
+            return newState
+
+        case ADD_POST:
+            if(!state[action.post.id]){
+                newState = {
+                    ...state,
+                    [action.post.id]: action.post
+                }
+                return newState
+            }else return{
+                ...state,
+                [action.post.id]:{
+                    ...state[action.post.id],
+                    ...action.post
+                }
+
+            }
+        case REMOVE_POST:
+            newState = {...state}
+            delete newState[action.postId]
+            return newState
+        default:
+            return state;
+    }
+}
+export default postReducer
