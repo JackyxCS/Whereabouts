@@ -17,7 +17,7 @@ def username_exists(form, field):
     username = field.data
     user = User.query.filter(User.username == username).first()
     if user:
-        raise ValidationError('username already in use')
+        raise ValidationError('already in use')
 
 
 def username_length(form, field):

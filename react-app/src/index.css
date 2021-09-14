@@ -68,20 +68,54 @@ a {
 
 /* FORMS */
 
-.login-form-div, .sign-up-form-div {
+.modal-wrapper-div {
     min-width: 350px;
     max-width: 350px;
+    border: 2px solid white;
+    background-color: var(--wa-blue); /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom left, var(--wa-blue), var(--wa-green));
+    border-radius: 10px;
+  }
+
+.form-div {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid white;
-    background-color: var(--wa-blue); /* For browsers that do not support gradients */
-    background-image: linear-gradient(to bottom left, var(--wa-blue), var(--wa-green));
-    padding: 20px;
-    border-radius: 10px;
-  }
+    margin: 20px 40px;
+}
 
+.form-errors {
+    margin: 5px 0 15px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.form-input {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+.form-submit{
+    margin: 15px;
+}
+
+.demo-user-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 40px 40px;
+}
+
+.demo-user-prompt {
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+}
 
 /* PHOTO GRIDS */
 
