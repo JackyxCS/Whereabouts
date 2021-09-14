@@ -1,4 +1,124 @@
-/* TODO Add site wide styles */
+/* BRAND */
+
+:root {
+    --wa-green: #98e8cf;
+    --wa-blue: #99b5f3;
+    --wa-gold: #ffc400;
+    --wa-charcoal: #4d4d4d;
+    --wa-gray: #e6e6e6;
+}
+
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.weights{
+    font-weight: 200;  /* light (use sparingly) */
+    font-weight: 400;  /* regular for text */
+    font-weight: 700;  /* bold for emphasis */
+    font-weight: 900;  /* black (use sparingly) */
+}
+
+.gradient-box {
+    background-color: var(--wa-blue);  /* browsers with no gradients */
+    background-image: linear-gradient(to bottom left, var(--wa-blue), var(--wa-green));
+}
+
+#root {
+
+}
+
+a {
+    color: var(--wa-blue);
+    text-decoration: none;
+}
+
+/* BUTTONS */
+
+.primary-button, .secondary-button {
+    border-radius: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    font-size: 18px;
+    color: white;
+    text-transform: uppercase;
+    padding: 5px 15px;
+}
+
+.primary-button {
+    background-color: var(--wa-gold);
+    border: 2px solid var(--wa-gold);
+
+}
+
+.secondary-button {
+    background-color: transparent;
+    border: 2px solid white;
+}
+
+.primary-button:hover {
+    background-color: var(--wa-gold);
+    box-shadow: 0px 0px 0px 1px var(--wa-gold);
+}
+
+.secondary-button:hover {
+    box-shadow: 0px 0px 0px 1px white;
+}
+
+
+/* FORMS */
+
+.modal-wrapper-div {
+    min-width: 350px;
+    max-width: 350px;
+    border: 2px solid white;
+    background-color: var(--wa-blue); /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom left, var(--wa-blue), var(--wa-green));
+    border-radius: 10px;
+  }
+
+.form-div {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 40px;
+}
+
+.form-errors {
+    margin: 5px 0 15px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.form-input {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+.form-submit{
+    margin: 15px;
+}
+
+.demo-user-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 40px 40px;
+}
+
+.demo-user-prompt {
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* PHOTO GRIDS */
+
 .grid-placeholder {
     width: 800px;
 }
@@ -8,9 +128,8 @@
 }
 
 .homepage-missions-box, .homepage-share-box, .homepage-posts-box {
-  width: 200px;
-  height: 200px;
-  background-color: pink;
-  margin: 10px;
+    width: 200px;
+    height: 200px;
+    background-color: var(--wa-charcoal);
+    margin: 10px;
 }
-

@@ -6,7 +6,6 @@ import LoginFormModal from '../auth/LoginFormModal';
 
 
 function Explore() {
-    const 
     const user = useSelector(state => state.session.user)
 
     if (user) {

@@ -16,21 +16,21 @@ const NavBar = () => {
                 <div className="logo-nav-link">
                     <NavLink exact to="/"><img className="navbar-logo" src="/logo_placeholder.png" alt="logo" /></NavLink>
                 </div>
+
                 <div className="right-nav-links">
-                    <div className="explore-nav-link">
-                        <NavLink exact to='/explore' activeClassName='active'>
+                    <div className="page-nav-link">
+                        <NavLink className="page-navlink-text" exact to='/explore' activeClassName='active'>
                             Explore
                         </NavLink>
                     </div>
-                    <div className="profile-nav-link">
-                        <NavLink to={`/users/${user.id}`}>
-                            {user.username}
+                    <div className="page-nav-link">
+                        <NavLink className="page-navlink-text" to={`/users/${user.id}`}>
+                            Profile
                         </NavLink>
                     </div>
-                    <div className="logout-nav-link">
-                        <LogoutButton />
-                    </div>
+                    <LogoutButton />
                 </div>
+
             </nav>
         );
     } else {
@@ -39,19 +39,21 @@ const NavBar = () => {
                 <div className="logo-nav-link">
                     <NavLink exact to="/"><img className="navbar-logo" src="/logo_placeholder.png" alt="logo" /></NavLink>
                 </div>
+
                 <div className="right-nav-links">
-                    <div className="explore-nav-link">
-                        <NavLink exact to='/preview' activeClassName='active'>
+                    <div className="page-nav-link">
+                        <NavLink className="page-navlink-text" exact to='/preview' activeClassName='active'>
                             Explore
                         </NavLink>
                     </div>
-                    <div>
+                    <div className="login-nav">
                         <LoginFormModal />
                     </div>
                     <div>
                         <SignUpFormModal />
                     </div>
                 </div>
+
             </nav>
         );
     }

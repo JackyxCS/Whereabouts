@@ -22,14 +22,4 @@
   position: absolute;
 }
 
-.login-form-div, .sign-up-form-div {
-  min-width: 350px;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: pink;
-  padding: 20px;
-  border-radius: 10px;
-}
+
