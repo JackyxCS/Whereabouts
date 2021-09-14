@@ -75,7 +75,6 @@ class Post(db.Model):
     post_lat = db.Column(db.Float, nullable=False)
     post_lng = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
-    # like_count = db.Column(db.Integer, nullable=False, default=0)
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     like_details = db.relationship("Like", back_populates="post_details", cascade="all, delete")
     comment_details = db.relationship("Comment", back_populates="post_details", cascade="all, delete")
@@ -92,6 +91,7 @@ class Post(db.Model):
             'post_lat': self.post_lat,
             'post_lng': self.post_lng,
             'description': self.description,
+            'created': self.created,
             'post_like_user_id_list': list_obj
 
         }

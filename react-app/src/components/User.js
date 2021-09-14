@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { getAllPosts } from '../store/posts';
 import PhotoGrid from './PhotoGrid';
 
 function User() {
+
+    const dispatch= useDispatch()
+    const user_id = useSelector(state => state.session.user).id
+    const posts = useSelector (state => Object.values(state.posts))
+    const { userId }  = useParams();
     // const [user, setUser] = useState({});
+    useEffect(()=>{
+
+        dispatch(getAllPosts())
+    },[])
+    const userPosts = posts.filter((post)=>post.user_id === Number(userId)).reverse()
+
+    // console.log(userPosts, '<===== USER_POSTS ')
+
     // useEffect(() => {
     //     if (!userId) {
     //     return;
@@ -16,7 +30,7 @@ function User() {
     //     })();
     // }, [userId]);
 
-    const { userId }  = useParams();
+
     const user = useSelector(state => state.session.user);
 
     if (!user) {
@@ -36,7 +50,7 @@ function User() {
                     <strong>email:</strong> {user.email}
                 </div>
                 <h2>Give this PhotoGrid some query props!</h2>
-                <PhotoGrid />
+                <PhotoGrid posts={userPosts} />
             </div>
         );
     } else {
@@ -44,7 +58,7 @@ function User() {
             <div>
             <h1>{user.username}'s profile page</h1>
             <h2>Give this PhotoGrid some query props!</h2>
-            <PhotoGrid />
+            <PhotoGrid posts={userPosts} />
         </div>
         )
 
