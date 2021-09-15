@@ -2,7 +2,7 @@ import React, {  useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
-import PhotoGrid from './PhotoGrid';
+import PhotoGrid from './Posts/PhotoGrid.js';
 import PostFormModal from './Posts/PostFormModal';
 
 function User() {
