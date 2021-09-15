@@ -3,7 +3,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: pink;
 }
 
 .homepage-hero-div {
@@ -11,20 +10,62 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: lavender;
+    width: 100%
+}
+
+.logo-wordmark {
+    width: 75%;
+}
+
+.homepage-hero-description {
+    width: 75%;
 }
 
 .homepage-howto-div {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    background-color: lightblue;
+    margin: 20px;
+}
+
+.homepage-mission-box, .homepage-share-box, .homepage-explore-box{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: flex-end;
+    height: 333px;
+    width: 245px;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    background-size: cover;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.homepage-mission-box {
+    background-image: url('../../images/mission.png');
+}
+
+.homepage-share-box {
+    background-image: url('../../images/post.png');
+}
+
+.homepage-explore-box {
+    background-image: url('../../images/explore.png');
 }
 
 .photo-grid-div {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: lightblue;
+}
+
+@media all and (max-width: 600px) {
+    .homepage-hero-description {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.5;
+    }
 }
