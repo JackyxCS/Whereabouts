@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { postMissions } from '../../store/missions';
+import { postMissions, updateUserPref, deleteMissions } from '../../store/missions';
 
 
 const UserLocationForm = () => {
@@ -60,8 +60,6 @@ const UserLocationForm = () => {
         };
     }
 
-    // console.log(generateLocation(1.23, -3.21, 14))
-
     function degreesToRadian(deg) {
         return deg * (Math.PI / 180)
     }
@@ -97,10 +95,10 @@ const UserLocationForm = () => {
             location3,
         }
 
-        dispatch(postMissions(randomLocationPayload))
-        // let missions = dispatch(postMissions(userPayload))
-        return;
-
+        await dispatch(updateUserPref(userPayload))
+        await dispatch(deleteMissions())
+        await dispatch(postMissions(randomLocationPayload))
+        history.push(`/missions/select`)
     }
 
     return (

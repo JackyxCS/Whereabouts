@@ -10,6 +10,9 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import UserLocationForm from './components/Missions/Missions';
+import ChooseMissionForm from './components/Missions/ChooseMission'
+import DisplayUserMission from './components/Missions/UserMission';
+// import MapContainer from './components/Maps/index';
 import { authenticate } from './store/session';
 
 function App() {
@@ -31,6 +34,9 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        {/* <Route path='/showmap' exact={true}>
+          <MapContainer />
+        </Route> */}
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
@@ -42,6 +48,8 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
+          <DisplayUserMission />
+          {/* <MapContainer /> */}
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <Homepage />
@@ -51,6 +59,12 @@ function App() {
         <ProtectedRoute path='/missions' exact={true}>
           <h1>Missions!</h1>
           <UserLocationForm />
+        </ProtectedRoute>
+
+        <ProtectedRoute path='/missions/select' exact={true}>
+          <h1>Select a mission below!</h1>
+          <h1>Missions expire at ...</h1>
+          <ChooseMissionForm />
         </ProtectedRoute>
 
       </Switch>

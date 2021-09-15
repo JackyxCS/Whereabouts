@@ -1,8 +1,8 @@
 // Define Action Types as Constants
 // const SET_USER_PREF = 'mission/SET_USER_PREF'
 const SET_MISSIONS = 'missions/SET_MISSIONS'
-const ADD_MISSIONS = 'missions/ADD_MISSIONS'
-const REMOVE_MISSIONS = 'missions/REMOVE_MISSIONS'
+// const ADD_MISSIONS = 'missions/ADD_MISSIONS'
+// const REMOVE_MISSIONS = 'missions/REMOVE_MISSIONS'
 
 // Define Action Creators
 // const setUserPref = (user) => ({
@@ -15,21 +15,28 @@ const setUserMissions = (missions) => ({
     missions
 })
 
-const addUserMissions = (missions) => ({
-    type: ADD_MISSIONS,
-    missions
-})
+// const addUserMissions = (missions) => ({
+//     type: ADD_MISSIONS,
+//     missions
+// })
 
-const removeUserMissions = (missions) => ({
-    type: REMOVE_MISSIONS,
-    missions
-})
+// const removeUserMissions = (missions) => ({
+//     type: REMOVE_MISSIONS,
+//     missions
+// })
 
 // Define Thunks
-export const updateUserPref = (user, location) => async (dispatch) => {
-    const res = await fetch(`/api/users/${user.id}`, {
+export const updateUserPref = (payload) => async () => {
+    const res = await fetch(`/api/users/${payload["userId"]}`, {
         method: 'PUT',
-        body: JSON.stringify(location)
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            lat: payload["lat"],
+            lng: payload["lng"],
+            radius: payload["radius"],
+        })
     });
 
     if (res.ok) {
@@ -39,14 +46,33 @@ export const updateUserPref = (user, location) => async (dispatch) => {
 }
 
 export const fetchMissions = () => async (dispatch) => {
-    const res = await fetch('/api/missions');
+    const res = await fetch('/api/missions/');
     const missions = await res.json();
-    dispatch(setUserMissions(missions))
+    dispatch(setUserMissions(missions.mission))
+}
+
+export const postMission = (mission) => async (dispatch) => {
+    const missionDetails = mission["currentMission"].split(",")
+    
+    const res = await fetch(`/api/missions/choose/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_id: mission["userId"],
+            newLat1: missionDetails[1],
+            newLong1: missionDetails[2],
+        })
+    })
+
+    if (res.ok) {
+        const mission = await res.json()
+        return mission
+    }
 }
 
 export const postMissions = (missions) => async (dispatch) => {
-    console.log("missions", missions)
-    console.log(missions["location1"]["newLatitude"])
     const res = await fetch('/api/missions/', {
         method: 'POST',
         headers: {
@@ -65,20 +91,19 @@ export const postMissions = (missions) => async (dispatch) => {
 
     if (res.ok) {
         const missions = await res.json()
-        dispatch(addUserMissions(missions))
-        return null;
-    } else {
-        return ['An error occurred.']
+        return missions
     }
 }
 
-export const deleteMissions = (userId) => async (dispatch) => {
-    const res = await fetch('/api/missions', {
+export const deleteMissions = () => async (dispatch) => {
+    const res = await fetch('/api/missions/', {
         method: 'DELETE'
     })
 
     if (res.ok) {
-        dispatch(removeUserMissions(userId))
+        // console.log('here')
+        const missions = await res.json()
+        return missions
     }
 }
 
@@ -88,31 +113,28 @@ const initialState = {};
 //Define a reducer
 const missionsReducer = (state = initialState, action) => {
     switch (action.type) {
-        // case SET_USER_PREF: {
-        //     const newState = {...state}
-        //     action.user
-        // }
         case SET_MISSIONS: {
             const newState = {}
-            action.missions.forEach(mission => {
+            const arr = action.missions
+            arr.forEach(mission => {
                 newState[mission.id] = mission
             })
             return newState
         }
-        case ADD_MISSIONS: {
-            const newState = { ...state }
-            action.missions.forEach(mission => {
-                newState[mission.id] = mission
-            })
-            return newState
-        }
-        case REMOVE_MISSIONS: {
-            const newState = { ...state }
-            action.missions.forEach(mission => {
-                delete newState[mission.id]
-            })
-            return newState
-        }
+        // case ADD_MISSIONS: {
+        //     const newState = { ...state }
+        //     action.missions.forEach(mission => {
+        //         newState[mission.id] = mission
+        //     })
+        //     return newState
+        // }
+        // case REMOVE_MISSIONS: {
+        //     const newState = { ...state }
+        //     action.missions.forEach(mission => {
+        //         delete newState[mission.id]
+        //     })
+        //     return newState
+        // }
         default:
             return state;
     }
