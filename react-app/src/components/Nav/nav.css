@@ -43,11 +43,9 @@ nav {
 }
 
 .page-nav-link:hover {
-    font-weight: 700;
     text-decoration: none;
     font-size: 20px;
     text-transform: uppercase;
-    margin-right: 30px;
 }
 
 .page-navlink-text {
@@ -80,4 +78,22 @@ nav {
 .footer-link {
     font-weight: 700;
     font-size: 18px;
+}
+
+@media all and (max-width: 600px) {
+    .login-nav > .login-button {
+        margin-right: 5px;
+    }
+
+    .right-nav-links {
+        margin-right: 5px;
+    }
+
+    .logo-nav-link {
+        margin-left: 5px;
+    }
+
+    .page-nav-link {
+        margin-right: 5px;
+    }
 }

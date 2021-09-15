@@ -69,6 +69,18 @@ a {
 }
 
 
+@media all and (max-width: 600px) {
+    .primary-button {
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .secondary-button {
+        font-size: 12px;
+    }
+}
+
+
 /* FORMS */
 /* * > .modal-wrapper-div {
     display: flex;
@@ -129,15 +141,4 @@ a {
 
 .grid-placeholder {
     width: 800px;
-}
-
-.homepage-howto-div {
-    display: flex;
-}
-
-.homepage-missions-box, .homepage-share-box, .homepage-posts-box {
-    width: 200px;
-    height: 200px;
-    background-color: var(--wa-charcoal);
-    margin: 10px;
 }

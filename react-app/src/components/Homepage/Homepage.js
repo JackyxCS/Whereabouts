@@ -1,38 +1,56 @@
 import React from 'react';
-import PhotoGrid from '../../components/PhotoGrid';
-import './homepage.css';
+import PhotoGrid from '../PhotoGrid';
+import { useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import{getAllPosts} from '../../store/posts'
+import wordmark from "../../images/whereabouts.png"
+import './homepage.css'
 
 function Homepage() {
 
-    return (
-        <div className="homepage">
+  const post_likes = {}
+  const dispatch = useDispatch()
 
-            <div className="homepage-hero-div">
-                <h1 className="homepage-hero-title">Whereabouts</h1>
-                <h2 className="homepage-hero-description">LGTM</h2>
-            </div>
+  const posts = useSelector(state => Object.values(state.posts))
 
-            <div className="homepage-howto-div">
-                <div className="homepage-missions-box">
-                </div>
+  posts.forEach(post =>{
+    let mostLikes = -Infinity
+    post_likes[post.id] = post
 
-                <div className="homepage-share-box">
-                </div>
+  })
 
-                <div className="homepage-posts-box">
-                </div>
-            </div>
+  console.log(post_likes, `<==== WHAT IS THISSSS`)
+  useEffect(()=>{
+    dispatch(getAllPosts())
+  },[])
 
-            <div className="photo-grid-div">
-                <h2>Give this PhotoGrid some query props specific to the homepage (6 most popular)!</h2>
-                <PhotoGrid />
-            </div>
-
+  return (
+    <div className="homepage">
+        <div className="homepage-hero-div">
+            <img className="logo-wordmark" src={wordmark} alt="whereabouts wordmark" />
+            <h2 className="homepage-hero-description">Where will you go and what you share about it? Will you stumble upon your new favorite cafe, take a hike through the woods, or seredipitously find just what you are looking for? Select your mission and let's gooooo!</h2>
         </div>
 
-
-
-    );
+        <div className="homepage-howto-div">
+            <div className="homepage-mission-box">
+                <p>Select today's mission and set off on an adventure</p>
+                <button className="secondary-button">SEE LOCATIONS</button>
+            </div>
+            <div className="homepage-share-box">
+                <p>Document your experience with photos and text</p>
+                <button className="secondary-button">GO TO PROFILE</button>
+            </div>
+            <div className="homepage-explore-box">
+                <p>Discover people and places to inspire your next trek</p>
+                <button className="secondary-button">EXPLORE POSTS</button>
+            </div>
+        </div>
+        <div className="photo-grid-div">
+          <h1>6 posts here</h1>
+            {/* <PhotoGrid /> */}
+        </div>
+    </div>
+  );
 };
 
 export default Homepage;
