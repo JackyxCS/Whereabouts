@@ -5,7 +5,7 @@ function Footer() {
     return (
       <div className="footer-div">
         <p className="footer-links">
-            Created by:&ensp;
+            Whereabouts was created by:&ensp;
             <a className="footer-link" href={"https://github.com/FremaAwuku"} target={"_blank"} rel={"noreferrer"}>Frema Awuku</a>
             &ensp;|&ensp;
             <a className="footer-link" href={"https://github.com/JackyxCS"} target={"_blank"} rel={"noreferrer"}>Jacky Hao</a>

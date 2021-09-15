@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -6,26 +6,60 @@ const containerStyle = {
     height: '500px',
 };
 
-const center = {
-    lat: 38.9072,
-    lng: 77.0369,
-};
+// const center = {
+//     lat: 38.9072,
+//     lng: 77.0369,
+// };
 
-const Maps = ({ apiKey }) => {
+const options = {
+    disableDefaultUI: true,
+    zoomControl: true,
+}
+
+const Maps = ({ apiKey, missions }) => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: apiKey,
     });
 
+    const [markersArr, setMarkersArr] = useState([])
+    const [lat, setLat] = useState(0)
+    const [lng, setLng] = useState(0)
+
+    useEffect(() => {
+        const newArray = []
+        if (missions?.length) {
+            setLat(+missions[0]?.mission_lat)
+            setLng(+missions[0]?.mission_lng)
+            missions?.forEach(mission => {
+                const obj = {}
+                obj['id'] = mission?.id
+                obj['lat'] = mission?.mission_lat
+                obj['lng'] = mission?.mission_lng
+                newArray.push(obj)
+            })
+            setMarkersArr(newArray)
+        } else {
+            setLat(0)
+            setLng(0)
+        }
+    }, [missions])
 
     return (
         <>
             {isLoaded && (
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={center}
+                    center={{ lat, lng }}
                     zoom={10}
-                />
+                    options={options}
+                >
+                    {markersArr.map(marker => <Marker
+                        key={marker.id}
+                        position={{ lat: +marker?.lat, lng: +marker?.lng }}>
+                    </Marker>
+                    )}
+                </GoogleMap>
             )}
         </>
     );

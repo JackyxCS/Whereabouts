@@ -14,7 +14,7 @@ const NavBar = () => {
         return (
             <nav>
                 <div className="logo-nav-link">
-                    <NavLink exact to="/"><img className="navbar-logo" src="/logo_placeholder.png" alt="logo" /></NavLink>
+                <NavLink exact to="/"><img className="navbar-logo" src="/logo_placeholder.png" alt="logo" /></NavLink>
                 </div>
 
                 <div className="right-nav-links">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { fetchMissions, postMission, deleteMissions } from '../../store/missions';
+import MapContainer from '../Maps';
 
 const ChooseMissionForm = () => {
     const dispatch = useDispatch();
@@ -38,6 +39,10 @@ const ChooseMissionForm = () => {
         return deg * (Math.PI / 180)
     }
 
+    // let distance1
+    // let distance2
+    // let distance3
+
     useEffect(() => {
         dispatch(fetchMissions())
     }, [dispatch])
@@ -47,6 +52,12 @@ const ChooseMissionForm = () => {
         if (!currentMission) errors.push("Select a mission")
         setValidationErrors(errors)
     }, [currentMission])
+
+    // useEffect(() => {
+    //     distance1 = getDistanceBetweenInMiles(userLat, userLng, missionChoices[0]?.mission_lat, missionChoices[0]?.mission_lng)
+    //     distance2 = getDistanceBetweenInMiles(userLat, userLng, missionChoices[1]?.mission_lat, missionChoices[1]?.mission_lng)
+    //     distance3 = getDistanceBetweenInMiles(userLat, userLng, missionChoices[2]?.mission_lat, missionChoices[2]?.mission_lng)
+    // })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -67,10 +78,11 @@ const ChooseMissionForm = () => {
             <h1>a form</h1>
             {missionChoices.map(mission => (
                 <div key={mission.id}>
+                    <MapContainer missions={[mission]} />
                     <div>{mission.id}</div>
                     <div>{mission.mission_lat}</div>
                     <div>{mission.mission_lng}</div>
-                    <div>{getDistanceBetweenInMiles(userLat, userLng, mission.mission_lat, mission.mission_lng)}</div>
+                    <div>{getDistanceBetweenInMiles(userLat, userLng, mission?.mission_lat, mission?.mission_lng)}</div>
                     <input
                         type='radio'
                         value={[mission.id, mission.mission_lat, mission.mission_lng]}

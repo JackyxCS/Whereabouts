@@ -24,7 +24,7 @@ def username_length(form, field):
     # Checking if username is too long
     username = form.data['username']
     if len(username) > 40:
-        raise ValidationError('must be 40 characters or fewer')
+        raise ValidationError('too long (40 max)')
 
 
 def password_confirm(form, field):
@@ -32,7 +32,7 @@ def password_confirm(form, field):
     password1 = form.data['password']
     password2 = form.data['repeat_password']
     if password1 != password2:
-        raise ValidationError('passwords do not match')
+        raise ValidationError('must match')
 
 
 class SignUpForm(FlaskForm):

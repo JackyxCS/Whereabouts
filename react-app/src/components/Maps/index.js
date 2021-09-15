@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getKey } from '../../store/maps';
 import Maps from './Maps';
 
-const MapContainer = () => {
+const MapContainer = ({ missions }) => {
     const key = useSelector((state) => state?.maps?.key);
     const dispatch = useDispatch();
     console.log('gets inside map')
@@ -20,7 +20,7 @@ const MapContainer = () => {
     }
 
     return (
-        <Maps apiKey={key} />
+        <Maps apiKey={key} missions={missions}/>
     );
 };
 
