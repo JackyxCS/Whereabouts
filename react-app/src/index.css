@@ -12,20 +12,23 @@
     font-family: 'Nunito Sans', sans-serif;
 }
 
-.weights{
-    font-weight: 200;  /* light (use sparingly) */
-    font-weight: 400;  /* regular for text */
-    font-weight: 700;  /* bold for emphasis */
-    font-weight: 900;  /* black (use sparingly) */
+/*
+    font-weight: 200;     light (use sparingly)
+    font-weight: 400;     regular for text
+    font-weight: 700;     bold for emphasis
+    font-weight: 900;     black (use sparingly)
+*/
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 50px;
 }
 
 .gradient-box {
     background-color: var(--wa-blue);  /* browsers with no gradients */
     background-image: linear-gradient(to bottom left, var(--wa-blue), var(--wa-green));
-}
-
-#root {
-
 }
 
 a {
@@ -67,6 +70,11 @@ a {
 
 
 /* FORMS */
+/* * > .modal-wrapper-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
 
 .modal-wrapper-div {
     min-width: 350px;
