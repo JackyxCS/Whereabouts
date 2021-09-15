@@ -1,5 +1,4 @@
 import React from 'react';
-import PhotoGrid from '../PhotoGrid';
 import { useEffect } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import{getAllPosts} from '../../store/posts'
@@ -19,7 +18,7 @@ function Homepage() {
 
   })
 
-  console.log(post_likes, `<==== WHAT IS THISSSS`)
+  // console.log(post_likes, `<==== WHAT IS THISSSS`)
   useEffect(()=>{
     dispatch(getAllPosts())
   },[])
@@ -45,10 +44,7 @@ function Homepage() {
                 <button className="secondary-button">EXPLORE POSTS</button>
             </div>
         </div>
-        <div className="photo-grid-div">
-          <h1>6 posts here</h1>
-            {/* <PhotoGrid /> */}
-        </div>
+
     </div>
   );
 };
