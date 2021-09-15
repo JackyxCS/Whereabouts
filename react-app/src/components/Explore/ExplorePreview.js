@@ -9,7 +9,6 @@ import { getAllPosts } from '../../store/posts';
 
 function Explore() {
     const dispatch = useDispatch()
-
     const user = useSelector(state => state.session.user)
     const posts = useSelector(state => Object.values(state.posts))
     let filteredPost = []
