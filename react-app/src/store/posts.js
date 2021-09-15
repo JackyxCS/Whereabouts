@@ -44,23 +44,30 @@ export const getOnePost = (postId) => async dispatch =>{
         dispatch(loadOne(post))
     }
 }
+export const uploadPhoto = (photo) => async () =>{
+    const dataBlob = new FormData()
+    dataBlob.append('photo', photo)
+    const response = await fetch('/api/posts/aws_upload',{
+        method:'post',
+        headers: {
+            'Content-Type': "multipart/form-data"
+        },
+        body: dataBlob
+    })
+    if (response.ok){
+        const awsUrl = await response.json()
+        const imgUrl = awsUrl.image_1_url
+        return imgUrl
+
+    }
+}
 
 export const createPost = (payload) => async dispatch =>{
-//    const {
-//        user_id,
-//        image_1,
-//        image_2,
-//        image_3,
-//        image_4,
-//        image_5,
-//        post_lat,
-//        post_lng,
-//        description,
-//    } = payload
+
     const response = await fetch(`/api/posts/new`,{
         method: 'POST',
         body: JSON.stringify(payload),
-        headers:{"Content-Type": "multipart/form-data"}
+
 
     })
 
