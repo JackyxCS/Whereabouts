@@ -7,7 +7,7 @@ import postReducer from './posts';
 const rootReducer = combineReducers({
   session,
   missionsReducer,
-  postReducer
+  posts:postReducer
 });
 
 

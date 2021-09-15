@@ -27,16 +27,16 @@ const remove = (postId) => ({
 })
 
 //THUNKS
-const getAllPosts = () =>  async dispatch =>{
-    const response = await fetch(`/api/posts`);
+export const getAllPosts = () =>  async dispatch =>{
+    const response = await fetch(`/api/posts/`);
 
     if(response.ok){
-        const posts = await response.json()
+        const posts = await response.json().then(res=>res = res.posts)
         dispatch(loadPosts(posts))
     }
 }
 
-const getOnePost = (postId) => async dispatch =>{
+export const getOnePost = (postId) => async dispatch =>{
     const response = await fetch(`/api/posts/${postId}`)
 
     if(response.ok){
@@ -45,7 +45,7 @@ const getOnePost = (postId) => async dispatch =>{
     }
 }
 
-const createPost = (payload) => async dispatch =>{
+export const createPost = (payload) => async dispatch =>{
 //    const {
 //        user_id,
 //        image_1,
@@ -66,7 +66,8 @@ const createPost = (payload) => async dispatch =>{
 
 }
 
-const EditPost = (payload) => async dispatch =>{
+
+export const editPost = (payload) => async dispatch =>{
     const {
         description,
         post_id
@@ -87,14 +88,16 @@ const EditPost = (payload) => async dispatch =>{
 
 }
 
-const deletePost = (payload) => async dispatch =>{
+
+export const deletePost = (payload) => async dispatch =>{
     const post_id = Number(payload)
     const response = await fetch(`/api/posts/${post_id}`,{
         method: 'DELETE'
 
     });
     if(response.ok){
-        const deletedPost = await response.json()
+        const post_id = await response.json().post_id
+        dispatch(remove(post_id))
     }
 
 }

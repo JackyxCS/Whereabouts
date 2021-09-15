@@ -13,17 +13,21 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/User';
 import UserLocationForm from './components/Missions/Missions';
 import { authenticate } from './store/session';
+import { getAllPosts } from './store/posts';
 
 function App() {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        (async () => {
-        await dispatch(authenticate());
-        setLoaded(true);
-        })();
-    }, [dispatch]);
+  useEffect(() => {
+
+    (async () => {
+      await dispatch(authenticate());
+      dispatch(getAllPosts())
+
+      setLoaded(true);
+    })();
+  }, [dispatch]);
 
     if (!loaded) {
         return null;
