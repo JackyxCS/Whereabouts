@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { fetchMissions, postMission, deleteMissions } from '../../store/missions';
 import MapContainer from '../Maps';
+import styles from './ChooseMission.module.css'
 
 const ChooseMissionForm = () => {
     const dispatch = useDispatch();
@@ -32,37 +33,27 @@ const ChooseMissionForm = () => {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // returns the angle of an (x,y) point
         const d = rEarth * c; // distance in miles = Radius of earth * c
 
-        return d;
+        return d.toFixed(1);
     }
 
     function degreesToRadian(deg) {
         return deg * (Math.PI / 180)
     }
 
-    // let distance1
-    // let distance2
-    // let distance3
-
     useEffect(() => {
         dispatch(fetchMissions())
     }, [dispatch])
 
-    useEffect(() => {
-        const errors = [];
-        if (!currentMission) errors.push("Select a mission")
-        setValidationErrors(errors)
-    }, [currentMission])
-
     // useEffect(() => {
-    //     distance1 = getDistanceBetweenInMiles(userLat, userLng, missionChoices[0]?.mission_lat, missionChoices[0]?.mission_lng)
-    //     distance2 = getDistanceBetweenInMiles(userLat, userLng, missionChoices[1]?.mission_lat, missionChoices[1]?.mission_lng)
-    //     distance3 = getDistanceBetweenInMiles(userLat, userLng, missionChoices[2]?.mission_lat, missionChoices[2]?.mission_lng)
-    // })
+    //     const errors = [];
+    //     if (!currentMission) errors.push("Select a mission")
+    //     setValidationErrors(errors)
+    // }, [currentMission])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (validationErrors > 0) return;
+        // if (validationErrors > 0) return;
 
         const missionPayload = {
             userId,
@@ -74,31 +65,31 @@ const ChooseMissionForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>a form</h1>
-            {missionChoices.map(mission => (
-                <div key={mission.id}>
-                    <MapContainer missions={[mission]} />
-                    <div>{mission.id}</div>
-                    <div>{mission.mission_lat}</div>
-                    <div>{mission.mission_lng}</div>
-                    <div>{getDistanceBetweenInMiles(userLat, userLng, mission?.mission_lat, mission?.mission_lng)}</div>
-                    <input
-                        type='radio'
-                        value={[mission.id, mission.mission_lat, mission.mission_lng]}
-                        name='mission'
-                        onChange={(e) => setCurrentMission(e.target.value)}
-                    />
+        <div className={styles.chooseMission}>
+            {!!missionChoices && missionChoices?.map(mission => (
+                <div key={mission?.id} className={styles.eachMission}>
+                    <form onSubmit={handleSubmit}>
+                        {/* <div key={mission?.id}> */}
+                        <MapContainer missions={[mission]} />
+                        {/* <div>{mission?.id}</div> */}
+                        <div className={styles.missionInfo}>
+                            <div>LAT: {mission?.mission_lat.toFixed(6)}, LNG: {mission?.mission_lng.toFixed(6)}</div>
+                            {/* <div>{mission?.mission_lng}</div> */}
+                            <div>{getDistanceBetweenInMiles(userLat, userLng, mission?.mission_lat, mission?.mission_lng)} miles away</div>
+                            {/* </div> */}
+                            <button className="primary-button"
+                                type="submit"
+                                value={[mission.id, mission.mission_lat, mission.mission_lng]}
+                                disabled={validationErrors.length > 0}
+                                onClick={(e) => setCurrentMission(e.target.value)}
+                            >
+                                Get Started
+                            </button>
+                        </div>
+                    </form>
                 </div>
             ))}
-
-            <button
-                type="submit"
-                disabled={validationErrors.length > 0}
-            >
-                Submit
-            </button>
-        </form>
+        </div>
     );
 }
 

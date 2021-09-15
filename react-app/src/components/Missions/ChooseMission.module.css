@@ -1,0 +1,22 @@
+.chooseMission {
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.eachMission {
+    margin: 0px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.missionInfo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 0px;
+}
