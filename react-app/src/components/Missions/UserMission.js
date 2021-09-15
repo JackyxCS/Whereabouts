@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, NavLink } from 'react-router-dom'
-import { deleteMissions, fetchMissions } from '../../store/missions';
+import { NavLink } from 'react-router-dom'
+import { fetchMissions } from '../../store/missions';
 import MapContainer from '../Maps';
 import styles from './UserMission.module.css'
 
@@ -40,7 +40,7 @@ const DisplayUserMission = () => {
                         <NavLink to="/missions">Change your location</NavLink>
                     </div>
                     <div className={styles.mapContainer}>
-                        <MapContainer />
+                        <MapContainer missions={missionChoices} />
                     </div>
                 </>
             )
