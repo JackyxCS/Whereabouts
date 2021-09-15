@@ -1,5 +1,4 @@
 import React from 'react';
-import PhotoGrid from '../PhotoGrid';
 import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -41,14 +40,11 @@ function Homepage() {
           <p>Document your experience with photos and text</p>
           <button className="secondary-button">GO TO PROFILE</button>
         </div>
+
         <div className="homepage-explore-box">
           <p>Discover people and places to inspire your next trek</p>
           <button className="secondary-button">EXPLORE POSTS</button>
         </div>
-      </div>
-      <div className="photo-grid-div">
-        <h1>6 posts here</h1>
-        {/* <PhotoGrid /> */}
       </div>
     </div>
   );

@@ -36,6 +36,12 @@ a {
     text-decoration: none;
 }
 
+@media all and (max-width: 550px) {
+    h1 {
+        font-size: 24px;
+    }
+}
+
 /* BUTTONS */
 
 .primary-button, .secondary-button {

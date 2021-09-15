@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import PhotoGrid from '../PhotoGrid';
+import PhotoGrid from '../Posts/PhotoGrid.js';
 import LoginFormModal from '../auth/LoginFormModal';
 import { getAllPosts } from '../../store/posts';
 
@@ -10,12 +10,14 @@ import { getAllPosts } from '../../store/posts';
 function Explore() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
-    const posts = useSelector(state => Object.values(state.posts))
-    let filteredPost = []
-    for (let i = 0; i < 9; i++){
-        filteredPost.push(posts[i])
+    const posts = useSelector(state => {
+        return Object.values(state.posts)
+    })
+    let filteredPosts = []
+    for (const p of posts.slice(0, 9)){
+        filteredPosts.push(p)
     }
-    filteredPost.reverse()
+    filteredPosts.reverse()
     useEffect(()=>{
         dispatch(getAllPosts())
 
@@ -25,11 +27,10 @@ function Explore() {
     }
 
     return (
-        <div>
-            <h2>Give this PhotoGrid some query props! (just 9 posts for teaser)</h2>
-
-                <PhotoGrid  posts={filteredPost} />
-            <h2>Sign up or log in to see everything!</h2>
+        <div className="explore-grid-div">
+            <h1>Sample of Most Recent Posts</h1>
+            <PhotoGrid  posts={filteredPosts} />
+            <p className="login-prompt">Sign up or log in to see everything!</p>
             <LoginFormModal />
         </div>
     );
