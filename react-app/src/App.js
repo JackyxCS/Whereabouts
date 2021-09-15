@@ -19,8 +19,8 @@ import { authenticate } from './store/session';
 import { getAllPosts } from './store/posts';
 
 function App() {
-    const [loaded, setLoaded] = useState(false);
-    const dispatch = useDispatch();
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
 
@@ -32,52 +32,53 @@ function App() {
     })();
   }, [dispatch]);
 
-    if (!loaded) {
-        return null;
-    }
+  if (!loaded) {
+    return null;
+  }
 
-    return (
-        <BrowserRouter>
-        <NavBar />
-        <div className="content-container">
-            <Switch>
-                <Route path='/login' exact={true}>
-                    <LoginForm />
-                </Route>
-                <Route path='/sign-up' exact={true}>
-                    <SignUpForm />
-                </Route>
-                {/* <ProtectedRoute path='/users' exact={true} >
+  return (
+    <BrowserRouter>
+      <NavBar />
+      <div className="content-container">
+        <Switch>
+          <Route path='/login' exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path='/sign-up' exact={true}>
+            <SignUpForm />
+          </Route>
+          {/* <ProtectedRoute path='/users' exact={true} >
                 <UsersList />
                 </ProtectedRoute> */}
-                <ProtectedRoute path='/users/:userId' exact={true} >
-                    <User />
-                    <DisplayUserMission />
-                </ProtectedRoute>
-                <ProtectedRoute path='/explore' exact={true} >
-                    <ExploreAuth />
-                </ProtectedRoute>
-                <Route path='/preview' exact={true} >
-                    <ExplorePreview />
-                </Route>
-                <Route path='/' exact={true} >
-                    <Homepage />
-                </Route>
-                {/* switch to protect route later! */}
-                <ProtectedRoute path='/missions' exact={true}>
-                    <h1>Missions!</h1>
-                    <UserLocationForm />
-                </ProtectedRoute>
-                <ProtectedRoute path='/missions/select' exact={true}>
-                    <h1>Select a mission below!</h1>
-                    <h1>Missions expire at ...</h1>
-                    <ChooseMissionForm />
-                </ProtectedRoute>
-            </Switch>
-        </div>
-        <Footer />
-        </BrowserRouter>
-    );
+          <ProtectedRoute path='/users/:userId' exact={true} >
+            <User />
+            <DisplayUserMission />
+          </ProtectedRoute>
+          <ProtectedRoute path='/explore' exact={true} >
+            <ExploreAuth />
+          </ProtectedRoute>
+          <Route path='/preview' exact={true} >
+            <ExplorePreview />
+          </Route>
+          <Route path='/' exact={true} >
+            <Homepage />
+          </Route>
+          {/* switch to protect route later! */}
+          <ProtectedRoute path='/missions' exact={true}>
+            <h1>Missions!</h1>
+            <UserLocationForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute path='/missions/select' exact={true}>
+            <h1>Select a mission below!</h1>
+            <h1>Missions expire at ...</h1>
+            <ChooseMissionForm />
+          </ProtectedRoute>
+        </Switch>
+      </div>
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
 export default App;
