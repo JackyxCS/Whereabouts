@@ -11,6 +11,7 @@ function User() {
     const user = useSelector(state => state.session.user);
     //const user_id = useSelector(state => state.session.user).id
     const posts = useSelector (state => Object.values(state.posts))
+    const currentMission = useSelector(state => Object.values(state.missionsReducer))
     const { userId }  = useParams();
     // const [user, setUser] = useState({});
     useEffect(()=>{
@@ -31,9 +32,12 @@ function User() {
     //     setUser(user);
     //     })();
     // }, [userId]);
-
-
-
+let addPost
+    if(currentMission.length === 0){
+        addPost=(<></>)
+    }else{
+       addPost=( <PostFormModal />)
+    }
 
     if (!user) {
         return null;
@@ -52,7 +56,7 @@ function User() {
                     <strong>email:</strong> {user.email}
                 </div>
                 <div>
-                    <PostFormModal />
+                    {addPost}
                 </div>
                 <h2>Give this PhotoGrid some query props!</h2>
                 <PhotoGrid posts={userPosts} />

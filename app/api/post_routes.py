@@ -1,13 +1,22 @@
-from flask import Blueprint, request
+from flask import Blueprint,request
 from flask_login import login_required
+from werkzeug.utils import secure_filename
 from app.models import Post, db, Like
 from app.forms import PostForm, EditPostForm
+from app.api.aws import upload_to_aws
 import datetime
 import os
 import boto3
 from botocore.config import Config
 
 post_routes = Blueprint('posts',__name__)
+
+def flask_form_errors(validation_errors):
+    errors = []
+    for inputs in validation_errors:
+        for error in validation_errors[inputs]:
+            errors.append(f'{inputs} fiel : {error}')
+    return errors
 """
 GET ALL POSTS
 """
@@ -59,34 +68,48 @@ CREATE NEW POST
 @login_required
 def new_post():
     form = PostForm()
-    url_dict = dict()
-    image_1=''
     form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        print(form,"<<<<<<<FORM")
+        photo = request.files['image_1']
+        print(photo,"<<<<<<<<PHOTO")
+        imgName = secure_filename(photo.filename)
+        photo.save(photo.filename)
+        imgUrl= upload_to_aws(imgName, BUCKET_NAME)
+        print(imgUrl,"<<<<<<IMG URL")
+        os.remove(imgName)
+        userId = request.form['user_id']
+        post_lat = request.form['post_lat']
+        post_lng = request.form['post_lng']
+        data = form.data
 
-    data = form.data
-    new_post = Post(user_id=data['user_id'],
-                    image_1=image_1,
-                    # image_2="",
-                    # image_3=url_dict['image_3'],
-                    # image_4 = url_dict['image_4'],
-                    # image_5=url_dict['image_5'],
-                    post_lat=data['post_lat'],
-                    post_lng=data['post_lng'],
-                    description=data['description'],
-                    created = datetime.datetime.utcnow())
-    db.session.add(new_post)
-    db.session.commit()
-    return new_post.to_dict()
+        new_post = Post(user_id=userId,
+                        image_1=imgUrl,
+                        # image_2="",
+                        # image_3=url_dict['image_3'],
+                        # image_4 = url_dict['image_4'],
+                        # image_5=url_dict['image_5'],
+                        post_lat=post_lat,
+                        post_lng=post_lng,
+                        description=data['description'],
+                        created = datetime.datetime.utcnow())
+        db.session.add(new_post)
+        db.session.commit()
+        return new_post.to_dict()
+    return {"flask-errors":flask_form_errors(form.errors)},401
 
 
 @post_routes.route('/aws_upload', methods=['POST'] )
 #   receives files in FileStorage object on request , keys in at "picture",
 #         and creates a list of all available files
 def aws_upload():
-    photo = request.files['image_1']
+
+    print(photo, "<<<<<PHOTO")
+    print(request.files,"<<<<<<REQUEST FILES")
     if photo != "":
         #""""TRY FOR ONE UPLOAD"""
         image_1= request.files['image_1']
+
         base_aws_url=f"https://{BUCKET_NAME}.s3.Region.amazonaws.com/"
         image_1.save(image_1.filename)
         img_data = open(image_1.filename,'rb')
