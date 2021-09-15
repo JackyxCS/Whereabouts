@@ -5,9 +5,9 @@ from wtforms.validators import DataRequired
 
 
 class PostForm(FlaskForm):
-    user_id= IntegerField([DataRequired()])
+    # user_id= IntegerField([DataRequired()])
     image_1= FileField("Image 1",[FileRequired(),
-         FileAllowed(['jpg', 'png'], 'jpg/png Images only!')
+        #  FileAllowed(['jpg', 'png','jpeg'], 'jpg/png/jpeg Images only!')
         ])
     image_2= FileField("Image 2",[
          FileAllowed(['jpg', 'png'], 'jpg/png Images only!')
