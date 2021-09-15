@@ -1,11 +1,19 @@
-.mapContainer {
-  /* right: 0px; */
-  /* position: absolute; */
-  width: 112.6vh;
-  height: 50vh;
+.missionInfo {
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: 5vh;
-  z-index: 10;
-  /* overflow: hidden; */
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.updateLocation {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 5vw;
+}
+
+.userMissionContainer {
+  display: flex;
+  flex-direction: row;
 }

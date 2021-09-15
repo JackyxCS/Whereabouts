@@ -65,13 +65,12 @@ function App() {
           </Route>
           {/* switch to protect route later! */}
           <ProtectedRoute path='/missions' exact={true}>
-            <h1>Missions!</h1>
+            <h1>Enter Your Location Information</h1>
             <UserLocationForm />
           </ProtectedRoute>
 
           <ProtectedRoute path='/missions/select' exact={true}>
-            <h1>Select a mission below!</h1>
-            <h1>Missions expire at ...</h1>
+            <div>Select a mission below!</div>
             <ChooseMissionForm />
           </ProtectedRoute>
         </Switch>

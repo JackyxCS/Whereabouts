@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import { fetchMissions } from '../../store/missions';
 import MapContainer from '../Maps';
+import UserLocationForm from './Missions';
 import styles from './UserMission.module.css'
 
 const DisplayUserMission = () => {
     const dispatch = useDispatch();
     // const history = useHistory();
     // const user = useSelector(state => state.session.user);
-    const missionChoices = useSelector(state => Object.values(state.missionsReducer))
+    const missionChoices = useSelector(state => Object.values(state?.missionsReducer))
 
     // console.log(Date.parse(missionChoices[0].created_at))
     // console.log('expires', Date.parse(missionChoices[0].created_at) + 86400000)
@@ -32,22 +33,22 @@ const DisplayUserMission = () => {
     } else if (missionChoices.length === 1) {
         if (Date.now() < Date.parse(missionChoices[0].created_at) + 86400000) {
             chooseMissions = (
-                <>
-                    <div>Your Active Mission:
-                        <div>Lat: {missionChoices[0].mission_lat}</div>
-                        <div>Lng: {missionChoices[0].mission_lng}</div>
-                        <div>created_at: {missionChoices[0].created_at}</div>
-                        <NavLink to="/missions">Change your location</NavLink>
-                    </div>
-                    <div className={styles.mapContainer}>
+                <div className={styles.userMissionContainer}>
+                    <div className={styles.missionInfo}>Active Mission Expires Every 24 Hours
+                        <div>Mission: ({missionChoices[0].mission_lat.toFixed(6)}, {missionChoices[0].mission_lng.toFixed(6)})</div>                        
+                        <div>Mission Began: {missionChoices[0].created_at}</div>
+                        <div>Time Remaining: {((Date.parse(missionChoices[0].created_at) + 86400000 - Date.now())/3600000).toFixed(1)} Hours</div>
                         <MapContainer missions={missionChoices} />
                     </div>
-                </>
+                    <div className={styles.updateLocation}> Update Your Location
+                        <UserLocationForm />
+                    </div>
+                </div>
             )
         } else {
             chooseMissions = (
                 <div>
-                    <div>Your mission has expired</div>
+                    <div className={styles.missionInfo}>Your Mission Has Expired</div>
                     <NavLink to="/missions">Choose Another Mission</NavLink>
                 </div>
             )
@@ -55,7 +56,7 @@ const DisplayUserMission = () => {
     }
 
     return (
-        <div>This is the User Mission Box
+        <div>
             {chooseMissions}
         </div>
     )
