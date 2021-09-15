@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { postMissions, updateUserPref, deleteMissions } from '../../store/missions';
+import styles from './Missions.module.css'
 
 
 const UserLocationForm = () => {
@@ -72,6 +73,12 @@ const UserLocationForm = () => {
         setValidationErrors(errors)
     }, [lat, lng, radius])
 
+    useEffect(() => {
+        setLat(user ? user.user_lat : '');
+        setLng(user ? user.user_lng : '');
+        setRadius(user ? user.user_radius : '');
+    }, [user])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -102,7 +109,7 @@ const UserLocationForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.missionForm}>
             <input
                 placeholder="Latitude"
                 type="number"
@@ -130,7 +137,7 @@ const UserLocationForm = () => {
                 required
             />
 
-            <button
+            <button className="primary-button"
                 type="submit"
                 disabled={validationErrors.length > 0}
             >

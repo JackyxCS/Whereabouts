@@ -1,0 +1,8 @@
+.missionForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.missionForm > input {
+    margin-bottom: 1vh;
+}
