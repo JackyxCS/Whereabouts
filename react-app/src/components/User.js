@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
 import PhotoGrid from './PhotoGrid';
+import PostFormModal from './Posts/PostFormModal';
 
 function User() {
 
     const dispatch= useDispatch()
-    // const user_id = useSelector(state => state.session.user).id
+    const user = useSelector(state => state.session.user);
+    //const user_id = useSelector(state => state.session.user).id
     const posts = useSelector (state => Object.values(state.posts))
     const { userId }  = useParams();
     // const [user, setUser] = useState({});
@@ -31,7 +33,7 @@ function User() {
     // }, [userId]);
 
 
-    const user = useSelector(state => state.session.user);
+
 
     if (!user) {
         return null;
@@ -49,13 +51,11 @@ function User() {
                 <div>
                     <strong>email:</strong> {user.email}
                 </div>
-
                 <div>
-                    <h2>Add component/s for current missoin if selected, or the three missions if not selected one</h2>
+                    <PostFormModal />
                 </div>
-                <h2>Give this PhotoGrid some query props to display all posts of this user!</h2>
-                <h2>If it is the user's page, show edit/delete buttons for posts</h2>
-                <PhotoGrid  posts={userPosts}/>
+                <h2>Give this PhotoGrid some query props!</h2>
+                <PhotoGrid posts={userPosts} />
             </div>
         );
     } else {
