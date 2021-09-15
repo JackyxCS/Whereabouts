@@ -35,9 +35,9 @@ const DisplayUserMission = () => {
             chooseMissions = (
                 <div className={styles.userMissionContainer}>
                     <div className={styles.missionInfo}>Active Mission Expires Every 24 Hours
-                        <div>Mission: ({missionChoices[0].mission_lat.toFixed(6)}, {missionChoices[0].mission_lng.toFixed(6)})</div>                        
+                        <div>Mission: ({missionChoices[0].mission_lat.toFixed(6)}, {missionChoices[0].mission_lng.toFixed(6)})</div>
                         <div>Mission Began: {missionChoices[0].created_at}</div>
-                        <div>Time Remaining: {((Date.parse(missionChoices[0].created_at) + 86400000 - Date.now())/3600000).toFixed(1)} Hours</div>
+                        <div>Time Remaining: {((Date.parse(missionChoices[0].created_at) + 86400000 - Date.now()) / 3600000).toFixed(1)} Hours</div>
                         <MapContainer missions={missionChoices} />
                     </div>
                     <div className={styles.updateLocation}> Update Your Location
