@@ -5,9 +5,6 @@ from app.models import db, User
 
 
 class GetMissionsForm(FlaskForm):
-    # lat = DecimalField('lat', validators=[DataRequired()])
-    # lng = DecimalField('lng', validators=[DataRequired()])
-    # radius = IntegerField('radius', validators=[DataRequired()])
     user_id = IntegerField('user_id', validators=[DataRequired()])
     newLat1 = DecimalField('newLat1', validators=[DataRequired()])
     newLong1 = DecimalField('newLong1', validators=[DataRequired()])

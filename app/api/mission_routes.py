@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from flask_login import login_required
-from app.models import db, Mission
-from app.forms import GetMissionsForm
+from flask_login import login_required, current_user
+from app.models import db, Mission, User
+from app.forms import GetMissionsForm, ChooseMissionsForm
 import datetime
 
 mission_routes = Blueprint('missions', __name__)
@@ -16,23 +16,56 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# @mission_routes.route('/', methods=['GET'])
-# @login_required
-# def mission():
-#     missions = Mission.query.filter(User.id == user_id).all()
-#     return {'mission': [missions.to_dict() for mission in missions]}
+@mission_routes.route('/', methods=['GET'])
+@login_required
+def getMissions():
+    userId = current_user.id
+    missions = Mission.query.filter(User.id == userId).all()
+    return {'mission': [{
+        'id': mission.id,
+        'user_id': mission.user_id,
+        'mission_lat': mission.mission_lat,
+        'mission_lng': mission.mission_lng,
+        'created_at': mission.created,
+    } for mission in missions]}
 
-# posts 3 new missions
+@mission_routes.route('/choose/', methods=['POST'])
+@login_required
+def postMission():
+    form = ChooseMissionsForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print('gets here')
+    if form.validate_on_submit():
+        user_id = form.data["user_id"]
+        newLat1 = form.data["newLat1"]
+        newLong1 = form.data["newLong1"]
+
+        mission1 = Mission(
+            user_id = user_id,
+            mission_lat = newLat1,
+            mission_lng = newLong1,
+            created = datetime.datetime.utcnow()
+        )
+
+        db.session.add(mission1)
+        db.session.commit()
+
+        return {
+            mission1.id: {
+                'id': mission1.id,
+                'user_id': mission1.user_id,
+                'mission_lat': mission1.mission_lat,
+                'mission_lng': mission1.mission_lng,
+            }
+        }
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
 @mission_routes.route('/', methods=['POST'])
 @login_required
-def mission():
+def postMissions():
     form = GetMissionsForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # print(form.data)
-    # print(form.errors)
     if form.validate_on_submit():
-        # print(form.errors)
-        # print(form.data)
         user_id = form.data["user_id"]
         newLat1 = form.data["newLat1"]
         newLong1 = form.data["newLong1"]
@@ -87,3 +120,18 @@ def mission():
             }
         }
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@mission_routes.route('/', methods=['DELETE'])
+@login_required
+def deleteMissions():
+    userId = current_user.id
+    missions = Mission.query.filter(User.id == userId).all()
+    for mission in missions:
+        db.session.delete(mission)
+    db.session.commit()
+    return {'mission': [{
+        'id': mission.id,
+        'user_id': mission.user_id,
+        'mission_lat': mission.mission_lat,
+        'mission_lng': mission.mission_lng,
+    } for mission in missions]}

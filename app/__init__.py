@@ -10,6 +10,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.post_routes import post_routes
 from .api.mission_routes import mission_routes
+# from .api.map import maps_routes
 
 
 from app.models.seeds import seed_commands
@@ -36,6 +37,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(post_routes, url_prefix='/api/posts')
 app.register_blueprint(mission_routes, url_prefix='/api/missions')
+# app.register_blueprint(maps_routes, url_prefix='/api/maps')
 db.init_app(app)
 Migrate(app, db)
 
@@ -75,3 +77,9 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
+
+@app.route('/api/maps/key', methods=["POST"])
+def getMap():
+    print('<<<<<<<<inside API route')
+    return {'googleMapsApiKey': os.environ.get('MAPS_API_KEY')}
+    # return {os.environ.get('MAPS_API_KEY')}

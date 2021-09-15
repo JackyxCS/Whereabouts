@@ -5,7 +5,6 @@ from app.forms import PostForm, EditPostForm
 import logging
 import os
 import boto3
-from boto3 import Session
 from botocore.config import Config
 
 post_routes = Blueprint('posts',__name__)

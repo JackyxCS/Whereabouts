@@ -1,0 +1,11 @@
+.mapContainer {
+  /* right: 0px; */
+  /* position: absolute; */
+  width: 112.6vh;
+  height: 50vh;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 5vh;
+  z-index: 10;
+  /* overflow: hidden; */
+}
