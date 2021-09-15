@@ -1,8 +1,25 @@
 import React from 'react';
 import PhotoGrid from './PhotoGrid';
-
+import { useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import{getAllPosts} from '../store/posts'
 function Homepage() {
 
+  const post_likes = {}
+  const dispatch = useDispatch()
+  const posts = useSelector(state => Object.values(state.posts))
+  posts.forEach(post =>{
+    let mostLikes = -Infinity
+    post_likes[post.id] = post
+
+  })
+
+
+
+  console.log(post_likes, `<==== WHAT IS THISSSS`)
+  useEffect(()=>{
+    dispatch(getAllPosts())
+  },[])
   return (
     <div className="homepage">
         <div className="homepage-hero-div">

@@ -15,7 +15,7 @@ GET ALL POSTS
 @post_routes.route("/")
 def get_all_posts():
     posts_with_likes = []
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.id.desc()).all()
     for post in posts:
         post_likes = Like.query.filter(Like.post_id == post.id).all()
         post_like_user_id_list = [post.user_id for post in post_likes]
