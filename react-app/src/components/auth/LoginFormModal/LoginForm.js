@@ -36,38 +36,34 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="login-form-div">
-      <form onSubmit={onLogin}>
-        <div>
+    <div className="modal-wrapper-div">
+      <form className="form-div" onSubmit={onLogin}>
+        <div className='form-errors'>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            name='email'
-            type='text'
-            placeholder='Email'
-            value={email}
-            onChange={updateEmail}
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            name='password'
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={updatePassword}
-          />
-          <button type='submit'>Login</button>
-        </div>
+        <input
+          className='form-input'
+          name='email'
+          type='text'
+          placeholder='email address'
+          value={email}
+          onChange={updateEmail}
+        />
+        <input
+          className='form-input'
+          name='password'
+          placeholder='password'
+          type='password'
+          value={password}
+          onChange={updatePassword}
+        />
+        <button className="primary-button form-submit"type='submit'>Login</button>
       </form>
       <div className="demo-user-div">
-        <p>Wanna take a look around first?</p>
-        <button id="demo-user-button" onClick={demoLogin}>
+        <p className="demo-user-prompt">Wanna take a look around first?</p>
+        <button className="secondary-button" onClick={demoLogin}>
           Try Demo
         </button>
       </div>
