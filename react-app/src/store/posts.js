@@ -57,19 +57,39 @@ export const uploadPhoto = (photo) => async () =>{
     if (response.ok){
         const awsUrl = await response.json()
         const imgUrl = awsUrl.image_1_url
+        console.log(imgUrl,'<<<<imgURL')
         return imgUrl
 
     }
 }
 
-export const createPost = (payload) => async dispatch =>{
+export const createPost = (
+    user_id,
+    image_1,
+    post_lat,
+    post_lng,
+    description
+
+    ) => async dispatch =>{
+        const data = new FormData()
+        data.append('user_id',user_id)
+        data.append('image_1',image_1)
+        data.append('post_lat',post_lat)
+        data.append('post_lng',post_lng)
+        data.append('description',description)
+
 
     const response = await fetch(`/api/posts/new`,{
         method: 'POST',
-        body: JSON.stringify(payload),
+        body: data,
 
 
-    })
+    });
+    if(response.ok){
+        const newPost = await response.json()
+        dispatch(addPost(newPost))
+
+    }
 
 }
 
