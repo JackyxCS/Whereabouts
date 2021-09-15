@@ -19,7 +19,7 @@ function Explore() {
     useEffect(()=>{
         dispatch(getAllPosts())
 
-    },[])
+    },[dispatch])
     if (user) {
         return <Redirect to='/explore' />;
     }

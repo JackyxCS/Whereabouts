@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
@@ -16,8 +16,8 @@ function User() {
     useEffect(()=>{
 
         dispatch(getAllPosts())
-    },[])
-    const userPosts = posts.filter((post)=>post.user_id=== Number(userId)).reverse()
+    },[dispatch])
+    const userPosts = posts.filter((post)=>post.user_id === Number(userId)).reverse()
 
     // console.log(userPosts, '<===== USER_POSTS ')
 
