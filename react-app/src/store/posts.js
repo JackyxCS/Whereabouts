@@ -63,26 +63,27 @@ export const uploadPhoto = (photo) => async () =>{
     }
 }
 
-export const createPost = (
-    user_id,
-    image_1,
-    post_lat,
-    post_lng,
-    description
+export const createPost = (payload) => async dispatch =>{
 
-    ) => async dispatch =>{
         const data = new FormData()
-        data.append('user_id',user_id)
-        data.append('image_1',image_1)
-        data.append('post_lat',post_lat)
-        data.append('post_lng',post_lng)
-        data.append('description',description)
+        data.append('user_id' ,payload.user_id)
+        data.append('image_1',payload.image_1)
+        data.append('post_lat',payload.post_lat)
+        data.append('post_lng',payload.post_lng)
+        data.append('description',payload.description)
 
+        console.log(data,"<<<<<<THUNK DATA")
 
     const response = await fetch(`/api/posts/new`,{
         method: 'POST',
-        body: data,
-
+        body: data
+        // body:{
+        //     "user_id": data['user_id'],
+        //     "image_1": data['image_1'],
+        //     "post_lat": data['post_lat'],
+        //     "post_lng": data['post_lng'],
+        //     "description": data['description']
+        // }
 
     });
     if(response.ok){

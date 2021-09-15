@@ -8,6 +8,7 @@ import datetime
 import os
 import boto3
 from botocore.config import Config
+from werkzeug.datastructures import ImmutableMultiDict
 
 post_routes = Blueprint('posts',__name__)
 
@@ -68,13 +69,18 @@ CREATE NEW POST
 @login_required
 def new_post():
     form = PostForm()
+
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data,"<<<<<<<FORM_DATA")
+
     if form.validate_on_submit():
         print(form,"<<<<<<<FORM")
+        print(request.method,'<<<<REQUEST')
+        print(request.files,"<<<<<<<<REQUEST OBJ")
         photo = request.files['image_1']
         print(photo,"<<<<<<<<PHOTO")
         imgName = secure_filename(photo.filename)
-        photo.save(photo.filename)
+        photo.save(imgName)
         imgUrl= upload_to_aws(imgName, BUCKET_NAME)
         print(imgUrl,"<<<<<<IMG URL")
         os.remove(imgName)
@@ -95,7 +101,8 @@ def new_post():
                         created = datetime.datetime.utcnow())
         db.session.add(new_post)
         db.session.commit()
-        return new_post.to_dict()
+        return new_post.to_dict([])
+
     return {"flask-errors":flask_form_errors(form.errors)},401
 
 
