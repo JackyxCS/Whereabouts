@@ -20,7 +20,8 @@ def validation_errors_to_error_messages(validation_errors):
 @login_required
 def getMissions():
     userId = current_user.id
-    missions = Mission.query.filter(User.id == userId).all()
+    missions = Mission.query.filter(Mission.user_id == userId).all()
+    # print(current_user.id, '<<<<<<<<<CURRENT')
     return {'mission': [{
         'id': mission.id,
         'user_id': mission.user_id,
