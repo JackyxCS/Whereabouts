@@ -68,6 +68,10 @@ export const createPost = (payload) => async dispatch =>{
         const data = new FormData()
         data.append('user_id' ,payload.user_id)
         data.append('image_1',payload.image_1)
+        data.append('image_2',payload.image_2)
+        data.append('image_3',payload.image_3)
+        data.append('image_4',payload.image_4)
+        data.append('image_5',payload.image_4)
         data.append('post_lat',payload.post_lat)
         data.append('post_lng',payload.post_lng)
         data.append('description',payload.description)
@@ -77,13 +81,6 @@ export const createPost = (payload) => async dispatch =>{
     const response = await fetch(`/api/posts/new`,{
         method: 'POST',
         body: data
-        // body:{
-        //     "user_id": data['user_id'],
-        //     "image_1": data['image_1'],
-        //     "post_lat": data['post_lat'],
-        //     "post_lng": data['post_lng'],
-        //     "description": data['description']
-        // }
 
     });
     if(response.ok){

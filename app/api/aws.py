@@ -1,5 +1,6 @@
 import datetime
 import logging
+from werkzeug.utils import secure_filename
 import os
 import boto3
 import botocore
@@ -19,23 +20,27 @@ BUCKET_NAME='whereaboutsbucket'
 
 # )
 
-def upload_to_aws(file_name, bucket):
+def upload_to_aws(image_set, bucket, userId):
 
-    aws_object = str(int(datetime.datetime.now().timestamp())) + os.path.basename(file_name)
+    aws_object = f"UserId:{userId}-"+str(int(datetime.datetime.now().timestamp())) 
         # Upload the file
     s3_client = boto3.client('s3')
     try:
-        s3_client.upload_file(
-        file_name,
-        bucket,
-        aws_object,
-        ExtraArgs={'ACL': 'public-read'}
-        )
-
-
-        config = botocore.client.Config(signature_version=botocore.UNSIGNED)
-        object_url = boto3.client('s3', config=config).generate_presigned_url('get_object', ExpiresIn=0, Params={'Bucket': bucket, 'Key': aws_object})
-        return object_url
+        imgUrls =[]
+        for image in image_set:
+            img_name = secure_filename(image.filename)
+            image.save(img_name)
+            s3_client.upload_file(
+            img_name,
+            bucket,
+            aws_object,
+            ExtraArgs={'ACL': 'public-read'}
+            )
+            config = botocore.client.Config(signature_version=botocore.UNSIGNED)
+            object_url = boto3.client('s3', config=config).generate_presigned_url('get_object', ExpiresIn=0, Params={'Bucket': bucket, 'Key': aws_object})
+            imgUrls.append(object_url)
+            os.remove(img_name)
+        return imgUrls
     except ClientError as e:
         logging.error(e)
         return False

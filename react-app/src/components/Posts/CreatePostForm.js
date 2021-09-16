@@ -22,10 +22,10 @@ const CreatePostForm = () => {
     const uploadFiles = e => {
         console.log(e.target.files[0],"<<<<<FILESSSSS")
         setImage_1(e.target.files[0])
-        // setImage_2(e.target.files[0])
-        // setImage_3(e.target.files[0])
-        // setImage_4(e.target.files[0])
-        // setImage_5(e.target.files[0])
+        setImage_2(e.target.files[1])
+        setImage_3(e.target.files[2])
+        setImage_4(e.target.files[3])
+        setImage_5(e.target.files[5])
     }
 
     const updateDescription = (e) => setDescription (e.target.value)
@@ -44,6 +44,10 @@ const CreatePostForm = () => {
         const payload = {
             user_id,
             image_1,
+            image_2,
+            image_3,
+            image_4,
+            image_5,
             post_lat,
             post_lng,
             description
@@ -62,6 +66,30 @@ const CreatePostForm = () => {
             className='form-input'
             type='file'
             name='image_1'
+            onChange={uploadFiles}
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_2'
+            onChange={uploadFiles}
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_3'
+            onChange={uploadFiles}
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_4'
+            onChange={uploadFiles}
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_5'
             onChange={uploadFiles}
             />
 
