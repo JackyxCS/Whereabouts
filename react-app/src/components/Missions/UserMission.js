@@ -4,9 +4,8 @@ import { NavLink } from 'react-router-dom'
 import { fetchMissions } from '../../store/missions';
 import MapContainer from '../Maps';
 import UserLocationForm from './Missions';
-import styles from './UserMission.module.css'
 import ChooseMissionForm from "./ChooseMission.js"
-// import LocationFormModal from '../LocationModal/index.js'
+import styles from './UserMission.module.css'
 
 const DisplayUserMission = () => {
     const dispatch = useDispatch();
@@ -38,10 +37,10 @@ const DisplayUserMission = () => {
         if (Date.now() < Date.parse(missionChoices[0].created_at) + 86400000) {
             chooseMissions = (
                 <div className={styles.userMissionContainer}>
-                    <div className={styles.missionInfo}>Active Mission Expires Every 24 Hours
-                        <div>Mission: ({missionChoices[0].mission_lat.toFixed(6)}, {missionChoices[0].mission_lng.toFixed(6)})</div>
-                        <div>Mission Began: {missionChoices[0].created_at}</div>
-                        <div>Time Remaining: {((Date.parse(missionChoices[0].created_at) + 86400000 - Date.now()) / 3600000).toFixed(1)} Hours</div>
+                    <div className={styles.missionInfo}>
+                        <div><strong>Mission:</strong> ({missionChoices[0].mission_lat.toFixed(6)}, {missionChoices[0].mission_lng.toFixed(6)})</div>
+                        <div><strong>Mission Began:</strong> {missionChoices[0].created_at}</div>
+                        <div><strong>Time Remaining:</strong> {((Date.parse(missionChoices[0].created_at) + 86400000 - Date.now()) / 3600000).toFixed(1)} Hours</div>
                         <MapContainer missions={missionChoices} />
                     </div>
                     {/* <div className={styles.updateLocation}> Update Your Location
@@ -60,8 +59,7 @@ const DisplayUserMission = () => {
     }
 
     return (
-        <div className="mission-dashboard-container">
-            <h2>Mission Dashboard</h2>
+        <div>
             {chooseMissions}
         </div>
     )
