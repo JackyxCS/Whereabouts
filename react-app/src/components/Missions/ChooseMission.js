@@ -59,9 +59,11 @@ const ChooseMissionForm = () => {
             userId,
             currentMission
         }
+        console.log("MISSION PAYLOAD", missionPayload);
         await dispatch(deleteMissions())
         await dispatch(postMission(missionPayload))
-        history.push(`/users/${userId}`)
+        await dispatch(fetchMissions())
+        // history.push(`/users/${userId}`)
     }
 
     return (

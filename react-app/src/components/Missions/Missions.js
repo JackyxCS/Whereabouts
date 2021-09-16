@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { postMissions, updateUserPref, deleteMissions } from '../../store/missions';
+import { postMissions, updateUserPref, deleteMissions, fetchMissions } from '../../store/missions';
 import styles from './Missions.module.css'
 
 
@@ -105,7 +105,8 @@ const UserLocationForm = () => {
         await dispatch(updateUserPref(userPayload))
         await dispatch(deleteMissions())
         await dispatch(postMissions(randomLocationPayload))
-        history.push(`/missions/select`)
+        await dispatch(fetchMissions())
+        // history.push(`/missions/select`)
     }
 
     return (

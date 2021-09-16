@@ -105,7 +105,7 @@ const LocationForm = () => {
         await dispatch(updateUserPref(userPayload))
         await dispatch(deleteMissions())
         await dispatch(postMissions(randomLocationPayload))
-        history.push(`/missions/select`)
+        // history.push(`/missions/select`)
     }
 
     return (

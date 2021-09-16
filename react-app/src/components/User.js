@@ -18,10 +18,11 @@ function User() {
     const currentMission = useSelector(state => Object.values(state.missionsReducer))
     const { userId }  = useParams();
     const [paramUser, setParamUser] = useState({});
-    useEffect(()=>{
 
+    useEffect(()=>{
         dispatch(getAllPosts())
     },[dispatch])
+    
     const userPosts = posts.filter((post)=>post.user_id === Number(userId)).reverse()
 
     // console.log(userPosts, '<===== USER_POSTS ')
@@ -49,7 +50,6 @@ let addPost
         return (
             <div>
                 <h1>{user.username}'s profile page</h1>
-
                 <UserMission />
                 <div>
                     <strong>username:</strong> {user.username}
@@ -71,7 +71,7 @@ let addPost
         );
     } else {
         return (
-            <div>
+            <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
             <PhotoGrid posts={userPosts} />
         </div>
