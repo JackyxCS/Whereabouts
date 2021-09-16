@@ -16,32 +16,39 @@ def validation_errors_to_error_messages(validation_errors):
 
 # grabs all comments to to place in state, filter for a post in frontend
 @comment_routes.route('/', methods=['GET'])
-@login_required
 def getAllComments():
     comments = Comment.query.all()
-    return {'comments': [comment.to_dict() for comment in comments]}
+    # print(comments, '<<<<<<COMMENTS')
+    return {'comments': [{
+        'id': comment.id,
+        'post_id': comment.post_id,
+        'user_id': comment.user_id,
+        'comment': comment.comment,
+    } for comment in comments]}
 
 @comment_routes.route('/', methods=["POST"])
 @login_required
 def postComment():
-    form = PostCommentForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        post_id = form.data["post_id"]
-        user_id = form.data["user_id"]
-        comment = form.data["comment"]
+    data = request.get_json()["comment"]
+    post_id = data["postId"]
+    user_id = data["userId"]
+    comment = data["comment"]
 
-        new_comment = Comment(
-            user_id = user_id,
-            post_id = post_id,
-            comment = comment,
-        )
+    new_comment = Comment(
+        user_id = user_id,
+        post_id = post_id,
+        comment = comment,
+    )
 
-        db.session.add(comment)
-        db.session.commit()
+    db.session.add(new_comment)
+    db.session.commit()
 
-        return new_comment.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'comment': {
+        'id': new_comment.id,
+        'post_id': new_comment.post_id,
+        'user_id': new_comment.user_id,
+        'comment': new_comment.comment,
+    }}
 
 @comment_routes.route('/<int:commentId>', methods=['PUT'])
 @login_required

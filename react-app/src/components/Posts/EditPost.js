@@ -1,7 +1,7 @@
 import {  useEffect, useState } from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
-import { editPost} from '../../store/posts';
+import { editPost } from '../../store/posts';
 
 const EditPost = ({post}) =>{
 
