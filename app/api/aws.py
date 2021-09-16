@@ -22,7 +22,7 @@ BUCKET_NAME='whereaboutsbucket'
 
 def upload_to_aws(image_set, bucket, userId):
 
-    aws_object = f"UserId:{userId}-"+str(int(datetime.datetime.now().timestamp())) 
+    aws_object = f"UserId:{userId}-"+str(int(datetime.datetime.now().timestamp()))
         # Upload the file
     s3_client = boto3.client('s3')
     try:
@@ -33,14 +33,17 @@ def upload_to_aws(image_set, bucket, userId):
             s3_client.upload_file(
             img_name,
             bucket,
-            aws_object,
+            img_name,
             ExtraArgs={'ACL': 'public-read'}
             )
             config = botocore.client.Config(signature_version=botocore.UNSIGNED)
-            object_url = boto3.client('s3', config=config).generate_presigned_url('get_object', ExpiresIn=0, Params={'Bucket': bucket, 'Key': aws_object})
+            object_url = str("https://whereaboutsbucket.s3.amazonaws.com/"+f"{img_name}")
             imgUrls.append(object_url)
             os.remove(img_name)
+        print(imgUrls,"<<<<<<<<IMG_URLS")
+        print(len(imgUrls),"<<<<<<<<NUMBER OF FILES")
         return imgUrls
+
     except ClientError as e:
         logging.error(e)
         return False

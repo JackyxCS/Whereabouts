@@ -2,7 +2,6 @@
 
 nav {
     display: grid;
-    /* width: 100%; */
     grid-template-columns: 20% 80%;
     height: 100px;
     background-color: var(--wa-blue);  /* browsers with no gradients */

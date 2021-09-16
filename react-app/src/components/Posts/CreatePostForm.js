@@ -1,7 +1,7 @@
 import {  useEffect, useState } from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
-import { createPost, uploadPhoto } from '../../store/posts';
+import { createPost } from '../../store/posts';
 
 const CreatePostForm = () => {
     const dispatch = useDispatch()
@@ -10,23 +10,20 @@ const CreatePostForm = () => {
     const post_lat= currentMission[0].mission_lat
     const post_lng= currentMission[0].mission_lng
     const [image_1, setImage_1] = useState("")
-    const [image_2, setImage_2] = useState()
-    const [image_3, setImage_3] = useState()
-    const [image_4, setImage_4] = useState()
-    const [image_5, setImage_5] = useState()
+    const [image_2, setImage_2] = useState("")
+    const [image_3, setImage_3] = useState("")
+    const [image_4, setImage_4] = useState("")
+    const [image_5, setImage_5] = useState("")
     const [description, setDescription] = useState('')
     const [validationErrors,setValidationErrors] = useState([])
     console.log(user_id,`<<<<<<<USER_ID`)
     console.log(post_lat,`<<<<<<<CURRENT_MISSION!!`)
 
-    const uploadFiles = e => {
-        console.log(e.target.files[0],"<<<<<FILESSSSS")
-        setImage_1(e.target.files[0])
-        setImage_2(e.target.files[1])
-        setImage_3(e.target.files[2])
-        setImage_4(e.target.files[3])
-        setImage_5(e.target.files[5])
-    }
+    const uploadFile1 = e => {setImage_1(e.target.files[0])}
+    const uploadFile2 = e => { setImage_2(e.target.files[0])}
+  const uploadFile3 = e => {setImage_3(e.target.files[0])}
+const uploadFile4 = e => {setImage_4(e.target.files[0])}
+const uploadFile5 = e => {setImage_5(e.target.files[0])}
 
     const updateDescription = (e) => setDescription (e.target.value)
 
@@ -66,31 +63,31 @@ const CreatePostForm = () => {
             className='form-input'
             type='file'
             name='image_1'
-            onChange={uploadFiles}
+            onChange={uploadFile1}
             />
               <input
             className='form-input'
             type='file'
             name='image_2'
-            onChange={uploadFiles}
+            onChange={uploadFile2}
             />
               <input
             className='form-input'
             type='file'
             name='image_3'
-            onChange={uploadFiles}
+            onChange={uploadFile3}
             />
               <input
             className='form-input'
             type='file'
             name='image_4'
-            onChange={uploadFiles}
+            onChange={uploadFile4}
             />
               <input
             className='form-input'
             type='file'
             name='image_5'
-            onChange={uploadFiles}
+            onChange={uploadFile5}
             />
 
             <textarea
