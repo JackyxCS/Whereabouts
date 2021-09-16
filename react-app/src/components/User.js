@@ -30,10 +30,14 @@ function User() {
         })();
     }, [userId]);
 let addPost
-    if(currentMission.length === 0){
+    console.log(currentMission,"<<<<<CURRENT MISSIONS")
+    console.log(currentMission,"<<<<<LENGTH OF CURRENT MISSIONS ")
+    if(currentMission.length === 3){
         addPost=(<></>)
-    }else{
+    }else if (currentMission.length === 1){
        addPost=( <PostFormModal />)
+    }else{
+        addPost=(<></>)
     }
 
     if (!user) {
