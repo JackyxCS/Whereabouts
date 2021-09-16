@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from "react";
 // import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../../store/posts';
+
+import { fetchComments } from '../../store/comments';
 import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
+
 import "./posts.css"
 
 const PostDetail = () => {
 
     const dispatch = useDispatch()
-    const [featurePost, setFeaturePost] = useState("");
-    const posts = useSelector(state => state.posts)
+
+
     const { postId } = useParams();
+    const posts = useSelector(state => state.posts)
+    const comments = useSelector(state => state.comments)
+    const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
     const post = posts[postId];
 
     useEffect(() => {
+        dispatch(fetchComments())
         dispatch(getAllPosts())
     }, [dispatch])
+
 
     useEffect(() => {
         if (featurePost === "" && post) {
             setFeaturePost(post.image_1)
         }
     }, [post, featurePost])
+
 
     if (post) {
         return (
