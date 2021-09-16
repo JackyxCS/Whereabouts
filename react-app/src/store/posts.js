@@ -54,15 +54,11 @@ export const createPost = (payload) => async dispatch =>{
         data.append('image_2',payload.image_2)
         data.append('image_3',payload.image_3)
         data.append('image_4',payload.image_4)
-        data.append('image_5',payload.image_4)
+        data.append('image_5',payload.image_5)
         data.append('post_lat',payload.post_lat)
         data.append('post_lng',payload.post_lng)
         data.append('description',payload.description)
 
-        console.log(data,"<<<<<<THUNK DATA")
-        console.log(data.image_1,"<<<<<<DATA IMAGE")
-        console.log(data.image_2,"<<<<<<DATA IMAGE")
-        console.log(data.image_3,"<<<<<<DATA IMAGE")
 
     const response = await fetch(`/api/posts/new`,{
         method: 'POST',
@@ -110,7 +106,7 @@ export const deletePost = (payload) => async dispatch =>{
     if(response.ok){
         const postRes = await response.json()
         const post_id = postRes.post_id
-        console.log(post_id,"<<<<<POST IN THUNK")
+    
         dispatch(remove(post_id))
     }
 

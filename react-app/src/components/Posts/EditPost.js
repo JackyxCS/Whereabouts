@@ -3,12 +3,15 @@ import {  useEffect, useState } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { editPost } from '../../store/posts';
 import { useHistory } from 'react-router-dom';
-
+import './EditPost.css'
 const EditPost = ({postId}) =>{
 
     const dispatch = useDispatch()
     const history = useHistory()
-    const [description, setDescription] = useState('')
+    const posts = useSelector(state => state?.posts)
+    const postDescription = posts[postId].description
+    console.log(postDescription,"<<<<POST_DESCRIPTION")
+    const [description, setDescription] = useState(postDescription)
     const [validationErrors,setValidationErrors] = useState([])
     const updateDescription = (e) => setDescription (e.target.value)
 
@@ -37,15 +40,17 @@ const EditPost = ({postId}) =>{
     }
     return(
         <>
-        <div>
-            <form  onSubmit={handleSubmit}>
+        <div className="modal-wrapper-div">
+            <form className="form-div" onSubmit={handleSubmit}>
                 <div className="form-errors">
                 {validationErrors.map((error, int) => (<div key={int}>{error}</div>))}
         </div>
         <textarea
             className='form-input'
             name='description'
-            onChange={updateDescription}/>
+            onChange={updateDescription}
+            value={description}/>
+
 
             <button className="primary-button form-submit" type='submit'>Done</button>
 

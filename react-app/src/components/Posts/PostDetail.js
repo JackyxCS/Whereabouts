@@ -32,7 +32,7 @@ const PostDetail = () => {
         dispatch(getAllPosts())
     }, [dispatch])
 
-    const [featurePost, setFeaturePost] = useState('')
+
 
 
     useEffect(() => {
