@@ -44,6 +44,17 @@ a {
 
 /* BUTTONS */
 
+.tertiary-button, button {
+    color: var(--wa-blue);
+    background-color: transparent;
+    border: 1px solid var(--wa-blue);
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 10px;
+    padding: 5px 10px;;
+    border-radius: 5px;
+}
+
 .primary-button, .secondary-button {
     border-radius: 20px;
     line-height: 30px;
@@ -73,6 +84,7 @@ a {
 .secondary-button:hover {
     box-shadow: 0px 0px 0px 1px white;
 }
+
 
 @media all and (max-width: 600px) {
     .primary-button {
@@ -104,6 +116,10 @@ a {
     justify-content: center;
     align-items: center;
     margin: 20px 40px;
+}
+
+.form-instructions {
+    color: white;
 }
 
 .form-errors {

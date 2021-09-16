@@ -1,9 +1,13 @@
 import React, {  useEffect , useState} from 'react';
+import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
 import PhotoGrid from './Posts/PhotoGrid.js';
 import PostFormModal from './Posts/PostFormModal';
+import UserMission from './Missions/UserMission.js';
+// import UserLocationForm from './Missions/Missions.js';
+import LocationFormModal from './LocationModal/index.js'
 
 function User() {
 
@@ -45,7 +49,8 @@ let addPost
         return (
             <div>
                 <h1>{user.username}'s profile page</h1>
-                <p>You can only see this personal info it is your page</p>
+
+                <UserMission />
                 <div>
                     <strong>username:</strong> {user.username}
                 </div>
@@ -55,7 +60,12 @@ let addPost
                 <div>
                     {addPost}
                 </div>
-                <h2>Give this PhotoGrid some query props!</h2>
+                <div className="mission-dashboard-note">
+                    <p className="update-location-disclaimer">Other users can see your posts, but not your mission dashboard</p>
+                    <p className="update-location-prompt">Need to update your current location settings?</p>
+                    <LocationFormModal />
+                </div>
+
                 <PhotoGrid posts={userPosts} />
             </div>
         );
@@ -63,7 +73,6 @@ let addPost
         return (
             <div>
             <h1>{paramUser.username}'s profile page</h1>
-            <h2>Give this PhotoGrid some query props!</h2>
             <PhotoGrid posts={userPosts} />
         </div>
         )
