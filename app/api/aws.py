@@ -40,8 +40,6 @@ def upload_to_aws(image_set, bucket, userId):
             object_url = str("https://whereaboutsbucket.s3.amazonaws.com/"+f"{img_name}")
             imgUrls.append(object_url)
             os.remove(img_name)
-        print(imgUrls,"<<<<<<<<IMG_URLS")
-        print(len(imgUrls),"<<<<<<<<NUMBER OF FILES")
         return imgUrls
 
     except ClientError as e:
