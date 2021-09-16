@@ -76,7 +76,7 @@ def new_post():
     if form.validate_on_submit():
         img_set = request.files.to_dict().values()
 
-      
+
 
         userId = request.form['user_id']
         urls= upload_to_aws(img_set, BUCKET_NAME, userId)
@@ -155,3 +155,28 @@ def delete_post(id):
     db.session.delete(post)
     db.session.commit()
     return {"post_id":id}
+
+@post_routes.route('/<int:postId>/likes',methods=["POST"])
+@login_required
+def like_post(postId):
+    user_id = request.form['user_id']
+    user_like = Like(
+        user_id=user_id,
+        post_id=postId
+    )
+    db.session.add(user_like)
+    db.session.commit()
+    return user_like.to_dict()
+
+@post_routes.route('/<int:postId>/likes/<int:likeId>',methods=["DELETE"])
+@login_required
+def delete_post_like(postId, likeId):
+
+
+    like_to_delete = Like.query.get(likeId)
+    db.session.delete(like_to_delete)
+    db.session.commit()
+    return {
+        "post_id":postId,
+        "like_id":likeId
+    }

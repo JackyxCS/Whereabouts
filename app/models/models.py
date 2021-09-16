@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     user_lat = db.Column(db.Float)
     user_lng = db.Column(db.Float)
     user_radius = db.Column(db.Integer)
+    post_details = db.relationship("Post", back_populates="user_details", cascade="all, delete")
     mission_details = db.relationship("Mission", back_populates="user_details", cascade="all, delete")
     like_details = db.relationship("Like", back_populates="user_details", cascade="all, delete")
     comment_details = db.relationship("Comment", back_populates="user_details", cascade="all, delete")
@@ -76,6 +77,7 @@ class Post(db.Model):
     post_lng = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    user_details = db.relationship("User", back_populates="post_details")
     like_details = db.relationship("Like", back_populates="post_details", cascade="all, delete")
     comment_details = db.relationship("Comment", back_populates="post_details", cascade="all, delete")
 

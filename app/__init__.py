@@ -11,6 +11,7 @@ from .api.auth_routes import auth_routes
 from .api.post_routes import post_routes
 from .api.mission_routes import mission_routes
 from .api.comment_routes import comment_routes
+
 # from .api.map import maps_routes
 
 
@@ -39,6 +40,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(post_routes, url_prefix='/api/posts')
 app.register_blueprint(mission_routes, url_prefix='/api/missions')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
+
 # app.register_blueprint(maps_routes, url_prefix='/api/maps')
 db.init_app(app)
 Migrate(app, db)
