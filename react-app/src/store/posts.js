@@ -44,24 +44,7 @@ export const getOnePost = (postId) => async dispatch =>{
         dispatch(loadOne(post))
     }
 }
-export const uploadPhoto = (photo) => async () =>{
-    const dataBlob = new FormData()
-    dataBlob.append('photo', photo)
-    const response = await fetch('/api/posts/aws_upload',{
-        method:'post',
-        headers: {
-            'Content-Type': "multipart/form-data"
-        },
-        body: dataBlob
-    })
-    if (response.ok){
-        const awsUrl = await response.json()
-        const imgUrl = awsUrl.image_1_url
-        console.log(imgUrl,'<<<<imgURL')
-        return imgUrl
 
-    }
-}
 
 export const createPost = (payload) => async dispatch =>{
 
@@ -96,17 +79,18 @@ export const createPost = (payload) => async dispatch =>{
 
 
 export const editPost = (payload) => async dispatch =>{
+    console.log(payload,"<<<<PAYLOAD THUNK")
+
     const {
         description,
         post_id
     } = payload
-    const data = {
-        description,
-        post_id
-    }
+
+    const data = new FormData()
+    data.append('description' ,description)
     const response = await fetch(`/api/posts/${post_id}`,{
         method: 'PUT',
-        body: JSON.stringify(data)
+        body: data
     });
     if(response.ok){
         const post = await response.json()

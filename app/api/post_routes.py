@@ -136,10 +136,16 @@ EDIT POST DESCRIPTION
 def edit_post(id):
     form = EditPostForm()
     post = Post.query.get(id)
-    post.description = form.data['description']
+
+    post_likes = Like.query.filter(Like.post_id == post.id).all()
+    post_like_user_id_list = [post.user_id for post in post_likes]
+
+    print(request.form,"<<<<<<REQUEST.FORM")
+    post.description = request.form['description']
+
     db.session.add(post)
     db.session.commit()
-    return post.to_dict()
+    return post.to_dict(post_like_user_id_list)
 
 """
 DELETE POST
