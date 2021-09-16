@@ -10,6 +10,18 @@ function Explore() {
 
     const posts = useSelector(state => Object.values(state.posts)).reverse()
 
+    // const sortedPosts = posts.sort((a, b) => {
+    //     if (a.created < b.created) {
+    //       return -1;
+    //     } else if (a.created === b.created) {
+    //       return 0;
+    //     } else {
+    //       return 1;
+    //     }
+    // })
+
+
+
     useEffect(() => {
         dispatch(getAllPosts())
     }, [dispatch])

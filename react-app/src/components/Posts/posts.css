@@ -19,7 +19,7 @@
     margin-block-start: 0;
 }
 
-/* PHOTO GRID COMPONENTS */
+/* PHOTO GRID COMPONENT */
 
 .photo-grid-list {
     list-style-type: none;
@@ -52,7 +52,7 @@
 }
 
 
-/* POST PREVIEW COMPONENTS */
+/* POST PREVIEW COMPONENT */
 
 .posts-preview-image {
     border-radius: 10px;
@@ -62,4 +62,117 @@
 }
 
 
-/* POST DETAIL COMPONENTS */
+/* POST DETAIL COMPONENT */
+
+.posts-detail-list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.post-detail-thumbnail-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    border: 3px solid var(--wa-green);
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+.thumbnail-image {
+    max-width: 75px;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+
+.post-detail-created-div {
+    display: flex;
+}
+
+.post-detail-date, .post-detail-user {
+    margin: 5px;
+    color: var(--wa-green);
+    margin: 20px 10px 10px;
+    font-weight: 700;
+}
+
+.post-detail-description {
+    font-weight: 700;
+    font-size: 16px;
+    max-width: 75%;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.post-detail-map {
+    background: var(--wa-blue);
+    width:100px;
+    height: 100px;
+    margin: 30px;
+}
+
+.post-detail-likes-div {
+    display: flex;
+    align-items: center;
+}
+
+.fa-heart {
+    margin: 5px;
+    color: var(--wa-blue)
+}
+
+.post-detail-like-count {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 5px;
+}
+
+/* FEATURE IMAGE COMPONENT */
+
+.post-detail-feature-div {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-detail-feature-image {
+    max-height: 500px;
+    max-width: 500px;
+}
+
+
+@media all and (max-width: 520px) {
+
+    .post-detail-thumbnail-div {
+        max-width: 300px;
+    }
+
+    .thumbnail-image {
+        max-width: 35px;
+        margin: 10px;
+        box-sizing: border-box;
+    }
+
+    .post-detail-feature-div {
+        height: 300px;
+    }
+
+    .post-detail-feature-image {
+        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .post-detail-description {
+        max-width: 80%;
+        font-weight: 400;
+        font-size: 14px;
+        margin-block-start: 0;
+        margin-block-end: 0;
+    }
+}
