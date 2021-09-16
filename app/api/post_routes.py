@@ -75,7 +75,7 @@ def new_post():
 
     if form.validate_on_submit():
         img_set = request.files.to_dict().values()
-        # print(form,"<<<<<<<FORM")
+        print(img_set,"<<<<<<<IMG_SET")
         # print(request.method,'<<<<REQUEST')
         # print(request.files,"<<<<<<<<REQUEST OBJ")
         # photo = request.files['image_1']
@@ -83,9 +83,29 @@ def new_post():
         # imgName = secure_filename(photo.filename)
         # photo.save(imgName)
         userId = request.form['user_id']
-        imgUrls= upload_to_aws(img_set, BUCKET_NAME, userId)
+        urls= upload_to_aws(img_set, BUCKET_NAME, userId)
+        imgUrls = {index: url for index, url in enumerate(urls)}
+        print(imgUrls,"<<<<<<IMG URL")
 
-        # print(imgUrl,"<<<<<<IMG URL")
+
+        image_2= None
+        image_3= None
+        image_4= None
+        image_5= None
+        if len(urls) > 1:
+            image_2 = imgUrls[1]
+        if len(urls) > 2:
+            image_2 = imgUrls[1]
+            image_3= imgUrls[2]
+        if len(urls) >3:
+            image_2 = imgUrls[1]
+            image_3= imgUrls[2]
+            image_4 = imgUrls[3]
+        if len(urls) >= 5:
+            image_2 = imgUrls[1]
+            image_3= imgUrls[2]
+            image_4 = imgUrls[3]
+            image_5 = imgUrls[4]
 
 
         post_lat = request.form['post_lat']
@@ -94,10 +114,10 @@ def new_post():
 
         new_post = Post(user_id=userId,
                         image_1=imgUrls[0],
-                        image_2=imgUrls[1],
-                        image_3=imgUrls[2],
-                        image_4 =imgUrls[3],
-                        image_5=imgUrls[4],
+                        image_2=image_2,
+                        image_3= image_3,
+                        image_4 = image_4,
+                        image_5= image_5,
                         post_lat=post_lat,
                         post_lng=post_lng,
                         description=data['description'],
