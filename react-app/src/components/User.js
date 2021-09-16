@@ -1,4 +1,5 @@
-import React, {  useEffect , useState} from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -11,29 +12,28 @@ import LocationFormModal from './LocationModal/index.js'
 
 function User() {
 
-    const dispatch= useDispatch()
+    const dispatch = useDispatch()
     const user = useSelector(state => state.session.user);
     //const user_id = useSelector(state => state.session.user).id
-    const posts = useSelector (state => Object.values(state.posts))
+    const posts = useSelector(state => Object.values(state.posts))
     const currentMission = useSelector(state => Object.values(state.missionsReducer))
-    const { userId }  = useParams();
+    const { userId } = useParams();
     const [paramUser, setParamUser] = useState({});
 
     useEffect(()=>{
         dispatch(getAllPosts())
-    },[dispatch])
-    
-    const userPosts = posts.filter((post)=>post.user_id === Number(userId)).reverse()
-
-    // console.log(userPosts, '<===== USER_POSTS ')
+    }, [dispatch])
+  
+    const userPosts = posts.filter((post) => post.user_id === Number(userId)).reverse()
 
     useEffect(() => {
         (async () => {
-        const response = await fetch(`/api/users/${userId}`);
-        const user = await response.json();
-        setParamUser(user);
+            const response = await fetch(`/api/users/${userId}`);
+            const user = await response.json();
+            setParamUser(user);
         })();
     }, [userId]);
+
 let addPost
     console.log(currentMission,"<<<<<CURRENT MISSIONS")
     console.log(currentMission,"<<<<<LENGTH OF CURRENT MISSIONS ")
@@ -75,10 +75,10 @@ let addPost
         );
     } else {
         return (
-            <div className="other-users-profile">
+          <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
             <PhotoGrid posts={userPosts} />
-        </div>
+          </div>
         )
 
     }
