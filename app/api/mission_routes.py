@@ -21,7 +21,6 @@ def validation_errors_to_error_messages(validation_errors):
 def getMissions():
     userId = current_user.id
     missions = Mission.query.filter(Mission.user_id == userId).all()
-    # print(current_user.id, '<<<<<<<<<CURRENT')
     return {'mission': [{
         'id': mission.id,
         'user_id': mission.user_id,
@@ -35,7 +34,6 @@ def getMissions():
 def postMission():
     form = ChooseMissionsForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('gets here')
     if form.validate_on_submit():
         user_id = form.data["user_id"]
         newLat1 = form.data["newLat1"]
