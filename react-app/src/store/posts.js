@@ -77,6 +77,9 @@ export const createPost = (payload) => async dispatch =>{
         data.append('description',payload.description)
 
         console.log(data,"<<<<<<THUNK DATA")
+        console.log(data.image_1,"<<<<<<DATA IMAGE")
+        console.log(data.image_2,"<<<<<<DATA IMAGE")
+        console.log(data.image_3,"<<<<<<DATA IMAGE")
 
     const response = await fetch(`/api/posts/new`,{
         method: 'POST',
