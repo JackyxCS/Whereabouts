@@ -8,21 +8,24 @@ import { fetchComments } from '../../store/comments';
 import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
 
+import DeletePost from "./DeletePost";
+import EditPostModal from "./EditPostModal";
 import "./posts.css"
 
 const PostDetail = () => {
 
     const dispatch = useDispatch()
+    const [featurePost, setFeaturePost] = useState("");
 
 
     const { postId } = useParams();
     const posts = useSelector(state => state.posts)
-    const comments = useSelector(state => state.comments)
+    const comments = useSelector(state => Object.values(state.comments))
     const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
     const post = posts[postId];
-
+    const userId = useSelector(state => state?.session.user.id)
     useEffect(() => {
-        dispatch(fetchComments())
+        // dispatch(fetchComments())
         dispatch(getAllPosts())
     }, [dispatch])
 
@@ -32,7 +35,32 @@ const PostDetail = () => {
             setFeaturePost(post.image_1)
         }
     }, [post, featurePost])
+    const postUser = post?.user_id
 
+    let EditShow
+    let DeleteShow
+    if(userId == postUser){
+        EditShow=(
+            <>
+            <EditPostModal postId={postId}/>
+            </>
+        )
+        DeleteShow=(
+            <>
+            <DeletePost postId={postId}/>
+            </>
+        )
+
+    }else{
+        EditShow=(
+        <>
+        </>
+        )
+        DeleteShow=(
+            <>
+            </>
+        )
+    }
 
     if (post) {
         return (
@@ -62,6 +90,8 @@ const PostDetail = () => {
                 </div>
 
                 {post.description && <p className="post-detail-description">{post.description}</p>}
+                {EditShow}
+                {DeleteShow}
 
     {/* change from coordinates to city or map */}
                 <div className="post-detail-map">

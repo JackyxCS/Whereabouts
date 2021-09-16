@@ -1,6 +1,7 @@
 import {  useEffect, useState } from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
+import { Redirect } from 'react-router';
 import { createPost } from '../../store/posts';
 
 const CreatePostForm = () => {
@@ -50,7 +51,11 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
             description
         }
         console.log(payload,`<<<<<<<PAYLOAD`)
-        await dispatch(createPost(payload))
+        const newPost = await dispatch(createPost(payload))
+        if(newPost){
+          return <Redirect to={`/users/${user_id}`}/>
+        }
+
     }
     return(
         <>
