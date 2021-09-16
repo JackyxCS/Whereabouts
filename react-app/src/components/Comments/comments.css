@@ -1,0 +1,27 @@
+.comment-section-div {
+    display: flex;
+    flex-direction: column;
+    border-top: 3px solid var(--wa-green);
+    align-items: center;
+    margin-top: 20px;
+}
+
+.comment-section-title {
+    color: var(--wa-green)
+}
+
+.comments-list {
+    padding-inline-start: 0;
+    margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.comments-list-item {
+    list-style-type: none;
+
+    align-items: flex-start;
+}
+
+.comments-list-item-content {
+
+}
