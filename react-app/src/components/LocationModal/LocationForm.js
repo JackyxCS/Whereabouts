@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { postMissions, updateUserPref, deleteMissions, fetchMissions } from '../../store/missions';
-import styles from './Missions.module.css'
+import { postMissions, updateUserPref, deleteMissions } from '../../store/missions';
+import styles from '../Missions/Missions.module.css'
 
 
-const UserLocationForm = () => {
+const LocationForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.session.user);
@@ -105,47 +105,53 @@ const UserLocationForm = () => {
         await dispatch(updateUserPref(userPayload))
         await dispatch(deleteMissions())
         await dispatch(postMissions(randomLocationPayload))
-        await dispatch(fetchMissions())
         // history.push(`/missions/select`)
     }
 
     return (
-        <form onSubmit={handleSubmit} className={styles.missionForm}>
-            <input
-                placeholder="Latitude"
-                type="number"
-                name="lat"
-                value={lat}
-                onChange={(e) => setLat(e.target.value)}
-                required
-            />
+        <div className="modal-wrapper-div">
+            {/* <form onSubmit={handleSubmit} className={styles.missionForm}> */}
+            <form onSubmit={handleSubmit} className="form-div">
+                <p className="form-instructions">Enter latitude and longitude as decimal numbers and distance in miles</p>
+                <input
+                    className='form-input'
+                    placeholder="Latitude"
+                    type="number"
+                    name="lat"
+                    value={lat}
+                    onChange={(e) => setLat(e.target.value)}
+                    required
+                />
 
-            <input
-                placeholder="Longitude"
-                type="number"
-                name="lng"
-                value={lng}
-                onChange={(e) => setLng(e.target.value)}
-                required
-            />
+                <input
+                    className='form-input'
+                    placeholder="Longitude"
+                    type="number"
+                    name="lng"
+                    value={lng}
+                    onChange={(e) => setLng(e.target.value)}
+                    required
+                />
 
-            <input
-                placeholder="Maximum Distance"
-                type="number"
-                name="dist"
-                value={radius}
-                onChange={(e) => setRadius(e.target.value)}
-                required
-            />
+                <input
+                    className='form-input'
+                    placeholder="Maximum Distance"
+                    type="number"
+                    name="dist"
+                    value={radius}
+                    onChange={(e) => setRadius(e.target.value)}
+                    required
+                />
 
-            <button className="primary-button"
-                type="submit"
-                disabled={validationErrors.length > 0}
-            >
-                Submit
-            </button>
-        </form>
+                <button className="primary-button"
+                    type="submit"
+                    disabled={validationErrors.length > 0}
+                >
+                    Submit
+                </button>
+            </form>
+        </div>
     )
 }
 
-export default UserLocationForm
+export default LocationForm;

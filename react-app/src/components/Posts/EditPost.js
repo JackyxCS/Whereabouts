@@ -1,8 +1,8 @@
 import {  useEffect, useState } from 'react';
 
-import {  useDispatch} from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
+import { editPost } from '../../store/posts';
 import { useHistory } from 'react-router-dom';
-import { editPost} from '../../store/posts';
 
 const EditPost = ({postId}) =>{
 

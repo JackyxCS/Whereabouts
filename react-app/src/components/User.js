@@ -1,39 +1,48 @@
-import React, {  useEffect , useState} from 'react';
+
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
 import PhotoGrid from './Posts/PhotoGrid.js';
 import PostFormModal from './Posts/PostFormModal';
+import UserMission from './Missions/UserMission.js';
+// import UserLocationForm from './Missions/Missions.js';
+import LocationFormModal from './LocationModal/index.js'
 
 function User() {
 
-    const dispatch= useDispatch()
+    const dispatch = useDispatch()
     const user = useSelector(state => state.session.user);
     //const user_id = useSelector(state => state.session.user).id
-    const posts = useSelector (state => Object.values(state.posts))
+    const posts = useSelector(state => Object.values(state.posts))
     const currentMission = useSelector(state => Object.values(state.missionsReducer))
-    const { userId }  = useParams();
+    const { userId } = useParams();
     const [paramUser, setParamUser] = useState({});
+
     useEffect(()=>{
-
         dispatch(getAllPosts())
-    },[dispatch])
-    const userPosts = posts.filter((post)=>post.user_id === Number(userId)).reverse()
-
-    // console.log(userPosts, '<===== USER_POSTS ')
+    }, [dispatch])
+  
+    const userPosts = posts.filter((post) => post.user_id === Number(userId)).reverse()
 
     useEffect(() => {
         (async () => {
-        const response = await fetch(`/api/users/${userId}`);
-        const user = await response.json();
-        setParamUser(user);
+            const response = await fetch(`/api/users/${userId}`);
+            const user = await response.json();
+            setParamUser(user);
         })();
     }, [userId]);
+
 let addPost
-    if(currentMission.length === 0){
+    console.log(currentMission,"<<<<<CURRENT MISSIONS")
+    console.log(currentMission,"<<<<<LENGTH OF CURRENT MISSIONS ")
+    if(currentMission.length === 3){
         addPost=(<></>)
-    }else{
+    }else if (currentMission.length === 1){
        addPost=( <PostFormModal />)
+    }else{
+        addPost=(<></>)
     }
 
     if (!user) {
@@ -45,7 +54,7 @@ let addPost
         return (
             <div>
                 <h1>{user.username}'s profile page</h1>
-                <p>You can only see this personal info it is your page</p>
+                <UserMission />
                 <div>
                     <strong>username:</strong> {user.username}
                 </div>
@@ -55,17 +64,21 @@ let addPost
                 <div>
                     {addPost}
                 </div>
-                <h2>Give this PhotoGrid some query props!</h2>
+                <div className="mission-dashboard-note">
+                    <p className="update-location-disclaimer">Other users can see your posts, but not your mission dashboard</p>
+                    <p className="update-location-prompt">Need to update your current location settings?</p>
+                    <LocationFormModal />
+                </div>
+
                 <PhotoGrid posts={userPosts} />
             </div>
         );
     } else {
         return (
-            <div>
+          <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
-            <h2>Give this PhotoGrid some query props!</h2>
             <PhotoGrid posts={userPosts} />
-        </div>
+          </div>
         )
 
     }
