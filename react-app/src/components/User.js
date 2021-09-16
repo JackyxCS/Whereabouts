@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react';
+import React, {  useEffect , useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
@@ -11,8 +11,9 @@ function User() {
     const user = useSelector(state => state.session.user);
     //const user_id = useSelector(state => state.session.user).id
     const posts = useSelector (state => Object.values(state.posts))
+    const currentMission = useSelector(state => Object.values(state.missionsReducer))
     const { userId }  = useParams();
-    // const [user, setUser] = useState({});
+    const [paramUser, setParamUser] = useState({});
     useEffect(()=>{
 
         dispatch(getAllPosts())
@@ -21,19 +22,19 @@ function User() {
 
     // console.log(userPosts, '<===== USER_POSTS ')
 
-    // useEffect(() => {
-    //     if (!userId) {
-    //     return;
-    //     }
-    //     (async () => {
-    //     const response = await fetch(`/api/users/${userId}`);
-    //     const user = await response.json();
-    //     setUser(user);
-    //     })();
-    // }, [userId]);
-
-
-
+    useEffect(() => {
+        (async () => {
+        const response = await fetch(`/api/users/${userId}`);
+        const user = await response.json();
+        setParamUser(user);
+        })();
+    }, [userId]);
+let addPost
+    if(currentMission.length === 0){
+        addPost=(<></>)
+    }else{
+       addPost=( <PostFormModal />)
+    }
 
     if (!user) {
         return null;
@@ -52,7 +53,7 @@ function User() {
                     <strong>email:</strong> {user.email}
                 </div>
                 <div>
-                    <PostFormModal />
+                    {addPost}
                 </div>
                 <h2>Give this PhotoGrid some query props!</h2>
                 <PhotoGrid posts={userPosts} />
@@ -61,7 +62,7 @@ function User() {
     } else {
         return (
             <div>
-            <h1>{user.username}'s profile page</h1>
+            <h1>{paramUser.username}'s profile page</h1>
             <h2>Give this PhotoGrid some query props!</h2>
             <PhotoGrid posts={userPosts} />
         </div>

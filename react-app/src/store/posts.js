@@ -57,6 +57,7 @@ export const uploadPhoto = (photo) => async () =>{
     if (response.ok){
         const awsUrl = await response.json()
         const imgUrl = awsUrl.image_1_url
+        console.log(imgUrl,'<<<<imgURL')
         return imgUrl
 
     }
@@ -64,12 +65,29 @@ export const uploadPhoto = (photo) => async () =>{
 
 export const createPost = (payload) => async dispatch =>{
 
+        const data = new FormData()
+        data.append('user_id' ,payload.user_id)
+        data.append('image_1',payload.image_1)
+        data.append('image_2',payload.image_2)
+        data.append('image_3',payload.image_3)
+        data.append('image_4',payload.image_4)
+        data.append('image_5',payload.image_4)
+        data.append('post_lat',payload.post_lat)
+        data.append('post_lng',payload.post_lng)
+        data.append('description',payload.description)
+
+        console.log(data,"<<<<<<THUNK DATA")
+
     const response = await fetch(`/api/posts/new`,{
         method: 'POST',
-        body: JSON.stringify(payload),
+        body: data
 
+    });
+    if(response.ok){
+        const newPost = await response.json()
+        dispatch(addPost(newPost))
 
-    })
+    }
 
 }
 

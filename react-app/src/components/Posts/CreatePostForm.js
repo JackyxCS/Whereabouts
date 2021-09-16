@@ -6,22 +6,26 @@ import { createPost, uploadPhoto } from '../../store/posts';
 const CreatePostForm = () => {
     const dispatch = useDispatch()
     const user_id = useSelector(state => state.session.user.id)
-    const [image1, setImage1] = useState("")
+    const currentMission = useSelector(state => Object.values(state.missionsReducer))
+    const post_lat= currentMission[0].mission_lat
+    const post_lng= currentMission[0].mission_lng
+    const [image_1, setImage_1] = useState("")
     const [image_2, setImage_2] = useState()
     const [image_3, setImage_3] = useState()
     const [image_4, setImage_4] = useState()
     const [image_5, setImage_5] = useState()
-    const [post_lat,setPost_lat] = useState(0)
-    const [ post_lng, setPost_lng] = useState(0)
     const [description, setDescription] = useState('')
     const [validationErrors,setValidationErrors] = useState([])
+    console.log(user_id,`<<<<<<<USER_ID`)
+    console.log(post_lat,`<<<<<<<CURRENT_MISSION!!`)
 
     const uploadFiles = e => {
-        setImage1(e.target.files[0])
-        // setImage_2(e.target.files[0])
-        // setImage_3(e.target.files[0])
-        // setImage_4(e.target.files[0])
-        // setImage_5(e.target.files[0])
+        console.log(e.target.files[0],"<<<<<FILESSSSS")
+        setImage_1(e.target.files[0])
+        setImage_2(e.target.files[1])
+        setImage_3(e.target.files[2])
+        setImage_4(e.target.files[3])
+        setImage_5(e.target.files[5])
     }
 
     const updateDescription = (e) => setDescription (e.target.value)
@@ -30,22 +34,25 @@ const CreatePostForm = () => {
 
         const errors = []
 
-        if(!image1)errors.push("Please include at least one photo")
+        if(!image_1)errors.push("Please include at least one photo")
         if(description.length< 0)errors.push("Description can not be Empty")
         setValidationErrors(errors)
-    },[image1, description])
+    },[image_1, description])
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-
-       let image_1 = await dispatch(uploadPhoto(image1))
         const payload = {
             user_id,
             image_1,
-            // post_lat,
-            // post_lng,
+            image_2,
+            image_3,
+            image_4,
+            image_5,
+            post_lat,
+            post_lng,
             description
         }
+        console.log(payload,`<<<<<<<PAYLOAD`)
         await dispatch(createPost(payload))
     }
     return(
@@ -60,7 +67,31 @@ const CreatePostForm = () => {
             type='file'
             name='image_1'
             onChange={uploadFiles}
-            value={image1}/>
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_2'
+            onChange={uploadFiles}
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_3'
+            onChange={uploadFiles}
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_4'
+            onChange={uploadFiles}
+            />
+              <input
+            className='form-input'
+            type='file'
+            name='image_5'
+            onChange={uploadFiles}
+            />
 
             <textarea
             className='form-input'

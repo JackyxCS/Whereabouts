@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import PhotoGrid from '../Posts/PhotoGrid.js';
 import LoginFormModal from '../auth/LoginFormModal';
 import { getAllPosts } from '../../store/posts';
-
+import "../Posts/posts.css"
 
 function Explore() {
     const dispatch = useDispatch()
@@ -28,10 +28,13 @@ function Explore() {
 
     return (
         <div className="explore-grid-div">
-            <h1>Sample of Most Recent Posts</h1>
+            <h1>Sample of Recent Posts</h1>
             <PhotoGrid  posts={filteredPosts} />
-            <p className="login-prompt">Sign up or log in to see everything!</p>
-            <LoginFormModal />
+            <div className="login-prompt-div">
+                <h3 className="login-prompt-text">Sign up or log in to see everything!</h3>
+                <LoginFormModal />
+            </div>
+
         </div>
     );
 };
