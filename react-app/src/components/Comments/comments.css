@@ -13,12 +13,11 @@
 .comments-list {
     padding-inline-start: 0;
     margin-block-start: 0;
-  margin-block-end: 0;
+    margin-block-end: 0;
 }
 
 .comments-list-item {
     list-style-type: none;
-
     align-items: flex-start;
 }
 
