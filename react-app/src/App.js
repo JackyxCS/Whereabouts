@@ -31,7 +31,7 @@ function App() {
 
     (async () => {
       await dispatch(authenticate());
-      dispatch(getAllPosts())
+      await dispatch(getAllPosts())
 
       setLoaded(true);
     })();

@@ -108,7 +108,9 @@ export const deletePost = (payload) => async dispatch =>{
 
     });
     if(response.ok){
-        const post_id = await response.json().post_id
+        const postRes = await response.json()
+        const post_id = postRes.post_id
+        console.log(post_id,"<<<<<POST IN THUNK")
         dispatch(remove(post_id))
     }
 

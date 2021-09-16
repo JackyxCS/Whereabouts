@@ -19,7 +19,7 @@ const PostDetail = () => {
 
 
     const { postId } = useParams();
-    const posts = useSelector(state => state.posts)
+    const posts = useSelector(state => state?.posts)
     const comments = useSelector(state => Object.values(state.comments))
     const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
     const post = posts[postId];
