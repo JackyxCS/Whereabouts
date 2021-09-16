@@ -5,6 +5,8 @@ import { fetchMissions } from '../../store/missions';
 import MapContainer from '../Maps';
 import UserLocationForm from './Missions';
 import styles from './UserMission.module.css'
+import ChooseMissionForm from "./ChooseMission.js"
+// import LocationFormModal from '../LocationModal/index.js'
 
 const DisplayUserMission = () => {
     const dispatch = useDispatch();
@@ -24,11 +26,13 @@ const DisplayUserMission = () => {
 
     if (missionChoices.length === 0) {
         chooseMissions = (
-            <NavLink to="/missions">Choose Your Next Mission</NavLink>
+            // <NavLink to="/missions">Choose Your Next Mission</NavLink>
+            <UserLocationForm />
         )
     } else if (missionChoices.length === 3) {
         chooseMissions = (
-            <NavLink to="/missions/select">Pick Your Mission</NavLink>
+            // <NavLink to="/missions/select" className="primary-button">Pick Your Mission</NavLink>
+            <ChooseMissionForm />
         )
     } else if (missionChoices.length === 1) {
         if (Date.now() < Date.parse(missionChoices[0].created_at) + 86400000) {
@@ -40,9 +44,9 @@ const DisplayUserMission = () => {
                         <div>Time Remaining: {((Date.parse(missionChoices[0].created_at) + 86400000 - Date.now()) / 3600000).toFixed(1)} Hours</div>
                         <MapContainer missions={missionChoices} />
                     </div>
-                    <div className={styles.updateLocation}> Update Your Location
+                    {/* <div className={styles.updateLocation}> Update Your Location
                         <UserLocationForm />
-                    </div>
+                    </div> */}
                 </div>
             )
         } else {
@@ -56,7 +60,8 @@ const DisplayUserMission = () => {
     }
 
     return (
-        <div>
+        <div className="mission-dashboard-container">
+            <h2>Mission Dashboard</h2>
             {chooseMissions}
         </div>
     )

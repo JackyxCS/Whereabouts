@@ -1,6 +1,8 @@
 import {  useEffect, useState } from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
+import { Redirect } from 'react-router';
+import { deleteMissions } from '../../store/missions';
 import { createPost } from '../../store/posts';
 
 const CreatePostForm = () => {
@@ -14,6 +16,7 @@ const CreatePostForm = () => {
     const [image_3, setImage_3] = useState("")
     const [image_4, setImage_4] = useState("")
     const [image_5, setImage_5] = useState("")
+    // const [hideShare, setHideShare] = useState(false)
     const [description, setDescription] = useState('')
     const [validationErrors,setValidationErrors] = useState([])
     console.log(user_id,`<<<<<<<USER_ID`)
@@ -31,8 +34,8 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
 
         const errors = []
 
-        if(!image_1)errors.push("Please include at least one photo")
-        if(description.length< 0)errors.push("Description can not be Empty")
+        if(image_1=== "")errors.push("Please include at least one photo")
+        if(description.length < 1)errors.push("Description can not be Empty")
         setValidationErrors(errors)
     },[image_1, description])
 
@@ -50,7 +53,15 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
             description
         }
         console.log(payload,`<<<<<<<PAYLOAD`)
-        await dispatch(createPost(payload))
+        await dispatch(deleteMissions())
+        const newPost = await dispatch(createPost(payload))
+
+          console.log(newPost,"<<<<<NEW POST")
+
+          return <Redirect to={`/users/${user_id}`}/>
+
+
+
     }
     return(
         <>
@@ -95,7 +106,12 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
             name='description'
             onChange={updateDescription}/>
 
-            <button className="primary-button form-submit" type='submit'>Post Mission</button>
+            <button
+            className="primary-button form-submit"
+            type='submit'
+            disabled={validationErrors.length > 0}
+            // onClick={deleteCurrentMission}
+            >Post Mission</button>
 
             </form>
         </div>

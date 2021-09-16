@@ -2,7 +2,7 @@ import {  useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch} from 'react-redux';
 import { deletePost} from '../../store/posts';
-
+import { getAllPosts } from '../../store/posts'
 const DeletePost = ({postId}) =>{
 
     const dispatch = useDispatch()
@@ -10,8 +10,9 @@ const DeletePost = ({postId}) =>{
     const user_id = useSelector(state => state.session.user.id)
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        console.log(postId)
-        dispatch(deletePost(postId))
+        console.log(postId, "<<<<<POST_ID")
+       await dispatch(deletePost(postId))
+        // dispatch(getAllPosts())
 
 
             history.push(`/users/${user_id}`)
@@ -26,10 +27,10 @@ const DeletePost = ({postId}) =>{
         onSubmit={handleSubmit}>
 
         <button
-        className="secondary-button"
+        className="tertiary-button"
         type="submit "
         >
-        <i class="fa fa-trash" aria-hidden="true"/>
+        Delete Post
         </button>
         </form>
     )

@@ -2,10 +2,12 @@ import {  useEffect, useState } from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
 import { editPost } from '../../store/posts';
+import { useHistory } from 'react-router-dom';
 
-const EditPost = ({post}) =>{
+const EditPost = ({postId}) =>{
 
     const dispatch = useDispatch()
+    const history = useHistory()
     const [description, setDescription] = useState('')
     const [validationErrors,setValidationErrors] = useState([])
     const updateDescription = (e) => setDescription (e.target.value)
@@ -15,24 +17,28 @@ const EditPost = ({post}) =>{
         const errors = []
 
 
-        if(description.length< 0)errors.push("Description can not be Empty")
+        if(description.length == 0)errors.push("Description can not be Empty")
         setValidationErrors(errors)
     },[ description])
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
         const payload = {
-            post_id:post.id,
+            post_id:postId,
             description
 
         }
         console.log(payload,`<<<<<<<PAYLOAD_EDIT`)
         await dispatch(editPost(payload))
+
+        history.push(`/posts/${postId}`)
+
+
     }
     return(
         <>
-        <div className="modal-wrapper-div">
-            <form className="form-div" onSubmit={handleSubmit}>
+        <div>
+            <form  onSubmit={handleSubmit}>
                 <div className="form-errors">
                 {validationErrors.map((error, int) => (<div key={int}>{error}</div>))}
         </div>
@@ -41,7 +47,7 @@ const EditPost = ({post}) =>{
             name='description'
             onChange={updateDescription}/>
 
-            <button className="primary-button form-submit" type='submit'>Post Mission</button>
+            <button className="primary-button form-submit" type='submit'>Done</button>
 
             </form>
         </div>

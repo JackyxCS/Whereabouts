@@ -31,7 +31,7 @@ function App() {
 
     (async () => {
       await dispatch(authenticate());
-      dispatch(getAllPosts())
+      await dispatch(getAllPosts())
 
       setLoaded(true);
     })();
@@ -57,7 +57,6 @@ function App() {
                 </ProtectedRoute> */}
           <ProtectedRoute path='/users/:userId' exact={true} >
             <User />
-            <DisplayUserMission />
           </ProtectedRoute>
 
           <ProtectedRoute path='/posts/:postId' exact={true} >
@@ -67,12 +66,15 @@ function App() {
           <ProtectedRoute path='/explore' exact={true} >
             <ExploreAuth />
           </ProtectedRoute>
+
           <Route path='/preview' exact={true} >
             <ExplorePreview />
           </Route>
+
           <Route path='/' exact={true} >
             <Homepage />
           </Route>
+
           {/* switch to protect route later! */}
           <ProtectedRoute path='/missions' exact={true}>
             <h1>Enter Your Location Information</h1>
