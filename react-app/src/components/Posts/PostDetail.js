@@ -15,18 +15,17 @@ import "./posts.css"
 const PostDetail = () => {
 
     const dispatch = useDispatch()
+    const [featurePost, setFeaturePost] = useState("");
 
 
     const { postId } = useParams();
     const posts = useSelector(state => state.posts)
-    const comments = useSelector(state => state.comments)
+    const comments = useSelector(state => Object.values(state.comments))
     const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
     const post = posts[postId];
-
-    const posts = useSelector(state => state?.posts)
     const userId = useSelector(state => state?.session.user.id)
     useEffect(() => {
-        dispatch(fetchComments())
+        // dispatch(fetchComments())
         dispatch(getAllPosts())
     }, [dispatch])
 
@@ -91,6 +90,8 @@ const PostDetail = () => {
                 </div>
 
                 {post.description && <p className="post-detail-description">{post.description}</p>}
+                {EditShow}
+                {DeleteShow}
 
     {/* change from coordinates to city or map */}
                 <div className="post-detail-map">
