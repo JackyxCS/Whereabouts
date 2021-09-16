@@ -1,6 +1,6 @@
 from flask import Blueprint,request
 from flask_login import login_required
-from werkzeug.utils import secure_filename
+
 from app.models import Post, db, Like
 from app.forms import PostForm, EditPostForm
 from app.api.aws import upload_to_aws
@@ -8,6 +8,7 @@ import datetime
 import os
 import boto3
 from botocore.config import Config
+from werkzeug.datastructures import ImmutableMultiDict
 
 post_routes = Blueprint('posts',__name__)
 
@@ -68,108 +69,68 @@ CREATE NEW POST
 @login_required
 def new_post():
     form = PostForm()
+
     form['csrf_token'].data = request.cookies['csrf_token']
+    # print(form.data,"<<<<<<<FORM_DATA")
+
     if form.validate_on_submit():
-        print(form,"<<<<<<<FORM")
-        photo = request.files['image_1']
-        print(photo,"<<<<<<<<PHOTO")
-        imgName = secure_filename(photo.filename)
-        photo.save(photo.filename)
-        imgUrl= upload_to_aws(imgName, BUCKET_NAME)
-        print(imgUrl,"<<<<<<IMG URL")
-        os.remove(imgName)
+        img_set = request.files.to_dict().values()
+        print(img_set,"<<<<<<<IMG_SET")
+        # print(request.method,'<<<<REQUEST')
+        # print(request.files,"<<<<<<<<REQUEST OBJ")
+        # photo = request.files['image_1']
+        # print(photo,"<<<<<<<<PHOTO")
+        # imgName = secure_filename(photo.filename)
+        # photo.save(imgName)
         userId = request.form['user_id']
+        urls= upload_to_aws(img_set, BUCKET_NAME, userId)
+        imgUrls = {index: url for index, url in enumerate(urls)}
+        print(imgUrls,"<<<<<<IMG URL")
+
+
+        image_2= None
+        image_3= None
+        image_4= None
+        image_5= None
+        if len(urls) > 1:
+            image_2 = imgUrls[1]
+        if len(urls) > 2:
+            image_2 = imgUrls[1]
+            image_3= imgUrls[2]
+        if len(urls) >3:
+            image_2 = imgUrls[1]
+            image_3= imgUrls[2]
+            image_4 = imgUrls[3]
+        if len(urls) >= 5:
+            image_2 = imgUrls[1]
+            image_3= imgUrls[2]
+            image_4 = imgUrls[3]
+            image_5 = imgUrls[4]
+
+
         post_lat = request.form['post_lat']
         post_lng = request.form['post_lng']
         data = form.data
 
         new_post = Post(user_id=userId,
-                        image_1=imgUrl,
-                        # image_2="",
-                        # image_3=url_dict['image_3'],
-                        # image_4 = url_dict['image_4'],
-                        # image_5=url_dict['image_5'],
+                        image_1=imgUrls[0],
+                        image_2=image_2,
+                        image_3= image_3,
+                        image_4 = image_4,
+                        image_5= image_5,
                         post_lat=post_lat,
                         post_lng=post_lng,
                         description=data['description'],
                         created = datetime.datetime.utcnow())
         db.session.add(new_post)
         db.session.commit()
-        return new_post.to_dict()
+        return new_post.to_dict([])
+
     return {"flask-errors":flask_form_errors(form.errors)},401
 
-
-@post_routes.route('/aws_upload', methods=['POST'] )
-#   receives files in FileStorage object on request , keys in at "picture",
-#         and creates a list of all available files
-def aws_upload():
-
-    print(photo, "<<<<<PHOTO")
-    print(request.files,"<<<<<<REQUEST FILES")
-    if photo != "":
-        #""""TRY FOR ONE UPLOAD"""
-        image_1= request.files['image_1']
-
-        base_aws_url=f"https://{BUCKET_NAME}.s3.Region.amazonaws.com/"
-        image_1.save(image_1.filename)
-        img_data = open(image_1.filename,'rb')
-        s3.Bucket(BUCKET_NAME).put_object(Key=image_1.filename, Body=img_data)
-        image_1_url = base_aws_url+f"{image_1.filename}"
-        return {'image_1_url':image_1_url}
-            #aws bucket url
-            # base_aws_url="https://bucket-name.s3.Region.amazonaws.com/"
-            # url_dict = dict()
-            # for i in range(len(photos)):
-            #     if photos[i] == None:
-            #         pass
-            #     else:
-
-                    # photos[i].save(photos[i].filename)
-                    # data = open(photos[i].filename,'rb')
-                    # url_dict={f"image_{i + 1}":base_aws_url+f"{photos[i].filename}"}
-                    #\ s3.Bucket(BUCKET_NAME).put_object(Key=photos[i], Body=data)
-
-
-            # print(url_dict,f"<----URL_DICT")
-            # image_1 = url_dict['image_1']
-            # image_2 = ""
-            # image_3 = ""
-            # image_4 = ""
-            # image_5 = ""
-            # if len(photos) > 1:
-            #     image_2 = url_dict['image_2']
-            # if len(photos) > 2:
-            #     image_3 = url_dict['image_3']
-            # if len(photos) > 3:
-            #     image_4 = url_dict['image_4']
-            # if len(photos) > 4:
-            #     image_5 = url_dict['image_5']
-
-
-
-        # image_2= request.files['image_2']
-        # image_3= request.files['image_3']
-        # image_4= request.files['image_4']
-        # image_5= request.files['image_5']
-        # image_list = list(image_1,image_2,image_3,image_4,image_5)
-        # if len(image_list) > 0:
-        #     base_aws_url="https://bucket-name.s3.Region.amazonaws.com/"
-        #     for i in range(len(image_list)):
-        #             image_list[i].save(image_list[i].filename)
-        #             img_data = open(image_list[i].filename,'rb')
-        #             if len(image_list) > 1:
-        #                 image_2 = url_dict['image_2']
-        #             if len(image_list) > 2:
-        #                 image_3 = url_dict['image_3']
-        #             if len(image_list) > 3:
-        #                 image_4 = url_dict['image_4']
-        #             if len(image_list) > 4:
-        #                 image_5 = url_dict['image_5']
-        #             url_dict={f"image_{i + 1}":base_aws_url+f"{image_list[i].filename}"}
-        #             s3.Bucket(BUCKET_NAME).put_object(Key=image_list[i], Body=img_data)
-        # else:
-        #     url
-
+"""
+EDIT POST DESCRIPTION
+"""
 @post_routes.route('/<int:id>',methods=["PUT"])
 @login_required
 def edit_post(id):
@@ -179,6 +140,10 @@ def edit_post(id):
     db.session.add(post)
     db.session.commit()
     return post.to_dict()
+
+"""
+DELETE POST
+"""
 
 @post_routes.route('/<int:id>',methods=["DELETE"])
 @login_required

@@ -82,6 +82,4 @@ def react_root(path):
 
 @app.route('/api/maps/key', methods=["POST"])
 def getMap():
-    print('<<<<<<<<inside API route')
     return {'googleMapsApiKey': os.environ.get('MAPS_API_KEY')}
-    # return {os.environ.get('MAPS_API_KEY')}
