@@ -26,10 +26,10 @@ const DeletePost = ({postId}) =>{
         onSubmit={handleSubmit}>
 
         <button
-        className="secondary-button"
+        className="primary-button"
         type="submit "
         >
-        <i class="fa fa-trash" aria-hidden="true"/>
+        Delete This Mission
         </button>
         </form>
     )

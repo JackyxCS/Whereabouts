@@ -8,6 +8,8 @@ import { fetchComments } from '../../store/comments';
 import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
 
+import DeletePost from "./DeletePost";
+import EditPostModal from "./EditPostModal";
 import "./posts.css"
 
 const PostDetail = () => {
@@ -21,6 +23,8 @@ const PostDetail = () => {
     const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
     const post = posts[postId];
 
+    const posts = useSelector(state => state?.posts)
+    const userId = useSelector(state => state?.session.user.id)
     useEffect(() => {
         dispatch(fetchComments())
         dispatch(getAllPosts())
@@ -32,7 +36,32 @@ const PostDetail = () => {
             setFeaturePost(post.image_1)
         }
     }, [post, featurePost])
+    const postUser = post?.user_id
 
+    let EditShow
+    let DeleteShow
+    if(userId == postUser){
+        EditShow=(
+            <>
+            <EditPostModal postId={postId}/>
+            </>
+        )
+        DeleteShow=(
+            <>
+            <DeletePost postId={postId}/>
+            </>
+        )
+
+    }else{
+        EditShow=(
+        <>
+        </>
+        )
+        DeleteShow=(
+            <>
+            </>
+        )
+    }
 
     if (post) {
         return (
