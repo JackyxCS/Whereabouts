@@ -80,8 +80,8 @@ const PostDetail = () => {
                 </div>
                 {/* show only one heart or the other */}
                 <div className="post-detail-likes-div">
-                    <i class="fas fa-heart"></i>
-                    <i class="far fa-heart"></i>
+                    <i className="fas fa-heart"></i>
+                    <i className="far fa-heart"></i>
                     <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
                 </div>
 

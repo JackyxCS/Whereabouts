@@ -27,6 +27,19 @@
     column-count: 5;
 }
 
+.post-section-div {
+    border-top: 3px solid var(--wa-green);
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-section-title {
+    color: var(--wa-green);
+
+}
+
 @media all and (max-width: 1550px) {
     .photo-grid-list {
         column-count: 4;

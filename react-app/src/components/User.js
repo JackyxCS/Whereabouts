@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
@@ -9,6 +8,7 @@ import PostFormModal from './Posts/PostFormModal';
 import UserMission from './Missions/UserMission.js';
 // import UserLocationForm from './Missions/Missions.js';
 import LocationFormModal from './LocationModal/index.js'
+import './user.css'
 
 function User() {
 
@@ -23,7 +23,7 @@ function User() {
     useEffect(()=>{
         dispatch(getAllPosts())
     }, [dispatch])
-  
+
     const userPosts = posts.filter((post) => post.user_id === Number(userId)).reverse()
 
     useEffect(() => {
@@ -52,32 +52,49 @@ let addPost
     // userId is string and user.id is integer
     if (Number(userId) === Number(user.id)) {
         return (
-            <div>
-                <h1>{user.username}'s profile page</h1>
-                <UserMission />
-                <div>
-                    <strong>username:</strong> {user.username}
-                </div>
-                <div>
-                    <strong>email:</strong> {user.email}
-                </div>
-                <div>
-                    {addPost}
-                </div>
-                <div className="mission-dashboard-note">
-                    <p className="update-location-disclaimer">Other users can see your posts, but not your mission dashboard</p>
-                    <p className="update-location-prompt">Need to update your current location settings?</p>
-                    <LocationFormModal />
+            <div className="session-users-profile">
+                <h1 >{user.username}'s Profile Page</h1>
+
+                <div className="user-controls">
+                    {/* <div><strong>username:</strong> {user.username}</div> */}
+                    <div className="user-profile-pic"></div>
+                    <div>{user.email}</div>
+
+
+                    <div className="mission-dashboard-div">
+                        <h2>Mission Dashboard</h2>
+                        <UserMission />
+                        <div>
+                            {addPost}
+                        </div>
+                        <div className="mission-dashboard-note">
+                            <p className="mission-expiration">Active mission expires after 24 hours</p>
+                            <div className ="update-location-div">
+                                <p className="update-location-prompt">Need to update your current location settings?</p>
+                                <LocationFormModal />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <p className="private-mission">Other users can see your posts, but not your mission dashboard</p>
                 </div>
 
-                <PhotoGrid posts={userPosts} />
+                <div className="post-section-div">
+                    <h2 className="post-section-title">Posts from Past Missions</h2>
+                    <PhotoGrid posts={userPosts} />
+                </div>
             </div>
         );
     } else {
         return (
           <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
-            <PhotoGrid posts={userPosts} />
+            <div className="user-profile-pic"></div>
+            <div className="post-section-div">
+                <h2 className="post-section-title">Posts from Past Missions</h2>
+                <PhotoGrid posts={userPosts} />
+            </div>
           </div>
         )
 
