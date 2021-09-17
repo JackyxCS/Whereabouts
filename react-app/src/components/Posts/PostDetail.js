@@ -33,6 +33,8 @@ const PostDetail = () => {
     }, [dispatch])
 
 
+
+
     useEffect(() => {
         if (featurePost === "" && post) {
             setFeaturePost(post.image_1)

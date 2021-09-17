@@ -75,17 +75,14 @@ def new_post():
 
     if form.validate_on_submit():
         img_set = request.files.to_dict().values()
-        print(img_set,"<<<<<<<IMG_SET")
-        # print(request.method,'<<<<REQUEST')
-        # print(request.files,"<<<<<<<<REQUEST OBJ")
-        # photo = request.files['image_1']
-        # print(photo,"<<<<<<<<PHOTO")
-        # imgName = secure_filename(photo.filename)
-        # photo.save(imgName)
+
+      
+
         userId = request.form['user_id']
         urls= upload_to_aws(img_set, BUCKET_NAME, userId)
+
         imgUrls = {index: url for index, url in enumerate(urls)}
-        print(imgUrls,"<<<<<<IMG URL")
+
 
 
         image_2= None
@@ -140,7 +137,7 @@ def edit_post(id):
     post_likes = Like.query.filter(Like.post_id == post.id).all()
     post_like_user_id_list = [post.user_id for post in post_likes]
 
-    print(request.form,"<<<<<<REQUEST.FORM")
+
     post.description = request.form['description']
 
     db.session.add(post)

@@ -2,7 +2,7 @@ import {  useEffect, useState } from 'react';
 
 import { useSelector, useDispatch} from 'react-redux';
 import { Redirect } from 'react-router';
-import { deleteMissions } from '../../store/missions';
+import { deleteMissions, fetchMissions } from '../../store/missions';
 import { createPost } from '../../store/posts';
 
 const CreatePostForm = () => {
@@ -19,8 +19,7 @@ const CreatePostForm = () => {
     // const [hideShare, setHideShare] = useState(false)
     const [description, setDescription] = useState('')
     const [validationErrors,setValidationErrors] = useState([])
-    console.log(user_id,`<<<<<<<USER_ID`)
-    console.log(post_lat,`<<<<<<<CURRENT_MISSION!!`)
+
 
     const uploadFile1 = e => {setImage_1(e.target.files[0])}
     const uploadFile2 = e => { setImage_2(e.target.files[0])}
@@ -52,11 +51,12 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
             post_lng,
             description
         }
-        console.log(payload,`<<<<<<<PAYLOAD`)
-        await dispatch(deleteMissions())
-        const newPost = await dispatch(createPost(payload))
 
-          console.log(newPost,"<<<<<NEW POST")
+        await dispatch(deleteMissions())
+        await dispatch(fetchMissions())
+        await dispatch(createPost(payload))
+
+
 
           return <Redirect to={`/users/${user_id}`}/>
 
@@ -110,7 +110,6 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
             className="primary-button form-submit"
             type='submit'
             disabled={validationErrors.length > 0}
-            // onClick={deleteCurrentMission}
             >Post Mission</button>
 
             </form>
