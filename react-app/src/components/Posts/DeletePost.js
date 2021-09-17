@@ -10,29 +10,32 @@ const DeletePost = ({postId}) =>{
     const user_id = useSelector(state => state.session.user.id)
     const handleSubmit = async (e) =>{
         e.preventDefault()
-       await dispatch(deletePost(postId))
-        // dispatch(getAllPosts())
+    //    let res = await dispatch(deletePost(postId))
+    //     // dispatch(getAllPosts())
+    //     console.log(res,"<<<<<<RES_IN POST DETAIL" )
+    //     if (res){
+    //         console.log(res,"<<<<<<RES_IN POST DETAIL IN IF" )
+    //         history.push(`/users/${user_id}`)
+    //     }
 
-
-            history.push(`/users/${user_id}`)
 
     }
 
-    return (
+    // return (
 
 
-        <form
-        id="delete"
-        onSubmit={handleSubmit}>
+    //     <form
+    //     id="delete"
+    //     onSubmit={handleSubmit}>
 
-        <button
-        className="tertiary-button"
-        type="submit "
-        >
-        Delete Post
-        </button>
-        </form>
-    )
+    //     <button
+    //     className="tertiary-button"
+    //     type="submit "
+    //     >
+    //     Delete Post
+    //     </button>
+    //     </form>
+    // )
 
 
 }
