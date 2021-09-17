@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'
 import { fetchMissions, postMission, deleteMissions } from '../../store/missions';
 import MapContainer from '../Maps';
 import styles from './ChooseMission.module.css'
 
 const ChooseMissionForm = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const missionChoices = useSelector(state => Object.values(state.missionsReducer))
     const { id: userId, user_lat: userLat, user_lng: userLng } = user
@@ -44,11 +42,11 @@ const ChooseMissionForm = () => {
         dispatch(fetchMissions())
     }, [dispatch])
 
-    // useEffect(() => {
-    //     const errors = [];
-    //     if (!currentMission) errors.push("Select a mission")
-    //     setValidationErrors(errors)
-    // }, [currentMission])
+    useEffect(() => {
+        const errors = [];
+        if (!currentMission) errors.push("Select a mission")
+        setValidationErrors(errors)
+    }, [currentMission])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

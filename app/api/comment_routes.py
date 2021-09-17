@@ -18,7 +18,6 @@ def validation_errors_to_error_messages(validation_errors):
 @comment_routes.route('/', methods=['GET'])
 def getAllComments():
     comments = Comment.query.all()
-
     return {'comments' : [comment.to_dict() for comment in comments]}
 
 @comment_routes.route('/', methods=["POST"])

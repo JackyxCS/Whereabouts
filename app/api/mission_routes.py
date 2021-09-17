@@ -124,7 +124,7 @@ def postMissions():
 @login_required
 def deleteMissions():
     userId = current_user.id
-    missions = Mission.query.filter(User.id == userId).all()
+    missions = Mission.query.filter(Mission.user_id == userId).all()
     for mission in missions:
         db.session.delete(mission)
     db.session.commit()

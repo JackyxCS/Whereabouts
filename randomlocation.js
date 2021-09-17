@@ -64,4 +64,3 @@ function degreesToRadian(deg) {
 }
 
 // test methodology
-console.log(generateLocation(15.143262, 120.583843, 25))

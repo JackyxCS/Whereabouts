@@ -19,7 +19,7 @@ const EditPost = ({postId}) =>{
         const errors = []
 
 
-        if(description.length == 0)errors.push("Description can not be Empty")
+        if(description.length === 0)errors.push("Description can not be Empty")
         setValidationErrors(errors)
     },[ description])
 
