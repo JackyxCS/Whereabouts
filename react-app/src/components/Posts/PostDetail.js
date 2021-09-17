@@ -8,16 +8,18 @@ import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
 import MapContainer from "../Maps";
 
-import DeletePost from "./DeletePost";
+
+import DeletePostModal from "./DeletePostModal"
 import EditPostModal from "./EditPostModal";
-import "./posts.css"
 import CommentForm from "../Comments/CommentForm";
 import { addPostLike, getPostLikes, removePostLike } from "../../store/likes";
+import "./posts.css"
 
 const PostDetail = () => {
 
     const dispatch = useDispatch()
     const [featurePost, setFeaturePost] = useState("");
+    const [showDeletePostModal, setShowDeletePostModal] = useState(false)
 
 
     const { postId } = useParams();
@@ -50,8 +52,9 @@ const PostDetail = () => {
         return
     }
 
-    let likeDisplay
 
+    let likeDisplay
+    if(post){
     if (!post.post_like_user_id_list.includes(userId)) {
         likeDisplay = (
             <>
@@ -68,6 +71,12 @@ const PostDetail = () => {
         )
     }
 
+
+    }
+    const handleDeletePostClick = (e) => {
+        e.preventDefault();
+        setShowDeletePostModal(true)
+    }
     useEffect(() => {
         if (featurePost === "" && post) {
             setFeaturePost(post.image_1)
@@ -85,7 +94,11 @@ const PostDetail = () => {
         )
         DeleteShow = (
             <>
-                <DeletePost postId={postId} />
+                <button onClick={handleDeletePostClick}>
+                    Delete Post
+                </button>
+                {showDeletePostModal && <DeletePostModal showDeletePostModal={showDeletePostModal}
+                setShowDeletePostModal={setShowDeletePostModal} user_id={userId}/>}
             </>
         )
     } else {
@@ -99,9 +112,10 @@ const PostDetail = () => {
         )
     }
 
-    const missions = { "mission_lat": post.post_lat, "mission_lng": post.post_lng }
+
 
     if (post) {
+    const missions = { "mission_lat": post.post_lat, "mission_lng": post.post_lng }
         return (
             <div className="posts-detail-list-item">
 
@@ -114,20 +128,12 @@ const PostDetail = () => {
                     {post.image_4 && <img className="thumbnail-image post-detail-photo4" src={post.image_4} alt="mission" onClick={() => setFeaturePost(post.image_4)} />}
                     {post.image_5 && <img className="thumbnail-image post-detail-photo5" src={post.image_5} alt="mission" onClick={() => setFeaturePost(post.image_5)} />}
                 </div>
-                {/* show only one heart or the other */}
                 <div className="post-detail-likes-div">
                     {likeDisplay}
-                    {/*FULL HEART (LIKED)*/}
-                    {/* <i className="fas fa-heart"></i>
-
-                    <i className="far fa-heart"></i>
-                    <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p> */}
                 </div>
 
                 <div className="post-detail-created-div">
-                    {/* format date */}
                     <p className="post-detail-date">{post.created}</p>
-                    {/* add user object to posts slice so we can display username similar to like count */}
                     <p className="post-detail-user">@{post.user_details.username}</p>
                 </div>
 
@@ -135,9 +141,7 @@ const PostDetail = () => {
                 {EditShow}
                 {DeleteShow}
 
-                {/* change from coordinates to city or map */}
                 <div className="post-detail-map-div">
-                    {/* <p className="post-detail-location">Location: {post.post_lat}, {post.post_lng}</p> */}
                     <MapContainer className="post-detail-map" missions={[missions]} />
                 </div>
 
@@ -149,8 +153,6 @@ const PostDetail = () => {
     } else {
         return null
     }
-
-
 };
 
 export default PostDetail;
