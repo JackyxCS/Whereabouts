@@ -9,7 +9,6 @@ const loadApiKey = (key) => ({
 });
 
 export const getKey = () => async (dispatch) => {
-    console.log('here')
     const res = await fetch('/api/maps/key', {
         method: 'POST',
         headers: {
@@ -18,7 +17,6 @@ export const getKey = () => async (dispatch) => {
     });
 
     const data = await res.json();
-    console.log('inside map thunk', data["googleMapsApiKey"])
     dispatch(loadApiKey(data["googleMapsApiKey"]));
 };
 

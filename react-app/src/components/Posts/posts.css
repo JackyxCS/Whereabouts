@@ -119,13 +119,13 @@
     font-size: 16px;
     max-width: 75%;
     margin-block-start: 0;
-    margin-block-end: 0;
+    /* margin-block-end: 0; */
 }
 
 .post-detail-map {
     background: var(--wa-blue);
-    width:100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     margin: 30px;
 }
 

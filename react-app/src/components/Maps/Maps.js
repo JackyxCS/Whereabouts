@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
-    width: '500px',
-    height: '500px',
+    width: '400px',
+    height: '400px',
 };
 
 // const center = {
@@ -33,7 +33,7 @@ const Maps = ({ apiKey, missions }) => {
             setLng(+missions[0]?.mission_lng)
             missions?.forEach(mission => {
                 const obj = {}
-                obj['id'] = mission?.id
+                // obj['id'] = mission?.id
                 obj['lat'] = mission?.mission_lat
                 obj['lng'] = mission?.mission_lng
                 newArray.push(obj)
@@ -55,7 +55,7 @@ const Maps = ({ apiKey, missions }) => {
                     options={options}
                 >
                     {markersArr.map(marker => <Marker
-                        key={marker.id}
+                        key={marker.lat}
                         position={{ lat: +marker?.lat, lng: +marker?.lng }}>
                     </Marker>
                     )}

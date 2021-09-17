@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import LoginForm from './components/auth/LoginFormModal/LoginForm';
@@ -26,6 +26,7 @@ import { getAllPosts } from './store/posts';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+  // const userId = useSelector(state => state.session.user.id)
 
   useEffect(() => {
 

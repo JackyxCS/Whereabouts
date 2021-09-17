@@ -6,11 +6,13 @@ import { getAllPosts } from '../../store/posts';
 import { fetchComments } from '../../store/comments';
 import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
+import MapContainer from "../Maps";
 
 import DeletePost from "./DeletePost";
 import EditPostModal from "./EditPostModal";
 import "./posts.css"
 import CommentForm from "../Comments/CommentForm";
+import { addPostLike, getPostLikes, removePostLike } from "../../store/likes";
 
 const PostDetail = () => {
 
@@ -22,23 +24,46 @@ const PostDetail = () => {
     const posts = useSelector(state => state?.posts)
 
     const comments = useSelector(state => Object.values(state?.comments))
-    // console.log(comments)
+    const postLikes = useSelector(state => Object.values(state?.likes))
     const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
-    // console.log(spotComments)
     const post = posts[postId];
     const userId = useSelector(state => state?.session.user.id)
+    const likeId = postLikes.filter(like => +postId === +like.post_id && +userId === +like.user_id)[0]
+
     useEffect(() => {
-        // dispatch(fetchComments())
         dispatch(getAllPosts())
+        dispatch(getPostLikes(postId))
     }, [dispatch])
 
 
-let likeDisplay
-    if(post.post_like_user_id_list.includes(userId)){
-        likeDisplay=(
+    const handleLikeClick = async () => {
+        await dispatch(addPostLike({ "user_id": userId, "post_id": postId }))
+        await dispatch(getPostLikes(postId))
+        await dispatch(getAllPosts())
+        return
+    }
+
+    const handleUnlikeClick = async () => {
+        await dispatch(removePostLike(postId, likeId.id))
+        await dispatch(getPostLikes(postId))
+        await dispatch(getAllPosts())
+        return
+    }
+
+    let likeDisplay
+
+    if (!post.post_like_user_id_list.includes(userId)) {
+        likeDisplay = (
             <>
-            <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
-            <i className="far fa-heart"></i>
+                <i onClick={handleLikeClick} className="far fa-heart"></i>
+                <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
+            </>
+        )
+    } else {
+        likeDisplay = (
+            <>
+                <i onClick={handleUnlikeClick} className="fas fa-heart"></i>
+                <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
             </>
         )
     }
@@ -52,27 +77,29 @@ let likeDisplay
 
     let EditShow
     let DeleteShow
-    if(userId == postUser){
-        EditShow=(
+    if (userId == postUser) {
+        EditShow = (
             <>
-            <EditPostModal postId={postId}/>
+                <EditPostModal postId={postId} />
             </>
         )
-        DeleteShow=(
+        DeleteShow = (
             <>
-            <DeletePost postId={postId}/>
+                <DeletePost postId={postId} />
             </>
         )
-    }else{
-        EditShow=(
-        <>
-        </>
+    } else {
+        EditShow = (
+            <>
+            </>
         )
-        DeleteShow=(
+        DeleteShow = (
             <>
             </>
         )
     }
+
+    const missions = { "mission_lat": post.post_lat, "mission_lng": post.post_lng }
 
     if (post) {
         return (
@@ -89,18 +116,19 @@ let likeDisplay
                 </div>
                 {/* show only one heart or the other */}
                 <div className="post-detail-likes-div">
+                    {likeDisplay}
                     {/*FULL HEART (LIKED)*/}
-                    <i className="fas fa-heart"></i>
+                    {/* <i className="fas fa-heart"></i>
 
                     <i className="far fa-heart"></i>
-                    <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
+                    <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p> */}
                 </div>
 
                 <div className="post-detail-created-div">
                     {/* format date */}
                     <p className="post-detail-date">{post.created}</p>
                     {/* add user object to posts slice so we can display username similar to like count */}
-                    <p className="post-detail-user">@{post.user_id}</p>
+                    <p className="post-detail-user">@{post.user_details.username}</p>
                 </div>
 
                 {post.description && <p className="post-detail-description">{post.description}</p>}
@@ -108,8 +136,9 @@ let likeDisplay
                 {DeleteShow}
 
                 {/* change from coordinates to city or map */}
-                <div className="post-detail-map">
-                    <p className="post-detail-location">Location: {post.post_lat}, {post.post_lng}</p>
+                <div className="post-detail-map-div">
+                    {/* <p className="post-detail-location">Location: {post.post_lat}, {post.post_lng}</p> */}
+                    <MapContainer className="post-detail-map" missions={[missions]} />
                 </div>
 
                 <CommentsList />

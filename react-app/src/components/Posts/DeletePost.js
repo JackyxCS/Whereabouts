@@ -10,7 +10,6 @@ const DeletePost = ({postId}) =>{
     const user_id = useSelector(state => state.session.user.id)
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        console.log(postId, "<<<<<POST_ID")
        await dispatch(deletePost(postId))
         // dispatch(getAllPosts())
 

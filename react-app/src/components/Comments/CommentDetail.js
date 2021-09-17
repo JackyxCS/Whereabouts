@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import DeleteCommentModal from './DeleteCommentModal/index';
 import { createUpdate, fetchComments } from '../../store/comments';
-
 import "./comments.css"
 
 const CommentDetail = ({ comment }) => {
@@ -55,8 +54,8 @@ const CommentDetail = ({ comment }) => {
     if (userId === comment.user_id) {
         if (showEditModal) {
             return (
-                <div>
-                    <form onSubmit={handleSubmit}>
+                <div className="edit-comment-div">
+                    <form className="" onSubmit={handleSubmit}>
                         <textarea
                             placeholder={comment.comment}
                             name="updatedComment"
@@ -70,35 +69,37 @@ const CommentDetail = ({ comment }) => {
                             Submit Update
                         </button>
                     </form>
-                    <button
-                        onClick={() => setShowEditModal(false)}
-                    >
-                        Cancel
-                    </button>
+                    <form>
+                        <button
+                            onClick={() => setShowEditModal(false)}
+                        >
+                            Cancel
+                        </button>
+                    </form>
                 </div>
             )
         } else {
             return (
-                <div>
+                <li className="comments-list-item">
                     <div>{comment.comment}</div>
                     <div>@{comment.user_details.username}</div>
-                    <div>
+                    <div className="button-div">
                         <button
                             onClick={handleEditCommentClick}
                         >
                             Edit Comment
                         </button>
                         {/* {showEditModal && <EditCommentModal commentId={comment.id} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} />}} */}
-                    </div>
-                    <div>
+                        {/* </div> */}
+                        {/* <div> */}
                         <button
                             onClick={handleDeleteCommentClick}
                         >
                             Delete Comment
                         </button>
-                        {showDeleteModal && <DeleteCommentModal commentId={comment.id} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} />}
                     </div>
-                </div>
+                    {showDeleteModal && <DeleteCommentModal commentId={comment.id} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} />}
+                </li>
             )
         }
     } else {

@@ -40,7 +40,7 @@ const CommentForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="form-div" onSubmit={handleSubmit}>
             <textarea
                 placeholder="Leave a comment"
                 name="comment"
@@ -51,7 +51,7 @@ const CommentForm = () => {
                 type="submit"
                 disabled={validationErrors.length > 0}
             >
-                Submit Review
+                ADD A COMMENT
             </button>
         </form>
     )
