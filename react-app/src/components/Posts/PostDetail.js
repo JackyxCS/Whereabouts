@@ -33,7 +33,15 @@ const PostDetail = () => {
     }, [dispatch])
 
 
-
+let likeDisplay
+    if(post.post_like_user_id_list.includes(userId)){
+        likeDisplay=(
+            <>
+            <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
+            <i className="far fa-heart"></i>
+            </>
+        )
+    }
 
     useEffect(() => {
         if (featurePost === "" && post) {
@@ -55,7 +63,6 @@ const PostDetail = () => {
             <DeletePost postId={postId}/>
             </>
         )
-
     }else{
         EditShow=(
         <>
@@ -82,7 +89,9 @@ const PostDetail = () => {
                 </div>
                 {/* show only one heart or the other */}
                 <div className="post-detail-likes-div">
+                    {/*FULL HEART (LIKED)*/}
                     <i className="fas fa-heart"></i>
+
                     <i className="far fa-heart"></i>
                     <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
                 </div>
