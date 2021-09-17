@@ -11,7 +11,7 @@ const ChooseMissionForm = () => {
     const { id: userId, user_lat: userLat, user_lng: userLng } = user
 
     const [currentMission, setCurrentMission] = useState();
-    const [validationErrors, setValidationErrors] = useState([])
+    // const [validationErrors, setValidationErrors] = useState([])
 
     function getDistanceBetweenInMiles(lat1, lon1, lat2, lon2) {
         // radius of the earth in miles
@@ -42,11 +42,11 @@ const ChooseMissionForm = () => {
         dispatch(fetchMissions())
     }, [dispatch])
 
-    useEffect(() => {
-        const errors = [];
-        if (!currentMission) errors.push("Select a mission")
-        setValidationErrors(errors)
-    }, [currentMission])
+    // useEffect(() => {
+    //     const errors = [];
+    //     if (!currentMission) errors.push("Select a mission")
+    //     setValidationErrors(errors)
+    // }, [currentMission])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -79,7 +79,6 @@ const ChooseMissionForm = () => {
                             <button className="primary-button"
                                 type="submit"
                                 value={[mission.id, mission.mission_lat, mission.mission_lng]}
-                                disabled={validationErrors.length > 0}
                                 onClick={(e) => setCurrentMission(e.target.value)}
                             >
                                 Get Started
