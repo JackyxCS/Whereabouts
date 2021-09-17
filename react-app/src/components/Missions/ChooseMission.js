@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'
 import { fetchMissions, postMission, deleteMissions } from '../../store/missions';
 import MapContainer from '../Maps';
 import styles from './ChooseMission.module.css'
 
 const ChooseMissionForm = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const missionChoices = useSelector(state => Object.values(state.missionsReducer))
     const { id: userId, user_lat: userLat, user_lng: userLng } = user
 
     const [currentMission, setCurrentMission] = useState();
-    const [validationErrors, setValidationErrors] = useState([])
+    // const [validationErrors, setValidationErrors] = useState([])
 
     function getDistanceBetweenInMiles(lat1, lon1, lat2, lon2) {
         // radius of the earth in miles
@@ -81,7 +79,6 @@ const ChooseMissionForm = () => {
                             <button className="primary-button"
                                 type="submit"
                                 value={[mission.id, mission.mission_lat, mission.mission_lng]}
-                                disabled={validationErrors.length > 0}
                                 onClick={(e) => setCurrentMission(e.target.value)}
                             >
                                 Get Started

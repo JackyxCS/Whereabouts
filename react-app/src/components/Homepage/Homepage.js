@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../store/posts'
@@ -10,7 +10,6 @@ function Homepage() {
 
   const post_likes = {}
   const dispatch = useDispatch()
-  const history = useHistory()
 
   const user = useSelector(state => state.session.user)
   const posts = useSelector(state => Object.values(state.posts))
@@ -29,14 +28,12 @@ function Homepage() {
   }
 
   posts.forEach(post => {
-    let mostLikes = -Infinity
     post_likes[post.id] = post
-
   })
 
   useEffect(() => {
     dispatch(getAllPosts())
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="homepage">

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { postMissions, updateUserPref, deleteMissions } from '../../store/missions';
-import styles from '../Missions/Missions.module.css'
 
 
 const LocationForm = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const { id: userId } = user
 

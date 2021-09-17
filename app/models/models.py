@@ -94,8 +94,8 @@ class Post(db.Model):
             'post_lng': self.post_lng,
             'description': self.description,
             'created': self.created,
+            'user_details': self.user_details.to_dict(),
             'post_like_user_id_list': list_obj
-
         }
 
 class Like(db.Model):
@@ -111,8 +111,8 @@ class Like(db.Model):
             'id': self.id,
             'post_id': self.post_id,
             'user_id': self.user_id,
-            'user_details': self.user_details,
-            'post_details': self.post_details
+            # 'user_details': self.user_details.to_dict(),
+            # 'post_details': self.post_details.to_dict()
         }
 
 class Comment(db.Model):
