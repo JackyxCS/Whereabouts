@@ -59,8 +59,8 @@ const Maps = ({ apiKey, missions }) => {
                         key={marker.lat}
                         position={{ lat: +marker?.lat, lng: +marker?.lng }}
                         icon={{
-                            url: "/icon-color.png",
-                            scaledSize: new window.google.maps.Size(30, 30)
+                            url: "/whereabouts_pin.png",
+                            scaledSize: new window.google.maps.Size(32, 44)
                         }}
                     >
                     </Marker>

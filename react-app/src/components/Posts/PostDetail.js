@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';
 import moment from "moment"
 import { useSelector, useDispatch } from 'react-redux';
@@ -136,8 +137,9 @@ const PostDetail = () => {
                 </div>
 
                 <div className="post-detail-created-div">
+                    <p className="post-detail-date">{post.created}</p>
                     <p className="post-detail-date">{formattedDate}</p>
-                    <p className="post-detail-user">@{post.user_details.username}</p>
+                    <p className="post-detail-user"><NavLink to={`/users/${post.user_details.id}`}>@{post.user_details.username}</NavLink></p>
                 </div>
 
                 {post.description && <p className="post-detail-description">{post.description}</p>}
