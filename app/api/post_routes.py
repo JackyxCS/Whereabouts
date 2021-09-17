@@ -32,6 +32,7 @@ def get_all_posts():
         posts_with_likes.append(added_like)
 
     return {'posts': posts_with_likes}
+
 """
 GET INDIVIDUAL POST
 """
@@ -46,8 +47,8 @@ def get_single_post(id):
 """
 AWS CONFIGURATION
 """
-AWS_ACCESS_KEY_ID= os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY= os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_ACCESS_KEY_ID= os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY= os.environ.get('AWS_SECRET_ACCESS_KEY')
 BUCKET_NAME='whereaboutsbucket'
 REGION_NAME = 'us-east-1'
 
@@ -57,9 +58,6 @@ my_config = Config(
 )
 client = boto3.client('s3', config=my_config)
 s3 = boto3.resource('s3')
-
-
-
 
 """
 CREATE NEW POST
@@ -76,14 +74,10 @@ def new_post():
     if form.validate_on_submit():
         img_set = request.files.to_dict().values()
 
-
-
         userId = request.form['user_id']
         urls= upload_to_aws(img_set, BUCKET_NAME, userId)
 
         imgUrls = {index: url for index, url in enumerate(urls)}
-
-
 
         image_2= None
         image_3= None

@@ -137,7 +137,7 @@ const PostDetail = () => {
                 </div>
 
                 <div className="post-detail-created-div">
-                    <p className="post-detail-date">{post.created}</p>
+                    {/* <p className="post-detail-date">{post.created}</p> */}
                     <p className="post-detail-date">{formattedDate}</p>
                     <p className="post-detail-user"><NavLink to={`/users/${post.user_details.id}`}>@{post.user_details.username}</NavLink></p>
                 </div>
