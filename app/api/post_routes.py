@@ -156,6 +156,12 @@ def delete_post(id):
     db.session.commit()
     return {"post_id":id}
 
+@post_routes.route('/<int:postId>/likes',methods=["GET"])
+@login_required
+def get_likes(postId):
+    likes = Like.query.filter(Like.post_id == postId).all()
+    return {'likes': [like.to_dict() for like in likes]}
+
 @post_routes.route('/<int:postId>/likes',methods=["POST"])
 @login_required
 def like_post(postId):
@@ -168,11 +174,9 @@ def like_post(postId):
     db.session.commit()
     return user_like.to_dict()
 
-@post_routes.route('/<int:postId>/likes/<int:likeId>',methods=["DELETE"])
+@post_routes.route('/<int:postId>/likes/<int:likeId>', methods=["DELETE"])
 @login_required
 def delete_post_like(postId, likeId):
-
-
     like_to_delete = Like.query.get(likeId)
     db.session.delete(like_to_delete)
     db.session.commit()

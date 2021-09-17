@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../../store/posts';
-import { fetchComments } from '../../store/comments';
+// import { fetchComments } from '../../store/comments';
 import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
 import MapContainer from "../Maps";
@@ -23,9 +23,9 @@ const PostDetail = () => {
     const { postId } = useParams();
     const posts = useSelector(state => state?.posts)
 
-    const comments = useSelector(state => Object.values(state?.comments))
+    // const comments = useSelector(state => Object.values(state?.comments))
     const postLikes = useSelector(state => Object.values(state?.likes))
-    const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
+    // const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
     const post = posts[postId];
     const userId = useSelector(state => state?.session.user.id)
     const likeId = postLikes.filter(like => +postId === +like.post_id && +userId === +like.user_id)[0]
@@ -33,7 +33,7 @@ const PostDetail = () => {
     useEffect(() => {
         dispatch(getAllPosts())
         dispatch(getPostLikes(postId))
-    }, [dispatch])
+    }, [dispatch, postId])
 
 
     const handleLikeClick = async () => {
@@ -77,7 +77,7 @@ const PostDetail = () => {
 
     let EditShow
     let DeleteShow
-    if (userId == postUser) {
+    if (userId === postUser) {
         EditShow = (
             <>
                 <EditPostModal postId={postId} />

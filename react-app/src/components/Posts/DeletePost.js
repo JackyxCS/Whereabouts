@@ -1,8 +1,8 @@
-import {  useEffect, useState } from 'react';
+// import {  useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom"
 import { useSelector, useDispatch} from 'react-redux';
 import { deletePost} from '../../store/posts';
-import { getAllPosts } from '../../store/posts'
+// import { getAllPosts } from '../../store/posts'
 const DeletePost = ({postId}) =>{
 
     const dispatch = useDispatch()
