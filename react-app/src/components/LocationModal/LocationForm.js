@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { useHistory } from 'react-router-dom'
-import { postMissions, updateUserPref, deleteMissions } from '../../store/missions';
+import { useHistory } from 'react-router-dom'
+import { postMissions, updateUserPref, deleteMissions, fetchMissions } from '../../store/missions';
 
 
-const LocationForm = () => {
+const LocationForm = ({ setShowModal }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const { id: userId } = user
 
@@ -103,7 +104,9 @@ const LocationForm = () => {
         await dispatch(updateUserPref(userPayload))
         await dispatch(deleteMissions())
         await dispatch(postMissions(randomLocationPayload))
-        // history.push(`/missions/select`)
+        await dispatch(fetchMissions())
+        setShowModal(false)
+        history.push(`/users/${userId}`)
     }
 
     return (

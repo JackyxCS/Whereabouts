@@ -10,7 +10,7 @@ function LocationFormModal() {
       <button className="tertiary-button login-button" onClick={() => setShowModal(true)}>Update User Coordinates</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <LocationForm />
+          <LocationForm showModal={showModal} setShowModal={setShowModal}/>
         </Modal>
       )}
     </>
