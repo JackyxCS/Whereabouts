@@ -4,6 +4,7 @@ import session from './session'
 import missionsReducer from './missions';
 import mapsReducer from './maps';
 import postReducer from './posts';
+
 import commentsReducer from './comments';
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   maps: mapsReducer,
   posts: postReducer,
   comments: commentsReducer,
+  
 });
 
 
