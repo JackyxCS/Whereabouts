@@ -1,13 +1,15 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
+import { updateProfilePic } from '../store/session';
 import PhotoGrid from './Posts/PhotoGrid.js';
 import PostFormModal from './Posts/PostFormModal';
 import UserMission from './Missions/UserMission.js';
 import LocationFormModal from './LocationModal/index.js'
 import defaultUser from "../images/default_user.png"
+import defaultUserPreview from "../images/default_user-preview.png"
 import './user.css'
 
 function User() {
@@ -33,7 +35,28 @@ function User() {
         })();
     }, [userId]);
 
-let addPost
+    const inputFile = useRef(null)
+
+    // const [profilePic, setProfilePic] = useState("")
+
+    // const uploadProfilePic = e => {
+    //     console.log("TARGET FILES[0]", e.target.files[0])
+    //     setProfilePic(e.target.files[0])
+    //     console.log("PROFILE PIC", profilePic);
+    // }
+
+    const submitProfilePic = async (e) => {
+        e.preventDefault()
+        // inputFile.current.click();
+        // setProfilePic(e.target.files[0])
+        const profilePic = e.target.files[0]
+        const payload = {profilePic, userId}
+        console.log("PAYLOAD", payload);
+        await dispatch(updateProfilePic(payload))
+        return
+    }
+
+    let addPost
     if(currentMission.length === 3){
         addPost=(<></>)
     }else if (currentMission.length === 1){
@@ -46,6 +69,14 @@ let addPost
         return null;
     }
 
+    let currentProfilePic
+    if (user.profile_picture) {
+        currentProfilePic = user.profile_picture
+    } else {
+        currentProfilePic = defaultUser
+    }
+
+
     if (Number(userId) === Number(user.id)) {
         return (
             <div className="session-users-profile">
@@ -54,8 +85,22 @@ let addPost
                 <div className="user-controls">
 
                     <div className="user-profile-pic-div">
-                        <img className="user-profile-pic" src={defaultUser} alt="user profile"/>
-                        {/* <img className="user-profile-pic" src={defaultUser} alt="user profile" onClick={() => setProfilePicture(user.profile_picture)} /> */}
+                        {/* <form onSubmit={submitProfilePic}> */}
+                            <input
+                                style={{ display: "none" }}
+                                ref={inputFile}
+                                name="profile_picture"
+                                onChange={submitProfilePic}
+                                type="file"
+                            />
+                            <div onClick={() => inputFile.current.click()}>
+                                <img className="user-profile-pic" src={currentProfilePic} alt="user profile"/>
+                            </div>
+                            {/* <button type="submit" value={profilePic}>
+                                <img className="user-profile-pic" src={currentProfilePic} alt="user profile"/>
+                            </button> */}
+                        {/* </form> */}
+
                     </div>
                     <div>{user.email}</div>
 
@@ -88,7 +133,9 @@ let addPost
         return (
           <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
-            <div className="user-profile-pic"></div>
+            <div className="user-profile-pic-div">
+                <img className="user-profile-pic" src={defaultUserPreview} alt="user profile"/>
+            </div>
             <div className="post-section-div">
                 <h2 className="post-section-title">Posts from Past Missions</h2>
                 <PhotoGrid posts={userPosts} />

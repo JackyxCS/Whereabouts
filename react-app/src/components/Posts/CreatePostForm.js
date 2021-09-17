@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import { deleteMissions, fetchMissions } from '../../store/missions';
 import { createPost } from '../../store/posts';
 
+
 const CreatePostForm = ({ setShowModal }) => {
   const dispatch = useDispatch()
   const user_id = useSelector(state => state.session.user.id)
@@ -72,34 +73,34 @@ const CreatePostForm = ({ setShowModal }) => {
             {validationErrors.map((error, int) => (<div key={int}>{error}</div>))}
           </div>
           <input
-            className='form-input'
-            type='file'
-            name='image_1'
-            onChange={uploadFile1}
+          className='form-input'
+          type='file'
+          name='image_1'
+          onChange={uploadFile1}
           />
           <input
-            className='form-input'
-            type='file'
-            name='image_2'
-            onChange={uploadFile2}
+          className='form-input'
+          type='file'
+          name='image_2'
+          onChange={uploadFile2}
           />
           <input
-            className='form-input'
-            type='file'
-            name='image_3'
-            onChange={uploadFile3}
+          className='form-input'
+          type='file'
+          name='image_3'
+          onChange={uploadFile3}
           />
           <input
-            className='form-input'
-            type='file'
-            name='image_4'
-            onChange={uploadFile4}
+          className='form-input'
+          type='file'
+          name='image_4'
+          onChange={uploadFile4}
           />
           <input
-            className='form-input'
-            type='file'
-            name='image_5'
-            onChange={uploadFile5}
+          className='form-input'
+          type='file'
+          name='image_5'
+          onChange={uploadFile5}
           />
 
           <textarea
