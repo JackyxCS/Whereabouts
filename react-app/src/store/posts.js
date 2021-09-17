@@ -102,12 +102,15 @@ export const deletePost = (payload) => async dispatch =>{
         method: 'DELETE'
 
     });
+
     if(response.ok){
         const postRes = await response.json()
         const post_id = postRes.post_id
 
         dispatch(remove(post_id))
+        return postRes
     }
+
 
 }
 

@@ -4,7 +4,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { editPost } from '../../store/posts';
 import { useHistory } from 'react-router-dom';
 import './EditPost.css'
-const EditPost = ({postId}) =>{
+const EditPost = ({postId, setShowModal}) =>{
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -31,6 +31,7 @@ const EditPost = ({postId}) =>{
 
         }
         await dispatch(editPost(payload))
+        setShowModal(false)
 
         history.push(`/posts/${postId}`)
 

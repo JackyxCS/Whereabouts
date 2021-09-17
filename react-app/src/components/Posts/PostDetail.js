@@ -8,7 +8,8 @@ import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
 import MapContainer from "../Maps";
 
-import DeletePost from "./DeletePost";
+
+import DeletePostModal from "./DeletePostModal"
 import EditPostModal from "./EditPostModal";
 import "./posts.css"
 import CommentForm from "../Comments/CommentForm";
@@ -18,6 +19,7 @@ const PostDetail = () => {
 
     const dispatch = useDispatch()
     const [featurePost, setFeaturePost] = useState("");
+    const [showDeletePostModal, setShowDeletePostModal] = useState(false)
 
 
     const { postId } = useParams();
@@ -50,8 +52,9 @@ const PostDetail = () => {
         return
     }
 
-    let likeDisplay
 
+    let likeDisplay
+    if(post){
     if (!post.post_like_user_id_list.includes(userId)) {
         likeDisplay = (
             <>
@@ -68,6 +71,12 @@ const PostDetail = () => {
         )
     }
 
+
+    }
+    const handleDeletePostClick = (e) => {
+        e.preventDefault();
+        setShowDeletePostModal(true)
+    }
     useEffect(() => {
         if (featurePost === "" && post) {
             setFeaturePost(post.image_1)
@@ -85,7 +94,11 @@ const PostDetail = () => {
         )
         DeleteShow = (
             <>
-                <DeletePost postId={postId} />
+                <button onClick={handleDeletePostClick}>
+                    Delete Post
+                </button>
+                {showDeletePostModal && <DeletePostModal showDeletePostModal={showDeletePostModal}
+                setShowDeletePostModal={setShowDeletePostModal} user_id={userId}/>}
             </>
         )
     } else {
@@ -99,9 +112,10 @@ const PostDetail = () => {
         )
     }
 
-    const missions = { "mission_lat": post.post_lat, "mission_lng": post.post_lng }
+
 
     if (post) {
+    const missions = { "mission_lat": post.post_lat, "mission_lng": post.post_lng }
         return (
             <div className="posts-detail-list-item">
 
