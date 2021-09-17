@@ -5,9 +5,8 @@ import { getKey } from '../../store/maps';
 import Maps from './Maps';
 
 const MapContainer = ({ missions }) => {
-    const key = useSelector((state) => state?.maps?.key);
+    const key = useSelector((state) => state.maps.key);
     const dispatch = useDispatch();
-    console.log('gets inside map')
 
     useEffect(() => {
         if (!key) {
@@ -20,7 +19,7 @@ const MapContainer = ({ missions }) => {
     }
 
     return (
-        <Maps apiKey={key} missions={missions}/>
+        <Maps apiKey={key} missions={missions} />
     );
 };
 

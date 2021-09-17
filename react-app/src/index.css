@@ -152,3 +152,37 @@ a {
     font-weight: 700;
     font-size: 18px;
 }
+
+.submit-comment-form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 40px;
+    border: 2px solid white;
+    background-color: var(--wa-blue); /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom left, var(--wa-blue), var(--wa-green));
+    border-radius: 10px;
+}
+
+.submit-comment-form > button {
+    width: 15vw;
+}
+
+.edit-comment-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.edit-comment-div > form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.homepage-button {
+    color: white;
+}

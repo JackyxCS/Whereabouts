@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../store/posts'
@@ -10,8 +10,23 @@ function Homepage() {
 
   const post_likes = {}
   const dispatch = useDispatch()
+  const history = useHistory()
 
+  const user = useSelector(state => state.session.user)
   const posts = useSelector(state => Object.values(state.posts))
+
+  let profileLink1
+  let profileLink2
+  let profileLink3
+  if (user) {
+    profileLink1 = (<NavLink className="homepage-button" to={`/users/${user.id}`}>SEE LOCATIONS</NavLink>)
+    profileLink2 = (<NavLink className="homepage-button" to={`/users/${user.id}`}>GO TO PROFILE</NavLink>)
+    profileLink3 = (<NavLink className="homepage-button" to={`/explore`}>EXPLORE POSTS</NavLink>)
+  } else {
+    profileLink1 = (<NavLink className="homepage-button" to={`/login`}>SEE LOCATIONS</NavLink>)
+    profileLink2 = (<NavLink className="homepage-button" to={`/login`}>GO TO PROFILE</NavLink>)
+    profileLink3 = (<NavLink className="homepage-button" to={`/preview`}>EXPLORE POSTS</NavLink>)
+  }
 
   posts.forEach(post => {
     let mostLikes = -Infinity
@@ -19,7 +34,6 @@ function Homepage() {
 
   })
 
-  console.log(post_likes, `<==== WHAT IS THISSSS`)
   useEffect(() => {
     dispatch(getAllPosts())
   }, [])
@@ -34,16 +48,16 @@ function Homepage() {
       <div className="homepage-howto-div">
         <div className="homepage-mission-box">
           <p>Select today's mission and set off on an adventure</p>
-          <button className="secondary-button">SEE LOCATIONS</button>
+          <button className="secondary-button">{profileLink1}</button>
         </div>
         <div className="homepage-share-box">
           <p>Document your experience with photos and text</p>
-          <button className="secondary-button">GO TO PROFILE</button>
+          <button className="secondary-button">{profileLink2}</button>
         </div>
 
         <div className="homepage-explore-box">
           <p>Discover people and places to inspire your next trek</p>
-          <button className="secondary-button">EXPLORE POSTS</button>
+          <button className="secondary-button">{profileLink3}</button>
         </div>
       </div>
     </div>

@@ -75,7 +75,6 @@ export const createPost = (payload) => async dispatch =>{
 
 
 export const editPost = (payload) => async dispatch =>{
-    console.log(payload,"<<<<PAYLOAD THUNK")
 
     const {
         description,

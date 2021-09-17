@@ -13,10 +13,6 @@ const DisplayUserMission = () => {
     // const user = useSelector(state => state.session.user);
     const missionChoices = useSelector(state => Object.values(state?.missionsReducer))
 
-    // console.log(Date.parse(missionChoices[0].created_at))
-    // console.log('expires', Date.parse(missionChoices[0].created_at) + 86400000)
-    // console.log(Date.now() > Date.parse(missionChoices[0].created_at) + 86400000)
-
     useEffect(() => {
         dispatch(fetchMissions())
     }, [dispatch])

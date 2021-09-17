@@ -35,8 +35,6 @@ function User() {
     }, [userId]);
 
 let addPost
-    console.log(currentMission,"<<<<<CURRENT MISSIONS")
-    console.log(currentMission,"<<<<<LENGTH OF CURRENT MISSIONS ")
     if(currentMission.length === 3){
         addPost=(<></>)
     }else if (currentMission.length === 1){

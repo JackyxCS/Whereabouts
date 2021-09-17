@@ -101,7 +101,6 @@ export const deleteMissions = () => async (dispatch) => {
     })
 
     if (res.ok) {
-        // console.log('here')
         const missions = await res.json()
         return missions
     }

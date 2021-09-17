@@ -21,7 +21,6 @@ function CommentsList() {
         <div className="comment-section-div">
             <h2 className="comment-section-title">Comments</h2>
             <ul className="comments-list">
-                {/* <CommentDetail /> */}
                 {spotComments && spotComments?.map((comment) => {
                     return <CommentDetail key={comment?.id} comment={comment} />;
                 })}

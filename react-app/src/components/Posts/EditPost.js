@@ -10,7 +10,6 @@ const EditPost = ({postId}) =>{
     const history = useHistory()
     const posts = useSelector(state => state?.posts)
     const postDescription = posts[postId].description
-    console.log(postDescription,"<<<<POST_DESCRIPTION")
     const [description, setDescription] = useState(postDescription)
     const [validationErrors,setValidationErrors] = useState([])
     const updateDescription = (e) => setDescription (e.target.value)
@@ -31,7 +30,6 @@ const EditPost = ({postId}) =>{
             description
 
         }
-        console.log(payload,`<<<<<<<PAYLOAD_EDIT`)
         await dispatch(editPost(payload))
 
         history.push(`/posts/${postId}`)

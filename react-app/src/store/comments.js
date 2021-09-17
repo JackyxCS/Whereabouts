@@ -27,10 +27,8 @@ const removeComment = (commentId) => ({
 
 // Define Thunks
 export const fetchComments = () => async (dispatch) => {
-    // console.log('inside thunk')
     const res = await fetch('/api/comments');
     const comments = await res.json()
-    // console.log('thunk comments', comments)
     dispatch(setComments(comments.comments))
 }
 
@@ -88,7 +86,6 @@ const commentsReducer = (state = initialState, action) => {
         case SET_COMMENTS: {
             const newState = {}
             const arr = action.comments
-            console.log(arr, 'arr')
             arr.forEach(comment => {
                 newState[comment.id] = comment
             })

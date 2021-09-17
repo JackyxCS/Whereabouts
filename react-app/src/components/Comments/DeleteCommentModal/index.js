@@ -12,7 +12,7 @@ function DeleteCommentModal({ commentId, showDeleteModal, setShowDeleteModal }) 
     const dispatch = useDispatch()
     const { postId } = useParams();
 
-    const handleSubmit = async (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
         setShowDeleteModal(false)
         await dispatch(deleteComment(commentId))
@@ -23,17 +23,16 @@ function DeleteCommentModal({ commentId, showDeleteModal, setShowDeleteModal }) 
         <>
             {showDeleteModal && (
                 <Modal onClose={() => setShowDeleteModal(false)}>
-                    <div>
-                        <label>Are you sure?</label>
-                        <form onSubmit={handleSubmit}>
-                            <button type="submit">Confirm</button>
-                        </form>
-                        <button onClick={() => setShowDeleteModal(false)}>
+                    <div className="submit-comment-form">
+                        {/* <label>Are you sure?</label> */}
+                        <button className="secondary-button" onClick={handleClick}>Confirm</button>
+                        <button className="secondary-button" onClick={() => setShowDeleteModal(false)}>
                             Cancel
                         </button>
                     </div>
                 </Modal>
-            )}
+            )
+            }
         </>
     );
 }
