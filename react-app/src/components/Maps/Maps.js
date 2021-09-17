@@ -26,6 +26,7 @@ const Maps = ({ apiKey, missions }) => {
     const [lat, setLat] = useState(0)
     const [lng, setLng] = useState(0)
 
+
     useEffect(() => {
         const newArray = []
         if (missions?.length) {
