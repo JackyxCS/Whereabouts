@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import DeleteCommentModal from './DeleteCommentModal/index';
 import { createUpdate, fetchComments } from '../../store/comments';
 import "./comments.css"
@@ -82,7 +82,7 @@ const CommentDetail = ({ comment }) => {
             return (
                 <li className="comments-list-item">
                     <div>{comment.comment}</div>
-                    <div>@{comment.user_details.username}</div>
+                    <div><NavLink to={`/users/${comment.user_details.id}`}>@{comment.user_details.username}</NavLink></div>
                     <div className="button-div">
                         <button
                             onClick={handleEditCommentClick}
@@ -110,7 +110,7 @@ const CommentDetail = ({ comment }) => {
                 <p>add in the comments</p> */}
                 {/* <NavLink exact to={`/comments/${comment.id}`}></NavLink> */}
                 {comment.comment}
-                <div>@{comment.user_details.username}</div>
+                <div><NavLink to={`/users/${comment.user_details.id}`}>@{comment.user_details.username}</NavLink></div>
             </li>
         );
 
