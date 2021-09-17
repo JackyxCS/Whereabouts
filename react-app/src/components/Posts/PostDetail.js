@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { NavLink } from 'react-router-dom';
+import moment from "moment"
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../../store/posts';
@@ -29,6 +30,8 @@ const PostDetail = () => {
     const postLikes = useSelector(state => Object.values(state?.likes))
     // const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
     const post = posts[postId];
+    const dateCreated = post.created
+    const formattedDate = moment(dateCreated).format("MMMM Do YYYY")
     const userId = useSelector(state => state?.session.user.id)
     const likeId = postLikes.filter(like => +postId === +like.post_id && +userId === +like.user_id)[0]
 
@@ -133,7 +136,7 @@ const PostDetail = () => {
                 </div>
 
                 <div className="post-detail-created-div">
-                    <p className="post-detail-date">{post.created}</p>
+                    <p className="post-detail-date">{formattedDate}</p>
                     <p className="post-detail-user">@{post.user_details.username}</p>
                 </div>
 
