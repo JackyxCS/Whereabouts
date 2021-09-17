@@ -128,6 +128,6 @@ class Comment(db.Model):
             'post_id': self.post_id,
             'user_id': self.user_id,
             'comment': self.comment,
-            'user_details': self.user_details,
-            'post_details': self.post_details
+            'user_details': self.user_details.to_dict(),
+            # 'post_details': self.post_details.to_dict(),
         }

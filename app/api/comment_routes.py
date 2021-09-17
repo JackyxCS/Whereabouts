@@ -18,13 +18,8 @@ def validation_errors_to_error_messages(validation_errors):
 @comment_routes.route('/', methods=['GET'])
 def getAllComments():
     comments = Comment.query.all()
-    # print(comments, '<<<<<<COMMENTS')
-    return {'comments': [{
-        'id': comment.id,
-        'post_id': comment.post_id,
-        'user_id': comment.user_id,
-        'comment': comment.comment,
-    } for comment in comments]}
+
+    return {'comments' : [comment.to_dict() for comment in comments]}
 
 @comment_routes.route('/', methods=["POST"])
 @login_required
@@ -53,19 +48,21 @@ def postComment():
 @comment_routes.route('/<int:commentId>', methods=['PUT'])
 @login_required
 def updateComment(commentId):
-    form = UpdateCommentForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        post_id = form.data["post_id"]
-        user_id = form.data["user_id"]
-        comment = form.data["comment"]
+    data = request.get_json()["comment"]
 
-        single_comment = Comment.query.filter(Comment.id == commentId).all()
-        single_comment[0]["comment"] = comment
+    comment = data["updatedComment"]
 
-        db.session.commit()
-        return single_comment.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    single_comment = Comment.query.filter(Comment.id == commentId).all()
+    print(single_comment[0].comment)
+    single_comment[0].comment = comment
+
+    db.session.commit()
+    return {'single_comment': {
+        'id': single_comment[0].id,
+        'post_id': single_comment[0].post_id,
+        'user_id': single_comment[0].user_id,
+        'comment': single_comment[0].comment,
+    }}
 
 @comment_routes.route('/<int:commentId>', methods=["DELETE"])
 @login_required
@@ -73,5 +70,10 @@ def deleteComment(commentId):
     delete_comment = Comment.query.filter(Comment.id == commentId).first()
     db.session.delete(delete_comment)
     db.session.commit()
-    return delete_comment.to_dict()
+    return {'deleted_comment': {
+        'id': delete_comment.id,
+        'post_id': delete_comment.post_id,
+        'user_id': delete_comment.user_id,
+        'comment': delete_comment.comment,
+    }}
     
