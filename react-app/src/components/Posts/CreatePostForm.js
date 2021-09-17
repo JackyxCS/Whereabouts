@@ -23,9 +23,9 @@ const CreatePostForm = ({setShowModal}) => {
 
     const uploadFile1 = e => {setImage_1(e.target.files[0])}
     const uploadFile2 = e => { setImage_2(e.target.files[0])}
-  const uploadFile3 = e => {setImage_3(e.target.files[0])}
-const uploadFile4 = e => {setImage_4(e.target.files[0])}
-const uploadFile5 = e => {setImage_5(e.target.files[0])}
+    const uploadFile3 = e => {setImage_3(e.target.files[0])}
+    const uploadFile4 = e => {setImage_4(e.target.files[0])}
+    const uploadFile5 = e => {setImage_5(e.target.files[0])}
 
     const updateDescription = (e) => setDescription (e.target.value)
 
@@ -77,25 +77,25 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
             name='image_1'
             onChange={uploadFile1}
             />
-              <input
+            <input
             className='form-input'
             type='file'
             name='image_2'
             onChange={uploadFile2}
             />
-              <input
+            <input
             className='form-input'
             type='file'
             name='image_3'
             onChange={uploadFile3}
             />
-              <input
+            <input
             className='form-input'
             type='file'
             name='image_4'
             onChange={uploadFile4}
             />
-              <input
+            <input
             className='form-input'
             type='file'
             name='image_5'
