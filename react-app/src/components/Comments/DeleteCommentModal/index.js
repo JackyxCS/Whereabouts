@@ -5,7 +5,7 @@ import { Modal } from '../../../context/Modal';
 import { deleteComment } from '../../../store/comments';
 // import DeleteCommentForm from './LoginForm';
 
-function DeleteCommentModal({ showDeleteModal, setShowDeleteModal }) {
+function DeleteCommentModal({ commentId, showDeleteModal, setShowDeleteModal }) {
     // const [showModal, setShowModal] = useState(false);
 
     const history = useHistory()
@@ -15,7 +15,7 @@ function DeleteCommentModal({ showDeleteModal, setShowDeleteModal }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setShowDeleteModal(false)
-        await dispatch(deleteComment())
+        await dispatch(deleteComment(commentId))
         history.push(`/posts/${postId}`)
     }
 

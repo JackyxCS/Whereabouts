@@ -53,7 +53,7 @@ export const postComment = (comment) => async (dispatch) => {
 }
 
 export const createUpdate = (comment) => async (dispatch) => {
-    const res = await fetch(`/api/comments/${comment.id}`, {
+    const res = await fetch(`/api/comments/${comment.commentId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
