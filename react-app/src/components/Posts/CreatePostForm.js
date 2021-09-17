@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 import { deleteMissions, fetchMissions } from '../../store/missions';
 import { createPost } from '../../store/posts';
 
-const CreatePostForm = () => {
+const CreatePostForm = ({setShowModal}) => {
     const dispatch = useDispatch()
     const user_id = useSelector(state => state.session.user.id)
     const currentMission = useSelector(state => Object.values(state.missionsReducer))
@@ -55,6 +55,7 @@ const uploadFile5 = e => {setImage_5(e.target.files[0])}
         await dispatch(deleteMissions())
         await dispatch(fetchMissions())
         await dispatch(createPost(payload))
+        setShowModal(false)
 
 
 
