@@ -6,15 +6,14 @@ import { getAllPosts } from '../store/posts';
 import PhotoGrid from './Posts/PhotoGrid.js';
 import PostFormModal from './Posts/PostFormModal';
 import UserMission from './Missions/UserMission.js';
-// import UserLocationForm from './Missions/Missions.js';
 import LocationFormModal from './LocationModal/index.js'
+import defaultUser from "../images/default_user.png"
 import './user.css'
 
 function User() {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user);
-    //const user_id = useSelector(state => state.session.user).id
     const posts = useSelector(state => Object.values(state.posts))
     const currentMission = useSelector(state => Object.values(state.missionsReducer))
     const { userId } = useParams();
@@ -47,17 +46,18 @@ let addPost
         return null;
     }
 
-    // userId is string and user.id is integer
     if (Number(userId) === Number(user.id)) {
         return (
             <div className="session-users-profile">
                 <h1 >{user.username}'s Profile Page</h1>
 
                 <div className="user-controls">
-                    {/* <div><strong>username:</strong> {user.username}</div> */}
-                    <div className="user-profile-pic"></div>
-                    <div>{user.email}</div>
 
+                    <div className="user-profile-pic-div">
+                        <img className="user-profile-pic" src={defaultUser} alt="user profile"/>
+                        {/* <img className="user-profile-pic" src={defaultUser} alt="user profile" onClick={() => setProfilePicture(user.profile_picture)} /> */}
+                    </div>
+                    <div>{user.email}</div>
 
                     <div className="mission-dashboard-div">
                         <h2>Mission Dashboard</h2>

@@ -16,7 +16,7 @@ def flask_form_errors(validation_errors):
     errors = []
     for inputs in validation_errors:
         for error in validation_errors[inputs]:
-            errors.append(f'{inputs} fiel : {error}')
+            errors.append(f'{inputs} : {error}')
     return errors
 """
 GET ALL POSTS
