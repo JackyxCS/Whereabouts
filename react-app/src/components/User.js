@@ -8,6 +8,7 @@ import PostFormModal from './Posts/PostFormModal';
 import UserMission from './Missions/UserMission.js';
 import LocationFormModal from './LocationModal/index.js'
 import defaultUser from "../images/default_user.png"
+import defaultUserPreview from "../images/default_user-preview.png"
 import './user.css'
 
 function User() {
@@ -88,7 +89,9 @@ let addPost
         return (
           <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
-            <div className="user-profile-pic"></div>
+            <div className="user-profile-pic-div">
+                <img className="user-profile-pic" src={defaultUserPreview} alt="user profile"/>
+            </div>
             <div className="post-section-div">
                 <h2 className="post-section-title">Posts from Past Missions</h2>
                 <PhotoGrid posts={userPosts} />
