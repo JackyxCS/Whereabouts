@@ -45,6 +45,8 @@ export const updateUserPref = (payload) => async () => {
     }
 }
 
+
+
 export const fetchMissions = () => async (dispatch) => {
     const res = await fetch('/api/missions/');
     const missions = await res.json();
@@ -53,7 +55,7 @@ export const fetchMissions = () => async (dispatch) => {
 
 export const postMission = (mission) => async (dispatch) => {
     const missionDetails = mission["currentMission"].split(",")
-    
+
     const res = await fetch(`/api/missions/choose/`, {
         method: 'POST',
         headers: {

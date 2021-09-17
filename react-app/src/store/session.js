@@ -99,6 +99,34 @@ export const signUp = (username, email, password, repeatPassword) => async (disp
   }
 }
 
+
+export const updateProfilePic = (payload) => async () => {
+  // const {userId, profile_picture} = payload
+  const data = new FormData()
+
+  // data.append('profile_picture', photo)
+  data.append("profile_picture", payload.profilePic)
+
+  console.log("GETPAYYYYYD", payload)
+  console.log("PROFILEPICCCC", payload.profilePic);
+  console.log("DATA THUNK", data);
+
+  const res = await fetch(`/api/users/${payload.userId}/photo`, {
+      method: 'PUT',
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
+      body: payload.profilePic
+  })
+
+  if (res.ok) {
+      const updatedUser = await res.json()
+      return updatedUser
+  }
+}
+
+
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
