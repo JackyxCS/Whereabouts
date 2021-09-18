@@ -27,7 +27,7 @@ const removeComment = (commentId) => ({
 
 // Define Thunks
 export const fetchComments = () => async (dispatch) => {
-    const res = await fetch('/api/comments');
+    const res = await fetch('/api/comments/');
     const comments = await res.json()
     dispatch(setComments(comments.comments))
 }
