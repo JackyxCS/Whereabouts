@@ -65,9 +65,9 @@ const UserLocationForm = () => {
 
     useEffect(() => {
         const errors = [];
-        if (lat?.length === 0) errors.push("Latitude is required")
-        if (lng?.length === 0) errors.push("Longitude is required")
-        if (radius?.length === 0) errors.push("Maximum distance is required")
+        if (!lat) errors.push("Latitude is required")
+        if (!lng) errors.push("Longitude is required")
+        if (!radius) errors.push("Maximum distance is required")
         setValidationErrors(errors)
     }, [lat, lng, radius])
 
