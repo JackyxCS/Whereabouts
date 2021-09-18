@@ -10,7 +10,7 @@ const ChooseMissionForm = () => {
     const missionChoices = useSelector(state => Object.values(state.missionsReducer))
     const { id: userId, user_lat: userLat, user_lng: userLng } = user
 
-    const [currentMission, setCurrentMission] = useState();
+    const [currentMission, setCurrentMission] = useState("");
     // const [validationErrors, setValidationErrors] = useState([])
 
     function getDistanceBetweenInMiles(lat1, lon1, lat2, lon2) {

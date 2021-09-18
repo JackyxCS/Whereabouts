@@ -15,6 +15,7 @@ import UserLocationForm from './components/Missions/Missions';
 import ChooseMissionForm from './components/Missions/ChooseMission'
 import { authenticate } from './store/session';
 import { getAllPosts } from './store/posts';
+import { fetchUsers } from './store/users';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -25,7 +26,7 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       await dispatch(getAllPosts())
-
+      await dispatch(fetchUsers())
       setLoaded(true);
     })();
   }, [dispatch]);

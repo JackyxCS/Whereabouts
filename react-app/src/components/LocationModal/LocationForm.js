@@ -114,6 +114,7 @@ const LocationForm = ({ setShowModal }) => {
             {/* <form onSubmit={handleSubmit} className={styles.missionForm}> */}
             <form onSubmit={handleSubmit} className="form-div">
                 <p className="form-instructions">Enter latitude and longitude as decimal numbers and distance in miles</p>
+                <a href="https://www.latlong.net/" className="form-instructions" style={{color:"white" , textDecoration:"underline"}} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
                 <input
                     className='form-input'
                     placeholder="Latitude"

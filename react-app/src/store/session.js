@@ -2,6 +2,7 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 
+
 const setUser = (user) => ({
   type: SET_USER,
   payload: user
@@ -10,6 +11,7 @@ const setUser = (user) => ({
 const removeUser = () => ({
   type: REMOVE_USER,
 })
+
 
 const initialState = { user: null };
 
@@ -101,22 +103,14 @@ export const signUp = (username, email, password, repeatPassword) => async (disp
 
 
 export const updateProfilePic = (payload) => async () => {
-  // const {userId, profile_picture} = payload
-  const data = new FormData()
 
-  // data.append('profile_picture', photo)
+  const data = new FormData()
   data.append("profile_picture", payload.profilePic)
 
-  console.log("GETPAYYYYYD", payload)
-  console.log("PROFILEPICCCC", payload.profilePic);
-  console.log("DATA THUNK", data);
 
   const res = await fetch(`/api/users/${payload.userId}/photo`, {
       method: 'PUT',
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
-      body: payload.profilePic
+      body: data
   })
 
   if (res.ok) {
@@ -133,6 +127,7 @@ export default function reducer(state = initialState, action) {
       return { user: action.payload }
     case REMOVE_USER:
       return { user: null }
+
     default:
       return state;
   }

@@ -5,10 +5,6 @@ import { Redirect } from 'react-router';
 import { deleteMissions, fetchMissions } from '../../store/missions';
 import { createPost } from '../../store/posts';
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 const CreatePostForm = ({ setShowModal }) => {
   const dispatch = useDispatch()
   const user_id = useSelector(state => state.session.user.id)

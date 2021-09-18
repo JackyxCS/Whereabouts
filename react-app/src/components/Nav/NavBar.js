@@ -19,12 +19,21 @@ const NavBar = () => {
 
                 <div className="right-nav-links">
                     <div className="page-nav-link">
-                        <NavLink className="page-navlink-text" exact to='/explore' activeClassName='active'>
+                        <NavLink
+                        className="page-navlink-text"
+                        exact to='/explore'
+                        activeClassName='active'
+                        activeStyle={{borderBottom:"3px solid white"}}>
                             Explore
                         </NavLink>
                     </div>
                     <div className="page-nav-link">
-                        <NavLink className="page-navlink-text" to={`/users/${user.id}`}>
+                        <NavLink
+                        className="page-navlink-text"
+                        to={`/users/${user.id}`}
+                        activeClassName='active'
+                        activeStyle={{borderBottom:"3px solid white"}}
+                        >
                             Profile
                         </NavLink>
                     </div>
@@ -42,7 +51,12 @@ const NavBar = () => {
 
                 <div className="right-nav-links">
                     <div className="page-nav-link">
-                        <NavLink className="page-navlink-text" exact to='/preview' activeClassName='active'>
+                        <NavLink
+                        className="page-navlink-text"
+                        exact to='/preview'
+                        activeClassName='active'
+                        activeStyle={{borderBottom:"3px solid white"}}
+                        >
                             Explore
                         </NavLink>
                     </div>

@@ -3,7 +3,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../store/posts';
-import { updateProfilePic } from '../store/session';
+import {   updateProfilePic } from '../store/session';
+import { fetchUsers } from '../store/users';
 import PhotoGrid from './Posts/PhotoGrid.js';
 import PostFormModal from './Posts/PostFormModal';
 import UserMission from './Missions/UserMission.js';
@@ -14,45 +15,47 @@ import './user.css'
 
 function User() {
 
+
     const dispatch = useDispatch()
-    const user = useSelector(state => state.session.user);
+    const user = useSelector(state => state?.session.user);
+    const users = useSelector(state => Object.values(state?.users))
     const posts = useSelector(state => Object.values(state.posts))
     const currentMission = useSelector(state => Object.values(state.missionsReducer))
     const { userId } = useParams();
     const [paramUser, setParamUser] = useState({});
 
+
     useEffect(()=>{
         dispatch(getAllPosts())
+
+
+
     }, [dispatch])
+    console.log(users,"<<<<<USERS__FRONTEND")
 
     const userPosts = posts.filter((post) => post.user_id === Number(userId)).reverse()
 
+    const profileOwner = users?.filter(user => +userId === +user.id )[0]
+    console.log(profileOwner, "WHATTT DI IS????")
     useEffect(() => {
         (async () => {
             const response = await fetch(`/api/users/${userId}`);
             const user = await response.json();
             setParamUser(user);
         })();
+
     }, [userId]);
 
     const inputFile = useRef(null)
 
-    // const [profilePic, setProfilePic] = useState("")
-
-    // const uploadProfilePic = e => {
-    //     console.log("TARGET FILES[0]", e.target.files[0])
-    //     setProfilePic(e.target.files[0])
-    //     console.log("PROFILE PIC", profilePic);
-    // }
-
     const submitProfilePic = async (e) => {
         e.preventDefault()
-        // inputFile.current.click();
-        // setProfilePic(e.target.files[0])
+
         const profilePic = e.target.files[0]
         const payload = {profilePic, userId}
-        console.log("PAYLOAD", payload);
+
         await dispatch(updateProfilePic(payload))
+        await dispatch(fetchUsers())
         return
     }
 
@@ -68,12 +71,26 @@ function User() {
     if (!user) {
         return null;
     }
-
     let currentProfilePic
-    if (user.profile_picture) {
-        currentProfilePic = user.profile_picture
+    console.log(profileOwner.profile_picture, "<<<<PROFILE OWNER!!")
+
+    // THIS IS NOT YOUR PAGE
+    if (profileOwner['id'] === +user?.id ) {
+        if(!profileOwner.profile_picture){
+            currentProfilePic = defaultUser
+        }else{
+            currentProfilePic = profileOwner.profile_picture
+        }
+
     } else {
-        currentProfilePic = defaultUser
+        // THIS IS YOUR PAGE
+        if(!profileOwner.profile_picture){
+            currentProfilePic = defaultUserPreview
+        }else{
+            currentProfilePic = profileOwner.profile_picture
+        }
+
+
     }
 
 
@@ -85,7 +102,7 @@ function User() {
                 <div className="user-controls">
 
                     <div className="user-profile-pic-div">
-                        {/* <form onSubmit={submitProfilePic}> */}
+
                             <input
                                 style={{ display: "none" }}
                                 ref={inputFile}
@@ -96,16 +113,12 @@ function User() {
                             <div onClick={() => inputFile.current.click()}>
                                 <img className="user-profile-pic" src={currentProfilePic} alt="user profile"/>
                             </div>
-                            {/* <button type="submit" value={profilePic}>
-                                <img className="user-profile-pic" src={currentProfilePic} alt="user profile"/>
-                            </button> */}
-                        {/* </form> */}
-
                     </div>
                     <div>{user.email}</div>
 
                     <div className="mission-dashboard-div">
                         <h2>Mission Dashboard</h2>
+                        <a href="https://www.latlong.net/" className="form-instructions" style={{color:"var(--wa-blue)" , textDecoration:"underline", marginBottom:'10px'}} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
                         <UserMission />
                         <div>
                             {addPost}
@@ -134,7 +147,7 @@ function User() {
           <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
             <div className="user-profile-pic-div">
-                <img className="user-profile-pic" src={defaultUserPreview} alt="user profile"/>
+                <img className="user-profile-pic" src={currentProfilePic} alt="user profile"/>
             </div>
             <div className="post-section-div">
                 <h2 className="post-section-title">Posts from Past Missions</h2>
