@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import MarkerLogo from '../../images/whereabouts_pin.png'
 
 const containerStyle = {
     width: '400px',
@@ -54,7 +55,7 @@ const Maps = ({ apiKey, missions }) => {
                         key={marker.lat}
                         position={{ lat: +marker?.lat, lng: +marker?.lng }}
                         icon={{
-                            url: "/whereabouts_pin.png",
+                            url: MarkerLogo,
                             scaledSize: new window.google.maps.Size(32, 44)
                         }}
                     >
