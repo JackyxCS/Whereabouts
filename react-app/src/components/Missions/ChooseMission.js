@@ -11,7 +11,7 @@ const ChooseMissionForm = () => {
     const { id: userId, user_lat: userLat, user_lng: userLng } = user
 
     const [currentMission, setCurrentMission] = useState("");
-    // const [validationErrors, setValidationErrors] = useState([])
+
 
     function getDistanceBetweenInMiles(lat1, lon1, lat2, lon2) {
         // radius of the earth in miles
@@ -42,16 +42,9 @@ const ChooseMissionForm = () => {
         dispatch(fetchMissions())
     }, [dispatch])
 
-    // useEffect(() => {
-    //     const errors = [];
-    //     if (!currentMission) errors.push("Select a mission")
-    //     setValidationErrors(errors)
-    // }, [currentMission])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        // if (validationErrors > 0) return;
 
         const missionPayload = {
             userId,
@@ -60,7 +53,7 @@ const ChooseMissionForm = () => {
         await dispatch(deleteMissions())
         await dispatch(postMission(missionPayload))
         await dispatch(fetchMissions())
-        // history.push(`/users/${userId}`)
+
     }
 
     return (
@@ -68,14 +61,10 @@ const ChooseMissionForm = () => {
             {!!missionChoices && missionChoices?.map(mission => (
                 <div key={mission?.id} className={styles.eachMission}>
                     <form onSubmit={handleSubmit}>
-                        {/* <div key={mission?.id}> */}
                         <MapContainer missions={[mission]} />
-                        {/* <div>{mission?.id}</div> */}
                         <div className={styles.missionInfo}>
                             <div>LAT: {mission?.mission_lat.toFixed(6)}, LNG: {mission?.mission_lng.toFixed(6)}</div>
-                            {/* <div>{mission?.mission_lng}</div> */}
                             <div>{getDistanceBetweenInMiles(userLat, userLng, mission?.mission_lat, mission?.mission_lng)} miles away</div>
-                            {/* </div> */}
                             <button className="primary-button"
                                 type="submit"
                                 value={[mission.id, mission.mission_lat, mission.mission_lng]}

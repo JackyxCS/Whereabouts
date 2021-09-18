@@ -46,9 +46,6 @@ function App() {
           <Route path='/sign-up' exact={true}>
             <SignUpForm />
           </Route>
-          {/* <ProtectedRoute path='/users' exact={true} >
-                <UsersList />
-                </ProtectedRoute> */}
           <ProtectedRoute path='/users/:userId' exact={true} >
             <User />
           </ProtectedRoute>
@@ -69,7 +66,6 @@ function App() {
             <Homepage />
           </Route>
 
-          {/* switch to protect route later! */}
           <ProtectedRoute path='/missions' exact={true}>
             <h1>Enter Your Location Information</h1>
             <UserLocationForm />

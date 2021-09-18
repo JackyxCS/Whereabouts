@@ -19,7 +19,6 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 @user_routes.route('/')
-@login_required
 def users():
     users = User.query.all()
     return {'users': [user.to_dict() for user in users]}
@@ -62,20 +61,18 @@ def updateProfilePic(userId):
     form = ProfilePictureForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     data = request.data
-    print("DATTTA", data)
 
     if form.validate_on_submit():
 
-        print("FORM.DATA", form.data)
 
-        photo = form.data["profile_picture"]
+        img_set = request.files.to_dict().values()
+        urls= upload_to_aws(img_set, BUCKET_NAME, userId)
 
-        print("PHOTO", photo)
 
-        profile_picture = upload_to_aws([photo], BUCKET_NAME, userId)
+        imgUrls = {index: url for index, url in enumerate(urls)}
 
-        user = User.query.get(id)
-        user.profile_picture = profile_picture
+        user = User.query.get(userId)
+        user.profile_picture = imgUrls[0]
 
         db.session.commit()
         return user.to_dict()

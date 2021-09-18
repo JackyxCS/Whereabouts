@@ -10,15 +10,9 @@ from botocore.exceptions import ClientError
 """
 AWS CONFIGURATION
 """
-# AWS_ACCESS_KEY_ID= os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY= os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 BUCKET_NAME='whereaboutsbucket'
 
-
-# my_config = Config(
-#     region_name =  REGION_NAME
-
-# )
 
 def upload_to_aws(image_set, bucket, userId):
 

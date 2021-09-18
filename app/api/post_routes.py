@@ -5,10 +5,7 @@ from app.models import Post, db, Like
 from app.forms import PostForm, EditPostForm
 from app.api.aws import upload_to_aws
 import datetime
-import os
-import boto3
-from botocore.config import Config
-from werkzeug.datastructures import ImmutableMultiDict
+
 
 post_routes = Blueprint('posts',__name__)
 
@@ -37,7 +34,7 @@ def get_all_posts():
 GET INDIVIDUAL POST
 """
 @post_routes.route('/<int:id>')
-# @login_required
+@login_required
 def get_single_post(id):
     post = Post.query.get(id)
     post_likes = Like.query.filter(Like.post_id == post.id).all()
@@ -47,17 +44,10 @@ def get_single_post(id):
 """
 AWS CONFIGURATION
 """
-# AWS_ACCESS_KEY_ID= os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY= os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 BUCKET_NAME='whereaboutsbucket'
-REGION_NAME = 'us-east-1'
 
-my_config = Config(
-    region_name =  REGION_NAME
 
-)
-client = boto3.client('s3', config=my_config)
-s3 = boto3.resource('s3')
 
 """
 CREATE NEW POST
@@ -69,7 +59,7 @@ def new_post():
     form = PostForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
-    # print(form.data,"<<<<<<<FORM_DATA")
+
 
     if form.validate_on_submit():
         img_set = request.files.to_dict().values()

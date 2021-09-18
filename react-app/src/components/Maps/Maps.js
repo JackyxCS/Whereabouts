@@ -6,10 +6,6 @@ const containerStyle = {
     height: '400px',
 };
 
-// const center = {
-//     lat: 38.9072,
-//     lng: 77.0369,
-// };
 
 const options = {
     disableDefaultUI: true,
@@ -34,7 +30,6 @@ const Maps = ({ apiKey, missions }) => {
             setLng(+missions[0]?.mission_lng)
             missions?.forEach(mission => {
                 const obj = {}
-                // obj['id'] = mission?.id
                 obj['lat'] = mission?.mission_lat
                 obj['lng'] = mission?.mission_lng
                 newArray.push(obj)

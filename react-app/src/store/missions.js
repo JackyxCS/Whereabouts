@@ -1,29 +1,11 @@
 // Define Action Types as Constants
-// const SET_USER_PREF = 'mission/SET_USER_PREF'
 const SET_MISSIONS = 'missions/SET_MISSIONS'
-// const ADD_MISSIONS = 'missions/ADD_MISSIONS'
-// const REMOVE_MISSIONS = 'missions/REMOVE_MISSIONS'
-
-// Define Action Creators
-// const setUserPref = (user) => ({
-//     type: SET_USER_PREF,
-//     user
-// })
 
 const setUserMissions = (missions) => ({
     type: SET_MISSIONS,
     missions
 })
 
-// const addUserMissions = (missions) => ({
-//     type: ADD_MISSIONS,
-//     missions
-// })
-
-// const removeUserMissions = (missions) => ({
-//     type: REMOVE_MISSIONS,
-//     missions
-// })
 
 // Define Thunks
 export const updateUserPref = (payload) => async () => {
@@ -122,20 +104,7 @@ const missionsReducer = (state = initialState, action) => {
             })
             return newState
         }
-        // case ADD_MISSIONS: {
-        //     const newState = { ...state }
-        //     action.missions.forEach(mission => {
-        //         newState[mission.id] = mission
-        //     })
-        //     return newState
-        // }
-        // case REMOVE_MISSIONS: {
-        //     const newState = { ...state }
-        //     action.missions.forEach(mission => {
-        //         delete newState[mission.id]
-        //     })
-        //     return newState
-        // }
+
         default:
             return state;
     }

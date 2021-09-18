@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
-// import { NavLink } from 'react-router-dom';
 import moment from "moment"
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllPosts } from '../../store/posts';
-// import { fetchComments } from '../../store/comments';
 import FeatureImage from './FeatureImage.js'
 import CommentsList from '../Comments/CommentsList.js'
 import MapContainer from "../Maps";
@@ -28,7 +26,7 @@ const PostDetail = () => {
     const posts = useSelector(state => state?.posts)
 
     const postLikes = useSelector(state => Object.values(state?.likes))
-   
+
     const post = posts[postId];
 
     const userId = useSelector(state => state?.session.user.id)

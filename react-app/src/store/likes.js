@@ -10,11 +10,6 @@ const setLikes = (likes) => ({
     type: SET_LIKES,
     likes
 })
-// const addLike = (like) =>({
-//     type: ADD_LIKE,
-//     like
-// })
-
 const deleteLike = (like) => ({
     type: REMOVE_LIKE,
     like
