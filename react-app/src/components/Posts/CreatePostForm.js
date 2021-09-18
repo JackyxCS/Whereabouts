@@ -16,7 +16,6 @@ const CreatePostForm = ({ setShowModal }) => {
   const [image_3, setImage_3] = useState("")
   const [image_4, setImage_4] = useState("")
   const [image_5, setImage_5] = useState("")
-  // const [hideShare, setHideShare] = useState(false)
   const [description, setDescription] = useState('')
   const [validationErrors, setValidationErrors] = useState([])
 

@@ -12,7 +12,7 @@ from .api.post_routes import post_routes
 from .api.mission_routes import mission_routes
 from .api.comment_routes import comment_routes
 
-# from .api.map import maps_routes
+
 
 
 from app.models.seeds import seed_commands

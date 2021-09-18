@@ -89,9 +89,6 @@ const CommentDetail = ({ comment }) => {
                         >
                             Edit Comment
                         </button>
-                        {/* {showEditModal && <EditCommentModal commentId={comment.id} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} />}} */}
-                        {/* </div> */}
-                        {/* <div> */}
                         <button
                             onClick={handleDeleteCommentClick}
                         >
@@ -105,10 +102,6 @@ const CommentDetail = ({ comment }) => {
     } else {
         return (
             <li className="comments-list-item">
-                {/* <p className="comments-list-item-content">add in the comments</p>
-                <p>add in the comments</p>
-                <p>add in the comments</p> */}
-                {/* <NavLink exact to={`/comments/${comment.id}`}></NavLink> */}
                 {comment.comment}
                 <div><NavLink to={`/users/${comment.user_details.id}`}>@{comment.user_details.username}</NavLink></div>
             </li>

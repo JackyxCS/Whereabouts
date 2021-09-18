@@ -1,4 +1,3 @@
-# from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -111,8 +110,6 @@ class Like(db.Model):
             'id': self.id,
             'post_id': self.post_id,
             'user_id': self.user_id,
-            # 'user_details': self.user_details.to_dict(),
-            # 'post_details': self.post_details.to_dict()
         }
 
 class Comment(db.Model):
@@ -131,5 +128,4 @@ class Comment(db.Model):
             'user_id': self.user_id,
             'comment': self.comment,
             'user_details': self.user_details.to_dict(),
-            # 'post_details': self.post_details.to_dict(),
         }

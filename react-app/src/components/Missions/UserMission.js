@@ -9,8 +9,6 @@ import styles from './UserMission.module.css'
 
 const DisplayUserMission = () => {
     const dispatch = useDispatch();
-    // const history = useHistory();
-    // const user = useSelector(state => state.session.user);
     const missionChoices = useSelector(state => Object.values(state?.missionsReducer))
 
     useEffect(() => {
@@ -21,12 +19,10 @@ const DisplayUserMission = () => {
 
     if (missionChoices.length === 0) {
         chooseMissions = (
-            // <NavLink to="/missions">Choose Your Next Mission</NavLink>
             <UserLocationForm />
         )
     } else if (missionChoices.length === 3) {
         chooseMissions = (
-            // <NavLink to="/missions/select" className="primary-button">Pick Your Mission</NavLink>
             <ChooseMissionForm />
         )
     } else if (missionChoices.length === 1) {
@@ -39,9 +35,6 @@ const DisplayUserMission = () => {
                         <div><strong>Time Remaining:</strong> {((Date.parse(missionChoices[0].created_at) + 86400000 - Date.now()) / 3600000).toFixed(1)} Hours</div>
                         <MapContainer missions={missionChoices} />
                     </div>
-                    {/* <div className={styles.updateLocation}> Update Your Location
-                        <UserLocationForm />
-                    </div> */}
                 </div>
             )
         } else {

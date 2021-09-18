@@ -9,7 +9,6 @@ function EditPostModal({postId}) {
     <>
       <button className="edit-post"
       onClick={() => setShowModal(true)}>
-     {/* <i className="fa fa-pencil edit-btn" aria-hidden="true"></i> */}
      Edit Description
 </button>
       {showModal && (

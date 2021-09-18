@@ -31,12 +31,12 @@ function User() {
 
 
     }, [dispatch])
-    console.log(users,"<<<<<USERS__FRONTEND")
+
 
     const userPosts = posts.filter((post) => post.user_id === Number(userId)).reverse()
 
     const profileOwner = users?.filter(user => +userId === +user.id )[0]
-    console.log(profileOwner, "WHATTT DI IS????")
+  
     useEffect(() => {
         (async () => {
             const response = await fetch(`/api/users/${userId}`);
@@ -72,7 +72,7 @@ function User() {
         return null;
     }
     let currentProfilePic
-    console.log(profileOwner.profile_picture, "<<<<PROFILE OWNER!!")
+
 
     // THIS IS NOT YOUR PAGE
     if (profileOwner['id'] === +user?.id ) {
@@ -147,7 +147,7 @@ function User() {
           <div className="other-users-profile">
             <h1>{paramUser.username}'s profile page</h1>
             <div className="user-profile-pic-div">
-                <img className="user-profile-pic" src={currentProfilePic} alt="user profile"/>
+                <img className="other-user-profile-pic" src={currentProfilePic} alt="user profile"/>
             </div>
             <div className="post-section-div">
                 <h2 className="post-section-title">Posts from Past Missions</h2>

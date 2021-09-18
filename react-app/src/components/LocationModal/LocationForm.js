@@ -21,42 +21,20 @@ const LocationForm = ({ setShowModal }) => {
         longitude = parseFloat(longitude)
         max = parseFloat(max)
 
-        // radius of the earth in miles
         const rEarth = 3961;
-
-        // calculate 1 degree latitude in miles
         const miles = rEarth * 2 * Math.PI / 360;
-
-        // generate random distance within max in miles in a NON-UNIFORM way
-        // to generate random points over the unit disk, we cannot use two uniformly distributed
-        // variables because that would give a concentration of points in the center
         const maxDistance = max;
         const r = (maxDistance * Math.random() ** 0.5);
-
-        // generate random angle in radians
         const theta = Math.random() * 2 * Math.PI;
-
-        // calculates randomized changes to user's latitude and longitude
         const dy = r * Math.sin(theta);
         const dx = r * Math.cos(theta);
 
-        // creates new latitude and longitude coordinates for user
-        // latitude: the angular distance of a place north or south of the earth's equator
-        // longitude: the angular distance of a place east or west of the meridian
-        // note: 1 degree of latitude is always ~69 miles BUT 1 degree of longitude is ~69 miles
-        // at the equator but 0 miles at the poles (not equidistant), so we need to adjust the newLongitude
-        // based on distance from equator
         let newLatitude = latitude + dy / miles;
         let newLongitude = longitude + dx / (miles * Math.cos(degreesToRadian(latitude)));
-
-        // get distance between current location and randomized location
-        // const distance = getDistanceBetweenInMiles(latitude, longitude, newLatitude, newLongitude);
 
         return {
             newLatitude,
             newLongitude,
-            // rounds distance to one decimal place
-            // distance: Math.round(distance * 10) / 10
         };
     }
 
@@ -111,7 +89,6 @@ const LocationForm = ({ setShowModal }) => {
 
     return (
         <div className="modal-wrapper-div">
-            {/* <form onSubmit={handleSubmit} className={styles.missionForm}> */}
             <form onSubmit={handleSubmit} className="form-div">
                 <p className="form-instructions">Enter latitude and longitude as decimal numbers and distance in miles</p>
                 <a href="https://www.latlong.net/" className="form-instructions" style={{color:"white" , textDecoration:"underline"}} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>

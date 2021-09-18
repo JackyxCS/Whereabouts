@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, DecimalField, StringField
+from wtforms import IntegerField, DecimalField
 from wtforms.validators import DataRequired
-from app.models import db, User
+
 
 
 class ChooseMissionsForm(FlaskForm):

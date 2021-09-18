@@ -52,7 +52,7 @@ def updateComment(commentId):
     comment = data["updatedComment"]
 
     single_comment = Comment.query.filter(Comment.id == commentId).all()
-    print(single_comment[0].comment)
+   
     single_comment[0].comment = comment
 
     db.session.commit()
@@ -75,4 +75,3 @@ def deleteComment(commentId):
         'user_id': delete_comment.user_id,
         'comment': delete_comment.comment,
     }}
-    

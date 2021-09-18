@@ -24,7 +24,7 @@
     flex-wrap: wrap;
 }
 
-.user-profile-pic {
+.user-profile-pic, .other-user-profile-pic {
     background: var(--wa-blue);
     width:150px;
     height: 150px;

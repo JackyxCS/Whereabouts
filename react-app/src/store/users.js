@@ -8,8 +8,6 @@ export const fetchUsers = () => async (dispatch) =>{
 
     const response = await fetch(`/api/users`);
     const users = await response.json();
-    console.log(users, "<<<<<<<THUN USERS")
-
       dispatch(getUsers(users["users"]))
   }
 const usersReducer = (state = initialState, action) => {
