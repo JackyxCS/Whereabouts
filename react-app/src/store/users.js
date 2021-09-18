@@ -6,7 +6,7 @@ const getUsers = (users) =>({
   })
 export const fetchUsers = () => async (dispatch) =>{
 
-    const response = await fetch(`/api/users`);
+    const response = await fetch(`/api/users/`);
     const users = await response.json();
       dispatch(getUsers(users["users"]))
   }
