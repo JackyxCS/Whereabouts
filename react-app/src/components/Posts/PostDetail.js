@@ -27,12 +27,10 @@ const PostDetail = () => {
     const { postId } = useParams();
     const posts = useSelector(state => state?.posts)
 
-    // const comments = useSelector(state => Object.values(state?.comments))
     const postLikes = useSelector(state => Object.values(state?.likes))
-    // const spotComments = comments.filter(comment => Number(comment.post_id) === Number(postId))
+   
     const post = posts[postId];
-    const dateCreated = post.created
-    const formattedDate = moment(dateCreated).format("MMMM Do YYYY")
+
     const userId = useSelector(state => state?.session.user.id)
     const likeId = postLikes.filter(like => +postId === +like.post_id && +userId === +like.user_id)[0]
 
@@ -119,7 +117,9 @@ const PostDetail = () => {
 
 
     if (post) {
-    const missions = { "mission_lat": post.post_lat, "mission_lng": post.post_lng }
+        const dateCreated = post.created
+        const formattedDate = moment(dateCreated).format("MMMM Do YYYY")
+        const missions = { "mission_lat": post.post_lat, "mission_lng": post.post_lng }
         return (
             <div className="posts-detail-list-item">
 
