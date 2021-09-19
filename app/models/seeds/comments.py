@@ -179,7 +179,7 @@ def seed_comments():
     comment36 = Comment(
         post_id=7,
         user_id=4,
-        comment="Ugh, dolls give me the chills. My mom collected them and they terrified me. No thanls. Cutie doggo, though!"
+        comment="Ugh, dolls give me the chills. My mom collected them and they terrified me. No thanks. Cutie doggo, though!"
     )
     comment37 = Comment(
         post_id=7,

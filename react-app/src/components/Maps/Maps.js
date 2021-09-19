@@ -3,8 +3,8 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import MarkerLogo from '../../images/whereabouts_pin.png'
 
 const containerStyle = {
-    width: '400px',
-    height: '400px',
+    width: '300px',
+    height: '300px',
 };
 
 
