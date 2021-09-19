@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postMissions, updateUserPref, deleteMissions, fetchMissions } from '../../store/missions';
 import styles from './Missions.module.css'
+import { useHistory } from 'react-router';
 
 
 const UserLocationForm = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const { id: userId } = user
 
@@ -65,9 +67,9 @@ const UserLocationForm = () => {
 
     useEffect(() => {
         const errors = [];
-        if (!lat) errors.push("Latitude is required")
-        if (!lng) errors.push("Longitude is required")
-        if (!radius) errors.push("Maximum distance is required")
+        if (Number.isNaN(Number(lat))) errors.push("Latitude is required")
+        if (Number.isNaN(Number(lng))) errors.push("Longitude is required")
+        if (Number.isNaN(Number(radius))) errors.push("Enter maximum radius")
         setValidationErrors(errors)
     }, [lat, lng, radius])
 
@@ -104,11 +106,15 @@ const UserLocationForm = () => {
         await dispatch(deleteMissions())
         await dispatch(postMissions(randomLocationPayload))
         await dispatch(fetchMissions())
+        history.push(`/users/${userId}`)
 
     }
 
     return (
         <form onSubmit={handleSubmit} className={styles.missionForm}>
+            <p>
+                <a href="https://www.latlong.net/" className="form-instructions" style={{ color: "var(--wa-blue)", textDecoration: "underline", marginBottom: '10px' }} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
+            </p>
             <input
                 placeholder="Latitude"
                 type="number"
@@ -118,7 +124,6 @@ const UserLocationForm = () => {
                 onChange={(e) => setLat(e.target.value)}
                 required
             />
-
             <input
                 placeholder="Longitude"
                 type="number"
