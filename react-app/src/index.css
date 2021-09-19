@@ -88,12 +88,14 @@ a {
 
 @media all and (max-width: 600px) {
     .primary-button {
-        font-size: 12px;
+        font-size: 14px;
         margin: 0;
+        padding: 3px 7px;
     }
 
     .secondary-button {
-        font-size: 12px;
+        font-size: 14px;
+        padding: 3px 7px;
     }
 }
 

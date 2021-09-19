@@ -32,7 +32,7 @@ def seed_users():
         username='Amanda',
         email='amanda@aa.io',
         password='password',
-        profile_picture="https://images.squarespace-cdn.com/content/v1/5cca34c50cf57d8e7575f84b/1599705980190-4GXWADDT7BPLGBH1UCDM/AmandaHintonHeadshot.jpeg?format=1500w",
+        profile_picture="https://images.squarespace-cdn.com/content/v1/5cca34c50cf57d8e7575f84b/1632072338206-YRB64MTOOP3A0T8X09WF/AmandaHintonHeadshot.jpeg?format=1000w",
         user_lat=37.766880,
         user_lng=-122.242628,
         user_radius=10
