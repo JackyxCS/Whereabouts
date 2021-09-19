@@ -112,6 +112,7 @@ const UserLocationForm = () => {
             <input
                 placeholder="Latitude"
                 type="number"
+                step="any"
                 name="lat"
                 value={lat}
                 onChange={(e) => setLat(e.target.value)}
@@ -121,6 +122,7 @@ const UserLocationForm = () => {
             <input
                 placeholder="Longitude"
                 type="number"
+                step="any"
                 name="lng"
                 value={lng}
                 onChange={(e) => setLng(e.target.value)}
@@ -130,6 +132,7 @@ const UserLocationForm = () => {
             <input
                 placeholder="Maximum Distance"
                 type="number"
+                step="any"
                 name="dist"
                 value={radius}
                 onChange={(e) => setRadius(e.target.value)}
