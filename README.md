@@ -1,26 +1,27 @@
-# Flask React Project
+# Whereabouts
 
-This is the starter for the Flask React project.
+Whereabouts is an app created for adventurers to visit random places and share about their experiences with others. Users now have a chance to uniquely explore the world, or simply their own neighborhoods, and connect with other explorers.
 
-## Getting started
+Start exploring here: https://app-whereabouts.herokuapp.com/
 
-1. Clone this repository (only this branch)
+## Development
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
+* Visit the project wiki to learn more about the app development process: https://github.com/JackyxCS/Whereabouts/wiki
 
-2. Install dependencies
-
-      ```bash
+* To start the development environment:
+   
+   i. Clone the repository at: https://github.com/JackyxCS/Whereabouts
+   
+   ii. Install dependencies: ```bash
       pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
       ```
-
-3. Create a **.env** file based on the example with proper settings for your
+      
+   iii. Create a **.env** file based on the example with proper settings for your
    development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
-
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+   
+   iv. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+   
+   v. Get into your pipenv, migrate your database, seed your database, and run your flask app
 
    ```bash
    pipenv shell
@@ -38,97 +39,221 @@ This is the starter for the Flask React project.
    flask run
    ```
 
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
-
-   ```bash
-   pipenv lock -r > requirements.txt
+   vi. Cd into react-app and run 
+   
+   ```
+   npm install
    ```
 
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
-
-## Deploy to Heroku
-
-1. Before you deploy, don't forget to run the following command in order to
-ensure that your production environment has all of your up-to-date
-dependencies. You only have to run this command when you have installed new
-Python packages since your last deployment, but if you aren't sure, it won't
-hurt to run it again.
-
-   ```bash
-   pipenv lock -r > requirements.txt
+   ```
+   npm start
    ```
 
-2. Create a new project on Heroku
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-4. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-5. Run
+## Technologies Used
 
-   ```bash
-   heroku login
-   ```
+* Languages
+   - Python
+   - JavaScript
+   - HTML
+   - CSS
 
-6. Login to the heroku container registry
+* Database
+   - PostgreSQL
 
-   ```bash
-   heroku container:login
-   ```
+* Backend
+   - Flask
+   - Flask-SQLAlchemy
+   - SQLAlchemy
+   - Node.js
 
-7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-8. Push your docker container to heroku from the root directory of your project.
-   (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
-   This will build the Dockerfile and push the image to your heroku container registry.
+* Frontend
+   - React
+   - Redux
+   
+* Deployment and Version Control
+   - Git + Github
+   - Heroku
+   - Docker
 
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
+## Features
 
-9. Release your docker container to heroku
+To see the full feature list, user stories, RESTful routes, and more: https://github.com/JackyxCS/Whereabouts/wiki
 
-      ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
-      ```
+* Users
+   - Users can signup, login, login as demo, logout
+   - Protected routes and authentication implemented throughout the site
+* Missions
+   - Users can generate random missions and select missions
+   - Selected missions are automatically destroyed from the database after 24 hours
+* Posts
+   - Users can create a post, see other posts, update their own posts, and delete their own posts
+* Comments
+   - Users can make a comment, see other comments, update their own comments, and delete their own comments
+* Likes
+   - Users can like posts, see the number of likes posts have, and remove their like
+* Google Maps
+* AWS Uploads
 
-10. set up your database
+## Database Structure
 
-      ```bash
-      heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-      heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-      ```
+![](https://github.com/JackyxCS/Whereabouts/blob/main/design/db_schema.png)
 
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
+## Whereabouts in Action
 
-12. profit
+* Homepage
+![](https://github.com/JackyxCS/Whereabouts/blob/main/design/Homepage.png)
+* Profile page
+![](https://github.com/JackyxCS/Whereabouts/blob/main/design/Profilepage.png)
+* Explore page
+![](https://github.com/JackyxCS/Whereabouts/blob/main/design/Explorepage.png)
+* Post page
+![](https://github.com/JackyxCS/Whereabouts/blob/main/design/Singlepost.png)
 
-### For M1 Mac users
+## Code Highlights
 
-(Replaces **Step 8**)
+* User Component
+   - logic for AWS upload
+   - logic for user profile picture display
+   - logic for missions (with map) display
+```function User() {
 
-1. Build image with linux platform for heroku servers. Replace
-{NAME_OF_HEROKU_APP} with your own tag:
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.session.user);
+    const users = useSelector(state => Object.values(state.users))
+    const posts = useSelector(state => Object.values(state.posts))
+    const currentMission = useSelector(state => Object.values(state.missionsReducer))
+    const { userId } = useParams();
+    const [paramUser, setParamUser] = useState({});
 
-   ```bash=
-   docker buildx build --platform linux/amd64 -t {NAME_OF_HEROKU_APP} .
-   ```
+    useEffect(()=>{
+        dispatch(getAllPosts())
+    }, [dispatch])
 
-2. Tag your app with the url for your apps registry. Make sure to use the name
-of your Heroku app in the url and tag name:
+    const userPosts = posts.filter((post) => post.user_id === Number(userId)).reverse()
+    const profileOwner = users.filter(user => +userId === +user.id )[0]
+  
+    useEffect(() => {
+        (async () => {
+            const response = await fetch(`/api/users/${userId}`);
+            const user = await response.json();
+            setParamUser(user);
+        })();
 
-   ```bash=2
-   docker tag {NAME_OF_HEROKU_APP} registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
+    }, [userId]);
 
-3. Use docker to push the image to the Heroku container registry:
+    const inputFile = useRef(null)
 
-   ```bash=3
-   docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
+    const submitProfilePic = async (e) => {
+        e.preventDefault()
+
+        const profilePic = e.target.files[0]
+        const payload = {profilePic, userId}
+
+        await dispatch(updateProfilePic(payload))
+        await dispatch(fetchUsers())
+        return
+    }
+
+    let addPost
+    if(currentMission.length === 3){
+        addPost=(<></>)
+    }else if (currentMission.length === 1){
+       addPost=( <PostFormModal />)
+    }else{
+        addPost=(<></>)
+    }
+
+    if (!user) {
+        return null;
+    }
+    let currentProfilePic
+
+    // THIS IS NOT YOUR PAGE
+    if (profileOwner['id'] === +user?.id ) {
+        if(!profileOwner.profile_picture){
+            currentProfilePic = defaultUser
+        } else {
+            currentProfilePic = profileOwner.profile_picture
+        }
+
+    } else {
+    // THIS IS YOUR PAGE
+        if(!profileOwner.profile_picture){
+            currentProfilePic = defaultUserPreview
+        } else {
+            currentProfilePic = profileOwner.profile_picture
+        }
+    }
+
+    if (Number(userId) === Number(user.id)) {
+        return (
+            <div className="session-users-profile">
+                <h1 >{user.username}'s Profile Page</h1>
+
+                <div className="user-controls">
+
+                    <div className="user-profile-pic-div">
+
+                            <input
+                                style={{ display: "none" }}
+                                ref={inputFile}
+                                name="profile_picture"
+                                onChange={submitProfilePic}
+                                type="file"
+                            />
+                            <div onClick={() => inputFile.current.click()}>
+                                <img className="user-profile-pic" src={currentProfilePic} alt="user profile"/>
+                            </div>
+                    </div>
+                    <div>{user.email}</div>
+
+                    <div className="mission-dashboard-div">
+                        <h2>Mission Dashboard</h2>
+                        <a href="https://www.latlong.net/" className="form-instructions" style={{color:"var(--wa-blue)" , textDecoration:"underline", marginBottom:'10px'}} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
+                        <UserMission />
+                        <div>
+                            {addPost}
+                        </div>
+                        <div className="mission-dashboard-note">
+                            <p className="mission-expiration">Active mission expires after 24 hours</p>
+                            <div className ="update-location-div">
+                                <p className="update-location-prompt">Need to update your current location settings?</p>
+                                <LocationFormModal />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <p className="private-mission">Other users can see your posts, but not your mission dashboard</p>
+                </div>
+
+                <div className="post-section-div">
+                    <h2 className="post-section-title">Posts from Past Missions</h2>
+                    <PhotoGrid posts={userPosts} />
+                </div>
+            </div>
+        );
+    } else {
+        return (
+          <div className="other-users-profile">
+            <h1>{paramUser.username}'s profile page</h1>
+            <div className="user-profile-pic-div">
+                <img className="other-user-profile-pic" src={currentProfilePic} alt="user profile"/>
+            </div>
+            <div className="post-section-div">
+                <h2 className="post-section-title">Posts from Past Missions</h2>
+                <PhotoGrid posts={userPosts} />
+            </div>
+          </div>
+        )
+    }
+}
+```
+## Conclusion
+* This was a challenging project incorporating logic for how the user should be allowed to generate locations and use the application. For example, the user should only be able to pick from the three randomly generated locations and a user's selected mission should be removed from the database after 24 hours.
+* The project solidified the team's understanding of using a new backend framework (Flask) in conjunction with SQLAlchemy, an Object Relational Mapper (ORM) and how they function together with frontend frameworks and technologies like Redux and React to build a functioning web application.
+
+## Whereabouts was created by:
+* [Amanda Hinton](https://github.com/amandahinton)
+* [Frema Awuku](https://github.com/FremaAwuku)
+* [Jacky Hao](https://github.com/JackyxCS)
