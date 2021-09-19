@@ -118,7 +118,6 @@ function User() {
 
                     <div className="mission-dashboard-div">
                         <h2>Mission Dashboard</h2>
-                        <a href="https://www.latlong.net/" className="form-instructions" style={{color:"var(--wa-blue)" , textDecoration:"underline", marginBottom:'10px'}} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
                         <UserMission />
                         <div>
                             {addPost}

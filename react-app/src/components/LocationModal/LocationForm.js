@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { postMissions, updateUserPref, deleteMissions, fetchMissions } from '../../store/missions';
-
+import { authenticate } from '../../store/session';
 
 const LocationForm = ({ setShowModal }) => {
     const dispatch = useDispatch();
@@ -44,9 +44,9 @@ const LocationForm = ({ setShowModal }) => {
 
     useEffect(() => {
         const errors = [];
-        if (lat?.length === 0) errors.push("Latitude is required")
-        if (lng?.length === 0) errors.push("Longitude is required")
-        if (radius?.length === 0) errors.push("Maximum distance is required")
+        if (Number.isNaN(Number(lat))) errors.push("Latitude is required")
+        if (Number.isNaN(Number(lng))) errors.push("Longitude is required")
+        if (Number.isNaN(Number(radius))) errors.push("Enter maximum radius")
         setValidationErrors(errors)
     }, [lat, lng, radius])
 
@@ -83,6 +83,7 @@ const LocationForm = ({ setShowModal }) => {
         await dispatch(deleteMissions())
         await dispatch(postMissions(randomLocationPayload))
         await dispatch(fetchMissions())
+        await dispatch(authenticate())
         setShowModal(false)
         history.push(`/users/${userId}`)
     }
@@ -91,7 +92,7 @@ const LocationForm = ({ setShowModal }) => {
         <div className="modal-wrapper-div">
             <form onSubmit={handleSubmit} className="form-div">
                 <p className="form-instructions">Enter latitude and longitude as decimal numbers and distance in miles</p>
-                <a href="https://www.latlong.net/" className="form-instructions" style={{color:"white" , textDecoration:"underline"}} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
+                <a href="https://www.latlong.net/" className="form-instructions" style={{ color: "white", textDecoration: "underline" }} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
                 <input
                     className='form-input'
                     placeholder="Latitude"
