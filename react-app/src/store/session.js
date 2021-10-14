@@ -68,7 +68,7 @@ export const logout = () => async (dispatch) => {
 
   if (response.ok) {
     dispatch(removeUser());
-    window.location = "/";
+    // window.location = "/";
   }
 };
 
@@ -109,13 +109,13 @@ export const updateProfilePic = (payload) => async () => {
 
 
   const res = await fetch(`/api/users/${payload.userId}/photo`, {
-      method: 'PUT',
-      body: data
+    method: 'PUT',
+    body: data
   })
 
   if (res.ok) {
-      const updatedUser = await res.json()
-      return updatedUser
+    const updatedUser = await res.json()
+    return updatedUser
   }
 }
 

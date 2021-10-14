@@ -11,15 +11,15 @@ function Homepage() {
   const post_likes = {}
   const dispatch = useDispatch()
 
-  const user = useSelector(state => state.session.user)
-  const posts = useSelector(state => Object.values(state.posts))
+  const user = useSelector(state => state.session?.user)
+  const posts = useSelector(state => Object.values(state?.posts))
 
   let profileLink1
   let profileLink2
   let profileLink3
   if (user) {
-    profileLink1 = (<NavLink className="homepage-button" to={`/users/${user.id}`}>SEE LOCATIONS</NavLink>)
-    profileLink2 = (<NavLink className="homepage-button" to={`/users/${user.id}`}>GO TO PROFILE</NavLink>)
+    profileLink1 = (<NavLink className="homepage-button" to={`/users/${user?.id}`}>SEE LOCATIONS</NavLink>)
+    profileLink2 = (<NavLink className="homepage-button" to={`/users/${user?.id}`}>GO TO PROFILE</NavLink>)
     profileLink3 = (<NavLink className="homepage-button" to={`/explore`}>EXPLORE POSTS</NavLink>)
   } else {
     profileLink1 = (<NavLink className="homepage-button" to={`/login`}>SEE LOCATIONS</NavLink>)
