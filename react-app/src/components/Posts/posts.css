@@ -136,13 +136,17 @@
 
 .fa-heart {
     margin: 5px;
-    color: var(--wa-blue)
+    color: var(--wa-blue);
 }
 
 .post-detail-like-count {
     margin-block-start: 0;
     margin-block-end: 0;
     margin: 5px;
+}
+
+#likeId {
+    cursor: pointer;
 }
 
 /* FEATURE IMAGE COMPONENT */

@@ -54,22 +54,22 @@ const PostDetail = () => {
 
 
     let likeDisplay
-    if(post){
-    if (!post.post_like_user_id_list.includes(userId)) {
-        likeDisplay = (
-            <>
-                <i onClick={handleLikeClick} className="far fa-heart"></i>
-                <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
-            </>
-        )
-    } else {
-        likeDisplay = (
-            <>
-                <i onClick={handleUnlikeClick} className="fas fa-heart"></i>
-                <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
-            </>
-        )
-    }
+    if (post) {
+        if (!post.post_like_user_id_list.includes(userId)) {
+            likeDisplay = (
+                <>
+                    <i id="likeId" onClick={handleLikeClick} className="far fa-heart"></i>
+                    <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
+                </>
+            )
+        } else {
+            likeDisplay = (
+                <>
+                    <i id="likeId" onClick={handleUnlikeClick} className="fas fa-heart"></i>
+                    <p className="post-detail-like-count">{post.post_like_user_id_list.length} Likes</p>
+                </>
+            )
+        }
 
 
     }
@@ -98,7 +98,7 @@ const PostDetail = () => {
                     Delete Post
                 </button>
                 {showDeletePostModal && <DeletePostModal showDeletePostModal={showDeletePostModal}
-                setShowDeletePostModal={setShowDeletePostModal} user_id={userId}/>}
+                    setShowDeletePostModal={setShowDeletePostModal} user_id={userId} />}
             </>
         )
     } else {

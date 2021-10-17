@@ -118,6 +118,7 @@ function User() {
 
                     <div className="mission-dashboard-div">
                         <h2>Mission Dashboard</h2>
+                        {/* <div>Choose one of the missions below and click "GET STARTED"!</div> */}
                         <UserMission />
                         <div>
                             {addPost}

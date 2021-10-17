@@ -23,7 +23,10 @@ const DisplayUserMission = () => {
         )
     } else if (missionChoices.length === 3) {
         chooseMissions = (
-            <ChooseMissionForm />
+            <>
+                <div className={styles.userMissionText}>Choose one of the missions below and click "GET STARTED"!</div>
+                <ChooseMissionForm />
+            </>
         )
     } else if (missionChoices.length === 1) {
         if (Date.now() < Date.parse(missionChoices[0].created_at) + 86400000) {
