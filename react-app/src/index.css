@@ -51,8 +51,9 @@ a {
     font-size: 12px;
     text-transform: uppercase;
     margin: 10px;
-    padding: 5px 10px;;
+    padding: 5px 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .primary-button, .secondary-button {
@@ -63,12 +64,12 @@ a {
     color: white;
     text-transform: uppercase;
     padding: 5px 15px;
+    cursor: pointer;
 }
 
 .primary-button {
     background-color: var(--wa-gold);
     border: 2px solid var(--wa-gold);
-
 }
 
 .secondary-button {

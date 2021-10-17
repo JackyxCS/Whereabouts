@@ -6,3 +6,10 @@
 .missionForm > input {
     margin-bottom: 1vh;
 }
+
+.missionLabels {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5vh;
+    font-weight: bold;
+}

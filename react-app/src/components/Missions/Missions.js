@@ -115,6 +115,7 @@ const UserLocationForm = () => {
             <p>
                 <a href="https://www.latlong.net/" className="form-instructions" style={{ color: "var(--wa-blue)", textDecoration: "underline", marginBottom: '10px' }} target={"_blank"} rel={"noreferrer"}>Get your coordinates</a>
             </p>
+            <label className={styles.missionLabels}>Latitude</label>
             <input
                 placeholder="Latitude"
                 type="number"
@@ -124,6 +125,7 @@ const UserLocationForm = () => {
                 onChange={(e) => setLat(e.target.value)}
                 required
             />
+            <label className={styles.missionLabels}>Longitude</label>
             <input
                 placeholder="Longitude"
                 type="number"
@@ -133,7 +135,7 @@ const UserLocationForm = () => {
                 onChange={(e) => setLng(e.target.value)}
                 required
             />
-
+            <label className={styles.missionLabels}>Max Distance</label>
             <input
                 placeholder="Maximum Distance"
                 type="number"

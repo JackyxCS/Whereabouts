@@ -39,7 +39,7 @@ function Homepage() {
     <div className="homepage">
       <div className="homepage-hero-div">
         <img className="logo-wordmark" src={wordmark} alt="whereabouts wordmark" />
-        <h2 className="homepage-hero-description">Where will you go and what you share about it? Will you stumble upon your new favorite cafe, take a hike through the woods, or seredipitously find just what you are looking for? Select your mission and let's gooooo!</h2>
+        <h2 className="homepage-hero-description">Where will you go and what you share about it? Will you stumble upon your new favorite cafe, take a hike through the woods, or seredipitously find just what you are looking for? Select your mission from below or from your profile page and let's gooooo!</h2>
       </div>
 
       <div className="homepage-howto-div">
