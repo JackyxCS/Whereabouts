@@ -98,6 +98,7 @@ const LocationForm = ({ setShowModal }) => {
                     placeholder="Latitude"
                     type="number"
                     name="lat"
+                    step="any"
                     value={lat}
                     onChange={(e) => setLat(e.target.value)}
                     required
@@ -108,6 +109,7 @@ const LocationForm = ({ setShowModal }) => {
                     placeholder="Longitude"
                     type="number"
                     name="lng"
+                    step="any"
                     value={lng}
                     onChange={(e) => setLng(e.target.value)}
                     required
@@ -118,6 +120,7 @@ const LocationForm = ({ setShowModal }) => {
                     placeholder="Maximum Distance"
                     type="number"
                     name="dist"
+                    step="any"
                     value={radius}
                     onChange={(e) => setRadius(e.target.value)}
                     required

@@ -42,6 +42,7 @@ const CommentForm = () => {
     return (
         <form className="form-div" onSubmit={handleSubmit}>
             <textarea
+                className="comment-field"
                 placeholder="Leave a comment"
                 name="comment"
                 value={comment}
