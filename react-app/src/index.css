@@ -1,4 +1,7 @@
 /* BRAND */
+body {
+    margin: 0px;
+}
 
 :root {
     --wa-green: #98e8cf;
